@@ -15,6 +15,7 @@
     import { goto } from "$app/navigation";
     import XWelcome from "$lib/components/XWelcome.svelte";
     import AuthDialog from "$lib/components/auth/AuthDialog.svelte";
+    import { Toaster } from "svelte-sonner";
 
     // states
     let searchDialogIsOpen = $state(false);
@@ -170,4 +171,4 @@
     <AuthDialog isOpen={true} />
 {/if}
 
-
+<Toaster />
