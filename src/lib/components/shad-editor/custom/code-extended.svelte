@@ -3,7 +3,7 @@
 	import type { NodeViewProps } from '@tiptap/core';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import { onMount } from 'svelte';
-	const { node, editor, selected, deleteNode, updateAttributes, extension }: NodeViewProps =
+	const { node, updateAttributes, extension }: NodeViewProps =
 		$props();
 	import { Copy, Check, ChevronDown } from 'lucide-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
@@ -73,6 +73,6 @@
 		{/if}
 	</Button>
 	<pre bind:this={preRef}>
-		<NodeViewContent as="code" class={`language-${defaultLanguage}`} {...node.attrs} />	
+		<NodeViewContent as="code" class={`language-${defaultLanguage}`} {...node.attrs} />
 	</pre>
 </NodeViewWrapper>
