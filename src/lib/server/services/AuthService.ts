@@ -242,10 +242,10 @@ export class PasskeyAuthService extends AuthService {
         return { options, encryptedChallenge }
     }
 
-    public async verifyLogin(encryptedChallenge: string, body: unknown): Promise<boolean> {
+    public async verifyLogin(encryptedChallenge: string, body: unknown): Promise<string> {
         const tokenData = this.decryptToken(encryptedChallenge, true)
         if (!tokenData) {
-            return false
+            throw new Error('Invalid token.');
         }
 
         if (!tokenData.challenge) {
@@ -263,7 +263,6 @@ export class PasskeyAuthService extends AuthService {
                 passkeyUserId: passkeyId
             }
         })
-
 
         const { verified } = await verifyAuthenticationResponse({
             response: body as AuthenticationResponseJSON,
@@ -297,6 +296,6 @@ export class PasskeyAuthService extends AuthService {
             */
         }
 
-        return true
+        return this.generateAppToken(cred.userId, new Date(Date.now() + 30 * 60 * 1000))
     }
 }

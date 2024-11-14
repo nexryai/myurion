@@ -25,4 +25,6 @@ export async function signIn(): Promise<void> {
     if (!verificationResp.ok) {
         throw new Error('Authentication failed');
     }
+
+    localStorage.setItem('isLoggedIn', "true");
 }
