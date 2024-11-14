@@ -46,7 +46,8 @@ export class AppController {
             challengeSession.httpOnly = true
             challengeSession.secure = true
             challengeSession.sameSite = "strict"
-            challengeSession.maxAge = 60
+            challengeSession.expires = new Date(Date.now() + 60 * 1000)
+            challengeSession.path = "/auth/verify-registration"
 
             return res.options
         }, {
@@ -77,7 +78,8 @@ export class AppController {
             challengeSession.httpOnly = true
             challengeSession.secure = true
             challengeSession.sameSite = "strict"
-            challengeSession.maxAge = 60
+            challengeSession.expires = new Date(Date.now() + 60 * 1000)
+            challengeSession.path = "/auth/verify-login"
 
             return res.options
         })
