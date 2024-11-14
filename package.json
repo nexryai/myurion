@@ -49,6 +49,7 @@
 		"lowlight": "^3.1.0",
 		"lucide-svelte": "^0.456.0",
 		"mode-watcher": "^0.4.1",
+		"prisma": "^5.22.0",
 		"svelte": "^5.0.0",
 		"svelte-awesome-color-picker": "^3.1.4",
 		"svelte-check": "^4.0.0",
@@ -62,5 +63,9 @@
 		"vite": "^5.0.3",
 		"vitest": "^2.0.4"
 	},
-	"packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee"
+	"packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
+	"dependencies": {
+		"@prisma/client": "^5.22.0",
+		"elysia": "^1.1.24"
+	}
 }
