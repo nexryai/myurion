@@ -14,6 +14,9 @@
         isLoading = true;
         try {
             await signIn();
+            toast.success("Successfully signed in", {
+                description: "You have successfully signed in.",
+            });
         } catch (error) {
             console.error(error);
             toast.error("Failed to sign in", {
