@@ -14,11 +14,12 @@
 
     import { goto } from "$app/navigation";
     import XWelcome from "$lib/components/XWelcome.svelte";
+    import AuthDialog from "$lib/components/auth/AuthDialog.svelte";
 
     // states
     let searchDialogIsOpen = $state(false);
 
-    let isSignedIn = true;
+    let isSignedIn = false;
 </script>
 
 {#if !isSignedIn}
@@ -165,6 +166,8 @@
             </Command.Group>
         </Command.List>
     </Command.Dialog>
+
+    <AuthDialog isOpen={true} />
 {/if}
 
 

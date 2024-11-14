@@ -2,6 +2,7 @@
     import { Button } from "$lib/components/ui/button/index.js";
     import { cn } from "$lib/utils.js";
     import { LoaderCircle } from "lucide-svelte";
+    import SignUpDialog from "$lib/components/auth/SignUpDialog.svelte";
 
     let className: string | undefined | null = undefined;
     export { className as class };
@@ -14,6 +15,11 @@
             isLoading = false;
         }, 3000);
     }
+
+    let signUpDialogIsOpen = false;
+    async function onSignUp() {
+        signUpDialogIsOpen = true;
+    }
 </script>
 
 
@@ -21,7 +27,7 @@
         class="container relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0"
 >
     <Button
-            href="/examples/authentication"
+            onclick={() => onSignUp()}
             variant="ghost"
             class="absolute right-4 top-4 md:right-8 md:top-8"
     >
@@ -82,4 +88,5 @@
     </div>
 </div>
 
+<SignUpDialog isOpen={signUpDialogIsOpen} />
 
