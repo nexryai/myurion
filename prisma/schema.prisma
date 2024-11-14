@@ -22,6 +22,8 @@ model Passkey {
   publicKey     String
   user          User     @relation(fields: [userId], references: [id])
   userId        String
+  transports    String
+  counter       Int      @default(0)
 
   @@unique([name, userId])
 }

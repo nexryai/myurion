@@ -1,7 +1,17 @@
 import crypto from "crypto"
-import type { PublicKeyCredentialCreationOptionsJSON, RegistrationResponseJSON } from "@simplewebauthn/types";
-import { generateRegistrationOptions, verifyRegistrationResponse } from "@simplewebauthn/server";
+import type {
+    PublicKeyCredentialCreationOptionsJSON,
+    PublicKeyCredentialRequestOptionsJSON,
+    RegistrationResponseJSON,
+    AuthenticationResponseJSON, AuthenticatorTransportFuture
+} from "@simplewebauthn/types";
+import {
+    generateAuthenticationOptions,
+    generateRegistrationOptions, verifyAuthenticationResponse,
+    verifyRegistrationResponse
+} from "@simplewebauthn/server";
 import type { IPasskeyRepository } from "$lib/server/prisma";
+import { isoBase64URL } from '@simplewebauthn/server/helpers';
 
 enum TokenPermission {
     APP = "APP",
@@ -203,7 +213,7 @@ export class PasskeyAuthService extends AuthService {
         }
 
         const credential = registrationInfo.credential;
-        const publicKey = credential.publicKey.toString()
+        const publicKey = isoBase64URL.fromBuffer(credential.publicKey);
 
         await this.passkeyRepository.create({
             data: {
@@ -214,10 +224,74 @@ export class PasskeyAuthService extends AuthService {
                     connect: {
                         id: tokenData.uid
                     }
-                }
+                },
+                transports: credential.transports?.join(",") || "",
             }
         })
 
+        return true
+    }
+
+    public async genLoginChallenge(): Promise<{options:  PublicKeyCredentialRequestOptionsJSON, encryptedChallenge: string}> {
+        const options = await generateAuthenticationOptions({
+            rpID: this.rpId,
+            allowCredentials: [],
+        });
+
+        const encryptedChallenge = this.generateChallengeToken("_LOGIN_CHALLENGE", options.challenge, new Date(Date.now() + 6000))
+        return { options, encryptedChallenge }
+    }
+
+    public async verifyLogin(encryptedChallenge: string, body: unknown): Promise<boolean> {
+        const tokenData = this.decryptToken(encryptedChallenge, true)
+        if (!tokenData) {
+            return false
+        }
+
+        if (!tokenData.challenge) {
+            throw new Error('Challenge not found in decrypted token. THIS IS A BUG OR LEAK OF SERVER SECRET KEY.');
+        }
+
+        const authRequest = body as AuthenticationResponseJSON;
+        const passkeyId = isoBase64URL.fromUTF8String(authRequest.id);
+        if (!passkeyId) {
+            throw new Error('Passkey ID not found in the response.');
+        }
+
+        const cred = await this.passkeyRepository.findUniqueOrThrow({
+            where: {
+                passkeyUserId: passkeyId
+            }
+        })
+
+
+        const { verified } = await verifyAuthenticationResponse({
+            response: body as AuthenticationResponseJSON,
+            expectedChallenge: tokenData.challenge,
+            expectedOrigin: this.origin,
+            expectedRPID: this.rpId,
+            credential: {
+                id: cred.id,
+                publicKey: isoBase64URL.toBuffer(cred.publicKey),
+                transports: cred.transports.split(",") as AuthenticatorTransportFuture[],
+                counter: cred.counter,
+            },
+            requireUserVerification: false,
+        });
+
+        if (!verified) {
+            throw new Error('Verification failed.');
+        } else {
+            // Update the counter
+            await this.passkeyRepository.update({
+                where: {
+                    passkeyUserId: passkeyId
+                },
+                data: {
+                    counter: cred.counter + 1
+                }
+            })
+        }
 
         return true
     }

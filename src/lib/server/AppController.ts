@@ -70,6 +70,31 @@ export class AppController {
                 })
             })
         })
+
+        this.router.post("/auth/login-request", async ({cookie: {challengeSession}}) => {
+            const res = await this.passkeyAuthService.genLoginChallenge()
+            challengeSession.value = res.encryptedChallenge
+            challengeSession.httpOnly = true
+            challengeSession.secure = true
+            challengeSession.sameSite = "strict"
+            challengeSession.maxAge = 60
+
+            return res.options
+        })
+
+        this.router.post("/auth/verify-login", async ({body, cookie}) => {
+            const encryptedChallenge = cookie.challengeSession.value
+            const ok = await this.passkeyAuthService.verifyLogin(encryptedChallenge, body as unknown)
+            if (!ok) {
+                return new Response("Invalid challenge", {status: 400})
+            }
+        }, {
+            cookie: t.Object({
+                challengeSession: t.String({
+                    error: "challengeSession must be a string"
+                })
+            })
+        })
     }
 
     public configApiRouter() {
