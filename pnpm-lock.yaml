@@ -147,6 +147,9 @@ importers:
       svelte-check:
         specifier: ^4.0.0
         version: 4.0.7(picomatch@4.0.2)(svelte@5.1.16)(typescript@5.6.3)
+      svelte-sonner:
+        specifier: ^0.3.28
+        version: 0.3.28(svelte@5.1.16)
       svelte-tiptap:
         specifier: ^2.0.3
         version: 2.0.3(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/extension-bubble-menu@2.9.1(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1))(@tiptap/extension-floating-menu@2.9.1(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1)(svelte@5.1.16)
@@ -2000,6 +2003,11 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
+
+  svelte-sonner@0.3.28:
+    resolution: {integrity: sha512-K3AmlySeFifF/cKgsYNv5uXqMVNln0NBAacOYgmkQStLa/UoU0LhfAACU6Gr+YYC8bOCHdVmFNoKuDbMEsppJg==}
+    peerDependencies:
+      svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.1
 
   svelte-tiptap@2.0.3:
     resolution: {integrity: sha512-YBIltliEBNGhNhVH8uhrQkHY275tCSxv8U7XyLXHiAqRuZGCIhs69ZbAeUn1ABoUCAJKxYWG0lXW4pfAlKJmpQ==}
@@ -4047,6 +4055,10 @@ snapshots:
       postcss: 8.4.49
       postcss-scss: 4.0.9(postcss@8.4.49)
     optionalDependencies:
+      svelte: 5.1.16
+
+  svelte-sonner@0.3.28(svelte@5.1.16):
+    dependencies:
       svelte: 5.1.16
 
   svelte-tiptap@2.0.3(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/extension-bubble-menu@2.9.1(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1))(@tiptap/extension-floating-menu@2.9.1(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1)(svelte@5.1.16):

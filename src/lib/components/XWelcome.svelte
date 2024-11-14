@@ -4,6 +4,7 @@
     import { LoaderCircle } from "lucide-svelte";
     import SignUpDialog from "$lib/components/auth/SignUpDialog.svelte";
     import { signIn } from "$lib/browser/auth";
+    import { toast } from "svelte-sonner";
 
     let className: string | undefined | null = undefined;
     export { className as class };
@@ -15,6 +16,9 @@
             await signIn();
         } catch (error) {
             console.error(error);
+            toast.error("Failed to sign in", {
+                description: `An error occurred while signing in. Please try again later.`,
+            });
         } finally {
             isLoading = false;
         }

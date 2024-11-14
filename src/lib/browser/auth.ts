@@ -22,8 +22,7 @@ export async function signIn(): Promise<void> {
         body: JSON.stringify(asseResp),
     });
 
-    const verificationResult = await verificationResp.json();
-    if (!verificationResult && verificationResult.verified) {
+    if (!verificationResp.ok) {
         throw new Error('Authentication failed');
     }
 }

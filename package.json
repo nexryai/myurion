@@ -56,6 +56,7 @@
 		"svelte": "^5.0.0",
 		"svelte-awesome-color-picker": "^3.1.4",
 		"svelte-check": "^4.0.0",
+		"svelte-sonner": "^0.3.28",
 		"svelte-tiptap": "^2.0.3",
 		"tailwind-merge": "^2.5.4",
 		"tailwind-variants": "^0.3.0",
