@@ -3,6 +3,7 @@
     import { cn } from "$lib/utils.js";
     import { LoaderCircle } from "lucide-svelte";
     import SignUpDialog from "$lib/components/auth/SignUpDialog.svelte";
+    import { signIn } from "$lib/browser/auth";
 
     let className: string | undefined | null = undefined;
     export { className as class };
@@ -10,10 +11,13 @@
     let isLoading = false;
     async function onSubmit() {
         isLoading = true;
-
-        setTimeout(() => {
+        try {
+            await signIn();
+        } catch (error) {
+            console.error(error);
+        } finally {
             isLoading = false;
-        }, 3000);
+        }
     }
 
     let signUpDialogIsOpen = false;

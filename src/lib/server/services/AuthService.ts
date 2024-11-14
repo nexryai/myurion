@@ -253,7 +253,7 @@ export class PasskeyAuthService extends AuthService {
         }
 
         const authRequest = body as AuthenticationResponseJSON;
-        const passkeyId = isoBase64URL.fromUTF8String(authRequest.id);
+        const passkeyId = authRequest.id;
         if (!passkeyId) {
             throw new Error('Passkey ID not found in the response.');
         }
@@ -283,6 +283,9 @@ export class PasskeyAuthService extends AuthService {
             throw new Error('Verification failed.');
         } else {
             // Update the counter
+            // iCloudキーチェーンがカウンター非対応でエラーになるのでコメントアウト
+            // https://stackoverflow.com/questions/78776653/passkey-counter-always-0-macos
+            /*
             await this.passkeyRepository.update({
                 where: {
                     passkeyUserId: passkeyId
@@ -291,6 +294,7 @@ export class PasskeyAuthService extends AuthService {
                     counter: cred.counter + 1
                 }
             })
+            */
         }
 
         return true

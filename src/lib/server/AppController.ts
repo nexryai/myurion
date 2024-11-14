@@ -71,7 +71,7 @@ export class AppController {
             })
         })
 
-        this.router.post("/auth/login-request", async ({cookie: {challengeSession}}) => {
+        this.router.get("/auth/login-request", async ({cookie: {challengeSession}}) => {
             const res = await this.passkeyAuthService.genLoginChallenge()
             challengeSession.value = res.encryptedChallenge
             challengeSession.httpOnly = true
