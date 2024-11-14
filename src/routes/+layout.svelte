@@ -16,11 +16,31 @@
     import XWelcome from "$lib/components/XWelcome.svelte";
     import AuthDialog from "$lib/components/auth/AuthDialog.svelte";
     import { Toaster } from "svelte-sonner";
+    import { browser } from "$app/environment";
+    import FatalErrorDialog from "$lib/components/error/FatalErrorDialog.svelte";
 
     // states
+    let tokenExpired = $state(false);
     let searchDialogIsOpen = $state(false);
+    let fatalErrorOccurred = $state(false);
+    let errorDetails = $state<string | undefined>(undefined);
 
-    let isSignedIn = false;
+    const isSignedIn = browser ? localStorage.getItem("isLoggedIn") === "true" : true;
+
+    if (browser) {
+        // fetch user data
+        fetch("/api/user").then((res) => {
+            if (res.status === 401) {
+                tokenExpired = true;
+            } else if (!res.ok) {
+                throw new Error("Failed to fetch user data");
+            }
+        }).catch((error) => {
+            console.error(error);
+            fatalErrorOccurred = true;
+            errorDetails = "INITIAL_FETCH_FAILED";
+        });
+    }
 </script>
 
 {#if !isSignedIn}
@@ -168,7 +188,8 @@
         </Command.List>
     </Command.Dialog>
 
-    <AuthDialog isOpen={true} />
+    <AuthDialog isOpen={tokenExpired} />
+    <FatalErrorDialog isOpen={fatalErrorOccurred} errorDetails={errorDetails} />
 {/if}
 
 <Toaster />
