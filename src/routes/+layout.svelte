@@ -13,16 +13,16 @@
     import * as Command from "$lib/components/ui/command/index.js";
 
     import { goto } from "$app/navigation";
-    import XWelcom from "$lib/components/XWelcom.svelte";
+    import XWelcome from "$lib/components/XWelcome.svelte";
 
     // states
     let searchDialogIsOpen = $state(false);
 
-    let isSignedIn = false;
+    let isSignedIn = true;
 </script>
 
 {#if !isSignedIn}
-    <XWelcom />
+    <XWelcome />
 {:else }
     <Sidebar.Provider class="w-screen justify-center">
         <Sidebar.Root >
