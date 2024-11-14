@@ -1,9 +1,12 @@
-import Elysia from "elysia"
-
+import Elysia, { t } from "elysia"
+import type { PasskeyAuthService } from "$lib/server/services/AuthService";
+import type { UserService } from "$lib/server/services/UserService";
 
 export class AppController {
     constructor(
         private readonly router: Elysia,
+        private readonly userService: UserService,
+        private readonly passkeyAuthService: PasskeyAuthService
     ) {}
 
     private readonly protectedApiPrefix = "/api"
@@ -35,7 +38,38 @@ export class AppController {
         })
 
     public configAuthRouter() {
+        this.router.post("/auth/register-request", async ({body, cookie: {challengeSession}}) => {
+            const user = await this.userService.createUser({name: "DUMMY"})
+            const res = await this.passkeyAuthService.genRegisterChallenge(user.id, body.displayName)
 
+            challengeSession.value = res.encryptedChallenge
+            challengeSession.httpOnly = true
+            challengeSession.secure = true
+            challengeSession.sameSite = "strict"
+            challengeSession.maxAge = 60
+
+            return res.options
+        }, {
+            body: t.Object({
+                displayName: t.String({
+                    error: "displayName must be a string"
+                })
+            })
+        })
+
+        this.router.post("/auth/verify-registration", async ({request, response, body, cookie}) => {
+            const encryptedChallenge = cookie.challengeSession.value
+            const ok = await this.passkeyAuthService.verifyRegistration(encryptedChallenge, body as unknown)
+            if (!ok) {
+                return new Response("Invalid challenge", {status: 400})
+            }
+        }, {
+            cookie: t.Object({
+                challengeSession: t.String({
+                    error: "challengeSession must be a string"
+                })
+            })
+        })
     }
 
     public configApiRouter() {
@@ -45,6 +79,5 @@ export class AppController {
         this.router.get("/api/ping", async () => {
             return "pong"
         })
-
     }
 }

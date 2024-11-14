@@ -4,6 +4,7 @@
     import { Label } from "$lib/components/ui/label/index.js";
     import { Checkbox } from "$lib/components/ui/checkbox/index.js";
     import { Button } from "$lib/components/ui/button";
+    import { startRegistration } from "@simplewebauthn/browser";
 
     let { isOpen = $bindable() } : {isOpen: boolean} = $props();
 
@@ -14,6 +15,41 @@
     $effect(() => {
         readyToSubmit = name.length > 0 && terms;
     });
+
+    async function register() {
+        if (!readyToSubmit) {
+            return;
+        }
+
+        const resp = await fetch('/auth/register-request', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ displayName: name })
+        });
+
+        const passkeyOptions = await resp.json();
+        let attResp
+        try {
+            // Pass the options to the authenticator and wait for a response
+            attResp = await startRegistration({ optionsJSON: passkeyOptions });
+        } catch (error) {
+            alert('Error registering passkey');
+            throw error;
+        }
+
+        const verificationResp = await fetch('/auth/verify-registration', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(attResp),
+        });
+
+        const verificationResult = await verificationResp.json();
+        console.log(verificationResult);
+    }
 
 
 </script>
@@ -45,7 +81,13 @@
             </Label>
         </div>
         <Dialog.Footer>
-            <Button disabled={!readyToSubmit} type="submit">Register Passkey to finish signing up</Button>
+            <Button
+                    disabled={!readyToSubmit}
+                    type="submit"
+                    onclick={() => {register()}}
+            >
+                Passkey to finish signing up
+            </Button>
         </Dialog.Footer>
     </Dialog.Content>
 </Dialog.Root>
