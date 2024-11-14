@@ -88,5 +88,5 @@
     </div>
 </div>
 
-<SignUpDialog isOpen={signUpDialogIsOpen} />
+<SignUpDialog bind:isOpen={signUpDialogIsOpen} />
 
