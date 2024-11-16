@@ -24,6 +24,7 @@
     let searchDialogIsOpen = $state(false);
     let fatalErrorOccurred = $state(false);
     let errorDetails = $state<string | undefined>(undefined);
+    let username = $state<string | undefined>(undefined);
 
     const isSignedIn = browser ? localStorage.getItem("isLoggedIn") === "true" : true;
 
