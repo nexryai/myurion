@@ -100,4 +100,3 @@
 </div>
 
 <SignUpDialog bind:isOpen={signUpDialogIsOpen} />
-
