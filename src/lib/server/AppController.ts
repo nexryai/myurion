@@ -1,4 +1,4 @@
-import Elysia, { t } from "elysia"
+import Elysia, { error, t } from "elysia"
 import type { PasskeyAuthService } from "$lib/server/services/AuthService";
 import type { UserService } from "$lib/server/services/UserService";
 
@@ -13,27 +13,55 @@ export class AppController {
 
     private readonly errorHandler = (app: Elysia) =>
         app.onError(({ code, error, set }) => {
-            // 想定されないエラーは全部500
-            if (!["VALIDATION", "NOT_FOUND"].includes(code)) {
-                console.error(`ERROR OCCURRED: ${error}`)
-                console.error("===== STACK =====")
-                console.error(error.stack)
-                console.error("=================")
-                set.status = 500
-                return "An unexpected error occurred. The request was aborted."
+            if (code == "NOT_FOUND") {
+                set.status = 404
+                return "Not found"
             }
 
             if (code == "VALIDATION") {
+                set.status = 400
                 return "Invalid request"
             }
+
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            if (code == 401) {
+                // なぜかset.status = 401が型エラーになる
+                return new Response("Unauthorized", {status: 401})
+            }
+
+            // 想定されないエラーは全部500
+            console.error(`ERROR OCCURRED: ${error}`)
+            console.error("===== STACK =====")
+            console.error(error.stack)
+            console.error("=================")
+            set.status = 500
+            return "An unexpected error occurred. The request was aborted."
         })
 
     private readonly authMiddleware = (app: Elysia) =>
+        app.derive(({ cookie: {token} }) => {
+            if (!token || !token.value) {
+                return error(401, {
+                    message: 'Unauthorized',
+                    uid: null,
+                })
+            }
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        app.derive(async ({ cookie }) => {
-            return {
-                uid: "DUMMY"
+            try {
+                const user = this.passkeyAuthService.decryptToken(token.value, false)
+                if (!user) {
+                    throw new Error("Invalid token")
+                }
+
+                return {
+                    uid: user.uid,
+                }
+            } catch {
+                return error(401, {
+                    message: 'Unauthorized',
+                    uid: null,
+                })
             }
         })
 
@@ -112,8 +140,9 @@ export class AppController {
         this.router.use(this.errorHandler)
         this.router.use(this.authMiddleware)
 
-        this.router.get("/api/ping", async () => {
-            return "pong"
+        this.router.get("/api/user", async ({uid}) => {
+            const user = await this.userService.getUserById(uid)
+            return user
         })
     }
 }

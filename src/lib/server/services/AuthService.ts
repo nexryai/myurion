@@ -107,7 +107,7 @@ class AuthService {
             * @param isChallengeToken whether the token is a challenge token
             * @returns token data
      ***/
-    protected decryptToken(encryptedData: string, isChallengeToken: boolean): { uid: string, expireAt: Date, challenge?: string } | null {
+    public decryptToken(encryptedData: string, isChallengeToken: boolean): { uid: string, expireAt: Date, challenge?: string } | null {
         const decryptedData = this.decrypt(encryptedData, isChallengeToken ? this.challengeSecretKey : this.secretKey)
         const parsedData: TokenClaims = JSON.parse(decryptedData)
 
