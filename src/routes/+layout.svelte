@@ -50,7 +50,7 @@
                 tokenExpired = true;
                 tryAuthenticate();
             } else if (!res.ok) {
-                //throw new Error("Failed to fetch user data");
+                throw new Error("Failed to fetch user data");
             }
         }).catch((error) => {
             console.error(error);
