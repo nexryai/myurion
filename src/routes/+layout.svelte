@@ -20,6 +20,8 @@
     import FatalErrorDialog from "$lib/components/error/FatalErrorDialog.svelte";
     import { signIn } from "$lib/browser/auth";
 
+    import { type User } from "@prisma/client";
+
     // states
     let tokenExpired = $state(false);
     let searchDialogIsOpen = $state(false);
@@ -45,6 +47,11 @@
         }
     }
 
+    const setUserInformation = async (res: Response) => {
+        const user: User = await res.json();
+        username = user.name ?? "User";
+    }
+
     if (browser && isSignedIn) {
         // fetch user data
         fetch("/api/user").then((res) => {
@@ -54,6 +61,8 @@
             } else if (!res.ok) {
                 throw new Error("Failed to fetch user data");
             }
+
+            setUserInformation(res);
         }).catch((error) => {
             console.error(error);
             fatalErrorOccurred = true;
@@ -166,7 +175,7 @@
                                             {...props}
                                             class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                                     >
-                                        Username
+                                        <span>{username}</span>
                                         <ChevronUp class="ml-auto" />
                                     </Sidebar.MenuButton>
                                 {/snippet}
