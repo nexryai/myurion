@@ -15,9 +15,10 @@
     import { goto } from "$app/navigation";
     import XWelcome from "$lib/components/XWelcome.svelte";
     import AuthDialog from "$lib/components/auth/AuthDialog.svelte";
-    import { Toaster } from "svelte-sonner";
+    import { toast, Toaster } from "svelte-sonner";
     import { browser } from "$app/environment";
     import FatalErrorDialog from "$lib/components/error/FatalErrorDialog.svelte";
+    import { signIn } from "$lib/browser/auth";
 
     // states
     let tokenExpired = $state(false);
@@ -28,11 +29,26 @@
 
     const isSignedIn = browser ? localStorage.getItem("isLoggedIn") === "true" : true;
 
-    if (browser) {
+    const tryAuthenticate = async () => {
+        try {
+            await signIn();
+            toast.success("Successfully signed in", {
+                description: "You have successfully signed in.",
+            });
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to sign in", {
+                description: `An error occurred while signing in. Please try again later.`,
+            });
+        }
+    }
+
+    if (browser && isSignedIn) {
         // fetch user data
         fetch("/api/user").then((res) => {
             if (res.status === 401) {
                 tokenExpired = true;
+                tryAuthenticate();
             } else if (!res.ok) {
                 //throw new Error("Failed to fetch user data");
             }
