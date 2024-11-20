@@ -8,10 +8,14 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  createdAt DateTime  @default(now())
-  name      String?
-  passkeys  Passkey[]
+  id                 String         @id @default(cuid())
+  createdAt          DateTime       @default(now())
+  name               String?
+  passkeys           Passkey[]
+  noteCategories     NoteCategory[]
+  notes              Note[]
+  quickNoteContent   String?
+  quickNoteUpdatedAt DateTime?
 }
 
 model Passkey {
@@ -26,4 +30,30 @@ model Passkey {
   counter       Int      @default(0)
 
   @@unique([name, userId])
+}
+
+model NoteCategory {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  notes     Note[]
+
+  @@unique([name, userId])
+}
+
+model Note {
+  id         String       @id @default(cuid())
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  title      String
+  content    String
+  category   NoteCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
+  user       User         @relation(fields: [userId], references: [id])
+  userId     String
+
+  @@unique([title, categoryId])
 }
