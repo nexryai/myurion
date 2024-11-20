@@ -31,7 +31,7 @@ export class AppController {
     private readonly authMiddleware = (app: Elysia) =>
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        app.derive(({ headers }) => {
+        app.derive(async ({ cookie }) => {
             return {
                 uid: "DUMMY"
             }
@@ -39,7 +39,7 @@ export class AppController {
 
     public configAuthRouter() {
         this.router.post("/auth/register-request", async ({body, cookie: {challengeSession}}) => {
-            const user = await this.userService.createUser({name: "DUMMY"})
+            const user = await this.userService.createUser({name: body.displayName})
             const res = await this.passkeyAuthService.genRegisterChallenge(user.id, body.displayName)
 
             challengeSession.value = res.encryptedChallenge
