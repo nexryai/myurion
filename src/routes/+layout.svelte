@@ -35,6 +35,8 @@
             toast.success("Successfully signed in", {
                 description: "You have successfully signed in.",
             });
+
+            location.reload();
         } catch (error) {
             console.error(error);
             toast.error("Failed to sign in", {
