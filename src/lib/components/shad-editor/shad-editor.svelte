@@ -38,13 +38,21 @@
 
 	const lowlight = createLowlight(all);
 
-	let className: string = '';
-	export { className as class };
-	export let content: Content = '';
-	export let showToolbar: boolean = true;
+	interface Props {
+		class?: string;
+		content?: Content;
+		showToolbar?: boolean;
+		onChanged?: (content: Content) => void;
+	}
 
-	let editor: Editor;
-	let element: HTMLElement;
+	let {
+		class: className = '',
+		content = $bindable(''),
+		showToolbar = true,
+		onChanged = () => {}
+	}: Props = $props();
+	let editor = $state<Editor>();
+	let element = $state<HTMLElement>();
 
 	onMount(() => {
 		editor = new Editor({
@@ -120,8 +128,16 @@
 			],
 			autofocus: true,
 			onTransaction: (transaction) => {
+				/**
+				 * Weird behavior of editor.
+				 * If we do not make it undefined, then it looses it's reactivity
+				 * this is because assigning editor directly to `transaction.editor`
+				 * the original object is not mutated.
+				 */
+				editor = undefined;
 				editor = transaction.editor;
-				content = editor.getHTML();
+				content = editor.getJSON();
+				onChanged(content);
 			}
 		});
 	});
