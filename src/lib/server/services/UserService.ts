@@ -6,24 +6,36 @@ export class UserService {
         private readonly userRepository: IUserRepository
     ) {}
 
-    async isExistUser(uid: string): Promise<boolean> {
+    public async isExistUser(uid: string): Promise<boolean> {
         const user = await this.userRepository.findUnique({
             where: {id: uid}
         })
         return user !== null
     }
 
-    getUserById(uid: string): Promise<User | null> {
+    public getUserById(uid: string): Promise<User | null> {
         return this.userRepository.findUnique({ where: {
             id: uid
         }})
     }
 
-    createUser(data: Prisma.UserCreateInput): Promise<User> {
+    public createUser(data: Prisma.UserCreateInput): Promise<User> {
         return this.userRepository.create({ data })
     }
 
-    updateUser(where: Prisma.UserWhereUniqueInput, data: Prisma.UserUpdateInput): Promise<User> {
+    public async updateQuickNote(content: string, uid: string): Promise<void> {
+        await this.userRepository.update({
+            where: {id: uid},
+            data: {
+                quickNoteContent: content,
+                quickNoteUpdatedAt: new Date()
+            }
+        });
+
+        return;
+    }
+
+    public updateUser(where: Prisma.UserWhereUniqueInput, data: Prisma.UserUpdateInput): Promise<User> {
         return this.userRepository.update({ where, data })
     }
 }
