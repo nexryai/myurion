@@ -140,7 +140,7 @@ export class AppController {
         this.router.use(this.errorHandler)
         this.router.use(this.authMiddleware)
 
-        this.router.get("/api/user", async ({uid}) => {
+        this.router.get("/api/me", async ({uid}) => {
             const user = await this.userService.getUserById(uid)
             return user
         })

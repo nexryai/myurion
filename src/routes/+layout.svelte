@@ -54,7 +54,7 @@
 
     if (browser && isSignedIn) {
         // fetch user data
-        fetch("/api/user").then((res) => {
+        fetch("/api/me").then((res) => {
             if (res.status === 401) {
                 tokenExpired = true;
                 tryAuthenticate();
