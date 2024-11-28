@@ -50,7 +50,7 @@
 
 <header class="flex h-12 items-center justify-between px-4">
     <SidebarTrigger />
-    {#if !connectionIsLost}
+    {#if connectionIsLost}
         <div class="flex">
             <CloudAlert class="text-red-600" />
             <p class="animate-pulse ml-4 text-red-600">CONNECTION LOST - Not saved</p>
