@@ -23,6 +23,14 @@ export class UserService {
         return this.userRepository.create({ data })
     }
 
+    public async getQuickNote(uid: string): Promise<string> {
+        const user = await this.userRepository.findUniqueOrThrow({
+            where: {id: uid}
+        });
+
+        return user.quickNoteContent ?? "";
+    }
+
     public async updateQuickNote(content: string, uid: string): Promise<void> {
         await this.userRepository.update({
             where: {id: uid},

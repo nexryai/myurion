@@ -140,9 +140,32 @@ export class AppController {
         this.router.use(this.errorHandler)
         this.router.use(this.authMiddleware)
 
+        //@ts-ignore
         this.router.get("/api/me", async ({uid}) => {
             const user = await this.userService.getUserById(uid)
             return user
+        })
+
+        //@ts-ignore
+        this.router.post("/api/me/quick-note", async ({uid, body}) => {
+            await this.userService.updateQuickNote(body.content, uid)
+            return {
+                saved: true
+            }
+        }, {
+            body: t.Object({
+                content: t.String({
+                    error: "content must be a string"
+                })
+            })
+        })
+
+        //@ts-ignore
+        this.router.get("/api/me/quick-note", async ({uid}) => {
+            const note = await this.userService.getQuickNote(uid)
+            return {
+                content: note
+            }
         })
     }
 }
