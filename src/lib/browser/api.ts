@@ -9,16 +9,24 @@ export async function callApi<T>(url: string, method: string, body?: unknown): P
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
+    }).catch((error) => {
+        console.error('API call failed - unexpected exception');
+        console.group('ERROR DETAILS');
+        console.log('Error:', error);
+        console.groupEnd();
+        console.groupEnd();
+        throw new Error(error);
     });
 
+
     if (!response.ok) {
-        console.error('API call failed');
+        console.error('API call failed - status code is not 2xx');
         console.group('ERROR DETAILS');
         console.log('Status:', response.status);
         console.log('Status Text:', response.statusText);
         console.groupEnd();
         console.groupEnd();
-        throw new Error('API call failed');
+        throw new Error('API call failed: non-ok status code');
     }
 
     console.log('SUCCESS!');
