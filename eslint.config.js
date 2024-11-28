@@ -16,7 +16,7 @@ export default ts.config(
 		}
 	},
 	{
-		files: ["**/*.svelte"],
+		files: ["**/*.svelte", "**/*.ts"],
 
 		languageOptions: {
 			parserOptions: {
@@ -26,6 +26,7 @@ export default ts.config(
 		rules: {
 			"@typescript-eslint/no-unused-expressions": "off",
 			"@typescript-eslint/ban-ts-comment": "off",
+			"@typescript-eslint/no-explicit-any": "off",
 		}
 	},
 	{
