@@ -5,6 +5,8 @@
     import { callApi } from "$lib/browser/api";
     import { Skeleton } from "$lib/components/ui/skeleton";
     import { allowUnload, preventUnload } from "$lib/browser/lock";
+    import { toast } from "svelte-sonner";
+    import { LucideCloudOff } from "lucide-svelte";
 
     // const localStorageContent = browser ? localStorage.getItem('quickNoteContent') || '' : '';
     const fetchContent = async () => {
@@ -18,9 +20,12 @@
     };
 
     let timer: number | null = null;
+    let statusText = $state('saved');
+    let connectionIsLost = $state(false);
 
     const onChanged = (content: Content) => {
         preventUnload();
+        statusText = 'saving...';
         localStorage.setItem('quickNoteContent', JSON.stringify(content));
 
         if (timer) {
@@ -28,22 +33,28 @@
         }
 
         timer = window.setTimeout(() => {
-            try {
-                callApi("/api/me/quick-note", "POST", {
-                    "content" : JSON.stringify(content)
-                });
-            } catch (error) {
-                console.error(error);
-            } finally {
+            callApi("/api/me/quick-note", "POST", {
+                "content" : JSON.stringify(content)
+            }).catch(error => {
+                console.error("Failed to save content", error);
+                toast.error('Failed to save content');
+                connectionIsLost = true;
+                statusText = 'NOT SAVED - ERROR';
+            }).then(() => {
+                statusText = 'saved';
                 allowUnload();
-            }
+            });
         }, 1000);
     };
 </script>
 
 <header class="flex h-12 items-center justify-between px-4">
     <SidebarTrigger />
-    <p class="ml-4">DEBUG EDITOR - saved</p>
+    {#if !connectionIsLost}
+        <p class="animate-pulse ml-4 text-red-500">CONNECTION LOST - Not saved</p>
+    {:else }
+        <p class="ml-4">DEBUG EDITOR - {statusText}</p>
+    {/if}
 </header>
 <div class="">
     <div class="h-full px-4 pb-6 lg:px-8 mx-auto">
