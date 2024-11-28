@@ -8,7 +8,6 @@
     import { toast } from "svelte-sonner";
     import { CloudAlert } from "lucide-svelte";
 
-    // const localStorageContent = browser ? localStorage.getItem('quickNoteContent') || '' : '';
     const fetchContent = async () => {
         try {
             const response = await callApi("/api/me/quick-note", "GET") as unknown as { content: string };
@@ -26,7 +25,6 @@
     const onChanged = (content: Content) => {
         preventUnload();
         statusText = 'saving...';
-        localStorage.setItem('quickNoteContent', JSON.stringify(content));
 
         if (timer) {
             window.clearTimeout(timer);
