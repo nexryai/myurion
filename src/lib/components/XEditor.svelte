@@ -6,7 +6,7 @@
     import { Skeleton } from "$lib/components/ui/skeleton";
     import { allowUnload, preventUnload } from "$lib/browser/lock";
     import { toast } from "svelte-sonner";
-    import { LucideCloudOff } from "lucide-svelte";
+    import { CloudAlert } from "lucide-svelte";
 
     // const localStorageContent = browser ? localStorage.getItem('quickNoteContent') || '' : '';
     const fetchContent = async () => {
@@ -51,7 +51,10 @@
 <header class="flex h-12 items-center justify-between px-4">
     <SidebarTrigger />
     {#if !connectionIsLost}
-        <p class="animate-pulse ml-4 text-red-500">CONNECTION LOST - Not saved</p>
+        <div class="flex">
+            <CloudAlert class="text-red-600" />
+            <p class="animate-pulse ml-4 text-red-600">CONNECTION LOST - Not saved</p>
+        </div>
     {:else }
         <p class="ml-4">DEBUG EDITOR - {statusText}</p>
     {/if}
