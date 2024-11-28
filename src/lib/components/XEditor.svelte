@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Trigger as SidebarTrigger } from "$lib/components/ui/sidebar/index.js";
-    import { browser } from '$app/environment';
     import ShadEditor from '$lib/components/shad-editor/shad-editor.svelte';
     import type { Content } from "@tiptap/core";
     import { callApi } from "$lib/browser/api";
