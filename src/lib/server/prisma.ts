@@ -13,3 +13,9 @@ export type IUserRepository = typeof userRepository
 
 export const passkeyRepository = prisma.passkey
 export type IPasskeyRepository = typeof passkeyRepository
+
+export const noteRepository = prisma.note
+export type INoteRepository = typeof noteRepository
+
+export const noteCategoryRepository = prisma.noteCategory
+export type INoteCategoryRepository = typeof noteCategoryRepository
