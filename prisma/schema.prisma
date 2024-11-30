@@ -37,6 +37,7 @@ model NoteCategory {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String
+  iconName  String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   notes     Note[]
