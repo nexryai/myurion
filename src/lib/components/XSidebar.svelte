@@ -131,3 +131,26 @@
     </Command.List>
 </Command.Dialog>
 
+<style>
+    :global {
+        .bg-sidebar {
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.74);
+        }
+
+        .bg-sidebar:before {
+            content: '';
+            background-image: url('/photo-1660491630578-4299a3c09db0-navbar.webp');
+            background-blend-mode: multiply, screen, overlay;
+            background-size:cover;
+            background-position:50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /*filter: blur(4px);*/
+            z-index: -1;
+        }
+    }
+</style>
