@@ -27,8 +27,6 @@
         });
 
         const created = resp as unknown as {id :string}
-        console.log(created.id);
-
         if (created.id) {
             isOpen = false;
         }
