@@ -11,8 +11,6 @@ export class AppController {
         private readonly passkeyAuthService: PasskeyAuthService
     ) {}
 
-    private readonly protectedApiPrefix = "/api"
-
     private readonly errorHandler = (app: Elysia) =>
         app.onError(({ code, error, set }) => {
             if (code == "NOT_FOUND") {
@@ -144,8 +142,7 @@ export class AppController {
 
         //@ts-ignore
         this.router.get("/api/me", async ({uid}) => {
-            const user = await this.userService.getUserById(uid)
-            return user
+            return await this.userService.getUserById(uid)
         })
 
         //@ts-ignore
@@ -172,8 +169,7 @@ export class AppController {
 
         //@ts-ignore
         this.router.get("/api/note/tree", async ({uid}) => {
-            const tree = await this.noteService.getNoteTreeByUserId(uid)
-            return tree
+            return await this.noteService.getNoteTreeByUserId(uid)
         })
 
         //@ts-ignore
