@@ -23,7 +23,7 @@ export class AppController {
                 return "Invalid request"
             }
 
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+             
             // @ts-ignore
             if (code == 401) {
                 // なぜかset.status = 401が型エラーになる
