@@ -33,8 +33,17 @@ export class NoteService {
         return categories.map(category => category.name);
     }
 
-    public async createNoteCategory(data: Prisma.NoteCategoryCreateInput): Promise<void> {
-        await this.noteCategoryRepository.create({ data });
-        return;
+    public async createNoteCategory(uid: string, categoryName: string, iconName: string): Promise<string> {
+        const created = await this.noteCategoryRepository.create({
+            data: {
+                user: {
+                    connect: { id: uid }
+                },
+                name: categoryName,
+                iconName:  iconName
+            }
+        });
+
+        return created.id;
     }
 }
