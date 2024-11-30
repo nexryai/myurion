@@ -1,16 +1,17 @@
 <script lang="ts">
-    import House from "lucide-svelte/icons/house";
-    import Search from "lucide-svelte/icons/search";
-    import * as Collapsible from "$lib/components/ui/collapsible";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-    import { ChevronUp, Ellipsis, Plus, Zap } from "lucide-svelte";
-    import ChevronRight from "lucide-svelte/icons/chevron-right";
-
     import * as Command from "$lib/components/ui/command/index.js";
+    import { ChevronUp, Plus,Search, Zap } from "lucide-svelte";
 
+    import { browser } from "$app/environment";
     import { goto } from "$app/navigation";
     import AddCategoryDialog from "$lib/components/auth/AddCategoryDialog.svelte";
+    import { callApi } from "$lib/browser/api";
+    import type { NoteTree } from "$lib/schema/note";
+    import { Skeleton } from "$lib/components/ui/skeleton";
+
+    import SidebarNoteTree from "$lib/components/sidebar/SidebarNoteTree.svelte";
 
     // props
     let {
@@ -22,6 +23,11 @@
     // states
     let searchDialogIsOpen = $state(false);
     let addCategoryDialogIsOpen = $state(false);
+
+    const fetchNoteTree = async (): Promise<NoteTree[]> => {
+        const response = await callApi("/api/note/tree", "GET");
+        return response as NoteTree[];
+    };
 
 </script>
 
@@ -54,64 +60,25 @@
                 </Sidebar.Menu>
             </Sidebar.GroupContent>
         </Sidebar.Group>
+
         <Sidebar.Group>
             <Sidebar.GroupLabel>Notes</Sidebar.GroupLabel>
             <Sidebar.GroupAction title="Add Project" onclick={() => {addCategoryDialogIsOpen = true}}>
                 <Plus /> <span class="sr-only">Add Project</span>
             </Sidebar.GroupAction>
             <Sidebar.GroupContent>
-                <Sidebar.Menu>
-                    <Collapsible.Root open class="group/collapsible">
-                        <Sidebar.MenuItem>
-                            <Collapsible.Trigger>
-                                {#snippet child({ props })}
-                                    <Sidebar.MenuButton {...props}>
-                                        {#snippet child({ props })}
-                                            <div {...props}>
-                                                <House />
-                                                <span>Personal</span>
-                                                <ChevronRight
-                                                        class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
-                                                />
-                                            </div>
-                                        {/snippet}
-                                    </Sidebar.MenuButton>
-                                {/snippet}
-                            </Collapsible.Trigger>
-                            <Collapsible.Content>
-                                <Sidebar.MenuSub>
-                                    <Sidebar.MenuSubItem>
-                                        <Sidebar.MenuButton>
-                                            {#snippet child({ props })}
-                                                <a href="/test" {...props}>
-                                                    <House />
-                                                    <span>Home</span>
-                                                </a>
-                                            {/snippet}
-                                        </Sidebar.MenuButton>
-                                        <DropdownMenu.Root>
-                                            <DropdownMenu.Trigger>
-                                                {#snippet child({ props })}
-                                                    <Sidebar.MenuAction {...props}>
-                                                        <Ellipsis />
-                                                    </Sidebar.MenuAction>
-                                                {/snippet}
-                                            </DropdownMenu.Trigger>
-                                            <DropdownMenu.Content side="left" align="start">
-                                                <DropdownMenu.Item>
-                                                    <span>Edit Project</span>
-                                                </DropdownMenu.Item>
-                                                <DropdownMenu.Item>
-                                                    <span>Delete Project</span>
-                                                </DropdownMenu.Item>
-                                            </DropdownMenu.Content>
-                                        </DropdownMenu.Root>
-                                    </Sidebar.MenuSubItem>
-                                </Sidebar.MenuSub>
-                            </Collapsible.Content>
-                        </Sidebar.MenuItem>
-                    </Collapsible.Root>
-                </Sidebar.Menu>
+                {#await browser ? fetchNoteTree() : Promise.resolve()}
+                    <div class="space-y-2 mt-8">
+                        <Skeleton class="h-4 w-[250px]" />
+                        <Skeleton class="h-4 w-[200px]" />
+                    </div>
+                {:then tree}
+                    {#if tree}
+                        <SidebarNoteTree tree={tree} />
+                    {/if}
+                {:catch error}
+                    <p class="text-red-500">{error.message}</p>
+                {/await}
             </Sidebar.GroupContent>
         </Sidebar.Group>
     </Sidebar.Content>
