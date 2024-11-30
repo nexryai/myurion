@@ -2,14 +2,13 @@
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import * as Sidebar from "$lib/components/ui/sidebar/index.js";
     import * as Command from "$lib/components/ui/command/index.js";
-    import { ChevronUp, Plus,Search, Zap } from "lucide-svelte";
+    import { ChevronUp, LoaderCircle, Plus, Search, Zap } from "lucide-svelte";
 
     import { browser } from "$app/environment";
     import { goto } from "$app/navigation";
     import AddCategoryDialog from "$lib/components/auth/AddCategoryDialog.svelte";
     import { callApi } from "$lib/browser/api";
     import type { NoteTree } from "$lib/schema/note";
-    import { Skeleton } from "$lib/components/ui/skeleton";
 
     import SidebarNoteTree from "$lib/components/sidebar/SidebarNoteTree.svelte";
 
@@ -68,9 +67,8 @@
             </Sidebar.GroupAction>
             <Sidebar.GroupContent>
                 {#await browser ? fetchNoteTree() : Promise.resolve()}
-                    <div class="space-y-2 mt-8">
-                        <Skeleton class="h-4 w-[250px]" />
-                        <Skeleton class="h-4 w-[200px]" />
+                    <div class="w-full">
+                        <LoaderCircle class="animate-spin mt-32 mx-auto" />
                     </div>
                 {:then tree}
                     {#if tree}
