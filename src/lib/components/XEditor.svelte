@@ -24,14 +24,17 @@
         noteId: string | undefined;
     } = $props();
 
+    const noteSaveEndpoint = noteId ? `/api/note/${noteId}` : "/api/me/quick-note";
     let timer: number | null = null;
+
+    // States
     let statusText = $state('saved');
     let connectionIsLost = $state(false);
     let publishTitle = $state('Untitled');
 
     const fetchContent = async () => {
         try {
-            const response = await callApi("/api/me/quick-note", "GET") as unknown as { content: string };
+            const response = await callApi(noteSaveEndpoint, "GET") as unknown as { content: string };
             return response.content ? JSON.parse(response.content) as Content : "Start writing...";
         } catch (error) {
             console.error(error);
