@@ -21,10 +21,12 @@
     import { signIn } from "$lib/browser/auth";
 
     import { type User } from "@prisma/client";
+    import AddCategoryDialog from "$lib/components/auth/AddCategoryDialog.svelte";
 
     // states
     let tokenExpired = $state(false);
     let searchDialogIsOpen = $state(false);
+    let addCategoryDialogIsOpen = $state(false);
     let fatalErrorOccurred = $state(false);
     let errorDetails = $state<string | undefined>(undefined);
     let username = $state<string | undefined>(undefined);
@@ -106,7 +108,7 @@
                 </Sidebar.Group>
                 <Sidebar.Group>
                     <Sidebar.GroupLabel>Notes</Sidebar.GroupLabel>
-                    <Sidebar.GroupAction title="Add Project">
+                    <Sidebar.GroupAction title="Add Project" onclick={() => {addCategoryDialogIsOpen = true}}>
                         <Plus /> <span class="sr-only">Add Project</span>
                     </Sidebar.GroupAction>
                     <Sidebar.GroupContent>
@@ -218,6 +220,7 @@
 
     <AuthDialog isOpen={tokenExpired} />
     <FatalErrorDialog isOpen={fatalErrorOccurred} errorDetails={errorDetails} />
+    <AddCategoryDialog bind:isOpen={addCategoryDialogIsOpen} />
 {/if}
 
 <Toaster />
