@@ -1,4 +1,4 @@
-import { Prisma, type Note } from "@prisma/client";
+import { Prisma, type Note, type NoteCategory } from "@prisma/client";
 import type { INoteCategoryRepository, INoteRepository } from "$lib/server/prisma";
 import type { NoteTree } from "$lib/schema/note";
 
@@ -75,5 +75,11 @@ export class NoteService {
         });
 
         return created.id;
+    }
+
+    public async getNoteCategoriesByUserId(uid: string): Promise<NoteCategory[]> {
+        return this.noteCategoryRepository.findMany({
+            where: { userId: uid }
+        });
     }
 }

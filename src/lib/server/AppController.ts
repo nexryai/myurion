@@ -208,5 +208,10 @@ export class AppController {
                 })
             })
         })
+
+        //@ts-ignore
+        this.router.get("/api/note/categories", async ({uid}) => {
+            return await this.noteService.getNoteCategoriesByUserId(uid)
+        })
     }
 }
