@@ -32,7 +32,7 @@
     const fetchContent = async () => {
         try {
             const response = await callApi("/api/me/quick-note", "GET") as unknown as { content: string };
-            return JSON.parse(response.content) as Content;
+            return response.content ? JSON.parse(response.content) as Content : "Start writing...";
         } catch (error) {
             console.error(error);
             return '';
