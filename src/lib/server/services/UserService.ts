@@ -31,7 +31,7 @@ export class UserService {
         return user.quickNoteContent ?? "";
     }
 
-    public async updateQuickNote(content: string, uid: string): Promise<void> {
+    public async updateQuickNote(uid: string, content: string): Promise<void> {
         await this.userRepository.update({
             where: {id: uid},
             data: {

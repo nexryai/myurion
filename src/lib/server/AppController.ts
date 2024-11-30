@@ -147,7 +147,7 @@ export class AppController {
 
         //@ts-ignore
         this.router.post("/api/me/quick-note", async ({uid, body}) => {
-            await this.userService.updateQuickNote(body.content, uid)
+            await this.userService.updateQuickNote(uid, body.content)
             return {
                 saved: true
             }
