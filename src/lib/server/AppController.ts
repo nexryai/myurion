@@ -1,11 +1,13 @@
 import Elysia, { error, t } from "elysia"
 import type { PasskeyAuthService } from "$lib/server/services/AuthService";
 import type { UserService } from "$lib/server/services/UserService";
+import type { NoteService } from "$lib/server/services/NoteService";
 
 export class AppController {
     constructor(
         private readonly router: Elysia,
         private readonly userService: UserService,
+        private readonly noteService: NoteService,
         private readonly passkeyAuthService: PasskeyAuthService
     ) {}
 
@@ -23,7 +25,7 @@ export class AppController {
                 return "Invalid request"
             }
 
-             
+
             // @ts-ignore
             if (code == 401) {
                 // なぜかset.status = 401が型エラーになる
@@ -166,6 +168,23 @@ export class AppController {
             return {
                 content: note
             }
+        })
+
+        //@ts-ignore
+        this.router.post("/api/note/create-category", async ({uid, body}) => {
+            const categoryId = await this.noteService.createNoteCategory(uid, body.name, body.iconName)
+            return {
+                id: categoryId
+            }
+        }, {
+            body: t.Object({
+                name: t.String({
+                    error: "name must be a string"
+                }),
+                iconName: t.String({
+                    error: "iconName must be a string"
+                })
+            })
         })
     }
 }
