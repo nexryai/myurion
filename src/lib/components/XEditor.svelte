@@ -3,11 +3,31 @@
     import ShadEditor from '$lib/components/shad-editor/shad-editor.svelte';
     import type { Content } from "@tiptap/core";
     import { callApi } from "$lib/browser/api";
+    import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import { Skeleton } from "$lib/components/ui/skeleton";
     import { allowUnload, preventUnload } from "$lib/browser/lock";
     import { toast } from "svelte-sonner";
     import { CloudAlert } from "lucide-svelte";
     import { browser } from "$app/environment";
+    import { Button } from "$lib/components/ui/button";
+    import { IconFileTextSpark } from "@tabler/icons-svelte";
+    import { type NoteCategory } from "@prisma/client";
+    import RenderIcon from "$lib/components/icons/RenderIcon.svelte";
+    import { Input } from "$lib/components/ui/input";
+
+    // Props
+    let {
+        title,
+        noteId
+    }: {
+        title: string | undefined;
+        noteId: string | undefined;
+    } = $props();
+
+    let timer: number | null = null;
+    let statusText = $state('saved');
+    let connectionIsLost = $state(false);
+    let publishTitle = $state('Untitled');
 
     const fetchContent = async () => {
         try {
@@ -19,9 +39,10 @@
         }
     };
 
-    let timer: number | null = null;
-    let statusText = $state('saved');
-    let connectionIsLost = $state(false);
+    const fetchNoteCategories = async () => {
+        const response = await callApi("/api/note/categories", "GET");
+        return response as NoteCategory[];
+    };
 
     const onChanged = (content: Content) => {
         preventUnload();
@@ -45,18 +66,71 @@
             });
         }, 1000);
     };
+
+    const publish = async (categoryId: string) => {
+        if (!publishTitle) {
+            toast.error('Title is required');
+            return;
+        }
+
+        const response = await callApi("/api/me/promote-quick-note", "POST", {
+            title: publishTitle,
+            categoryId,
+        }) as unknown as { created: string };
+
+        if (response.created) {
+            toast.success('Published');
+        } else {
+            toast.error('Failed to publish');
+        }
+    };
 </script>
 
 <header class="flex h-12 items-center justify-between px-4">
     <SidebarTrigger />
-    {#if connectionIsLost}
-        <div class="flex">
+    <div class="flex">
+        {#if connectionIsLost}
             <CloudAlert class="text-red-600" />
             <p class="animate-pulse ml-4 text-red-600">CONNECTION LOST - Not saved</p>
-        </div>
-    {:else }
-        <p class="ml-4">DEBUG EDITOR - {statusText}</p>
-    {/if}
+        {:else }
+            {#if !noteId}
+                <DropdownMenu.Root>
+                    <DropdownMenu.Trigger>
+                        <Button class="h-6" variant="outline">
+                            <IconFileTextSpark />
+                            Publish
+                        </Button>
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content class="w-64">
+                        <DropdownMenu.Group>
+                            <DropdownMenu.GroupHeading>Title</DropdownMenu.GroupHeading>
+                            <DropdownMenu.Separator />
+                            <Input class="mx-auto mt-4 mb-5 w-48" bind:value={publishTitle} />
+                        </DropdownMenu.Group>
+                        <DropdownMenu.Group>
+                            <DropdownMenu.GroupHeading>Publish to...</DropdownMenu.GroupHeading>
+                            <DropdownMenu.Separator />
+                            {#await fetchNoteCategories()}
+                                <Skeleton class="h-4 w-[64px]" />
+                            {:then categories}
+                                {#each categories as category}
+                                    <DropdownMenu.Item onclick={() => {
+                                        publish(category.id);
+                                    }}>
+                                        <RenderIcon iconName={category.iconName} size={16} />
+                                        {category.name}
+                                    </DropdownMenu.Item>
+                                {/each}
+                            {:catch error}
+                                <p class="text-red-500">{error.message}</p>
+                            {/await}
+                        </DropdownMenu.Group>
+                    </DropdownMenu.Content>
+                </DropdownMenu.Root>
+            {/if}
+            <p class="ml-4">{title ?? "Quick Note"} - {statusText}</p>
+        {/if}
+    </div>
 </header>
 <div class="">
     <div class="h-full px-4 pb-6 lg:px-8 mx-auto">
