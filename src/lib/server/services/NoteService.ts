@@ -16,10 +16,6 @@ export class NoteService {
         return this.noteRepository.findMany({ where: { userId: uid } })
     }
 
-    public async createNote(data: Prisma.NoteCreateInput): Promise<Note> {
-        return this.noteRepository.create({ data })
-    }
-
     public async updateNoteById(id: string, data: Prisma.NoteUpdateInput): Promise<Note> {
         return this.noteRepository.update({ where: { id }, data })
     }
@@ -29,9 +25,24 @@ export class NoteService {
         return
     }
 
-    public async getNoteCategoryByUserId(uid: string): Promise<string[]> {
-        const categories = await this.noteCategoryRepository.findMany({ where: { userId: uid } });
-        return categories.map(category => category.name);
+    public async createNote(uid: string, title: string, content: string, categoryId: string): Promise<string> {
+        const created = await this.noteRepository.create({
+            data: {
+                user: {
+                    connect: { id: uid }
+                },
+                title: title,
+                content: content,
+                category: {
+                    connect: {
+                        id: categoryId,
+                        userId: uid
+                    }
+                }
+            }
+        });
+
+        return created.id;
     }
 
     public async getNoteTreeByUserId(uid: string): Promise<NoteTree[]> {

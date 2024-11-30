@@ -168,6 +168,26 @@ export class AppController {
         })
 
         //@ts-ignore
+        this.router.post("/api/me/promote-quick-note", async ({uid, body}) => {
+            const quickNoteContent = await this.userService.getQuickNote(uid)
+            const created = await this.noteService.createNote(uid, body.title, quickNoteContent, body.categoryId)
+            await this.userService.updateQuickNote(uid, "")
+            return { created }
+        }, {
+            body: t.Object({
+                categoryId: t.String({
+                    error: "id must be a string"
+                }),
+                title: t.String({
+                    error: "title must be a string"
+                }),
+                content: t.String({
+                    error: "content must be a string"
+                })
+            })
+        })
+
+        //@ts-ignore
         this.router.get("/api/note/tree", async ({uid}) => {
             return await this.noteService.getNoteTreeByUserId(uid)
         })
