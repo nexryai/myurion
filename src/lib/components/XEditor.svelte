@@ -7,6 +7,7 @@
     import { allowUnload, preventUnload } from "$lib/browser/lock";
     import { toast } from "svelte-sonner";
     import { CloudAlert } from "lucide-svelte";
+    import { browser } from "$app/environment";
 
     const fetchContent = async () => {
         try {
@@ -59,13 +60,15 @@
 </header>
 <div class="">
     <div class="h-full px-4 pb-6 lg:px-8 mx-auto">
-        {#await fetchContent()}
+        {#await browser ? fetchContent() : Promise.resolve()}
             <div class="space-y-2 mt-8">
                 <Skeleton class="h-4 w-[250px]" />
                 <Skeleton class="h-4 w-[200px]" />
             </div>
         {:then content}
-            <ShadEditor class="h-[40rem]" content={content} onChanged={onChanged} />
+            {#if content}
+                <ShadEditor class="h-[40rem]" content={content} onChanged={onChanged} />
+            {/if}
         {:catch error}
             <p class="text-red-500">{error.message}</p>
         {/await}
