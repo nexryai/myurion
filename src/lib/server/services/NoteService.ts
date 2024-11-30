@@ -1,5 +1,6 @@
 import { Prisma, type Note } from "@prisma/client";
 import type { INoteCategoryRepository, INoteRepository } from "$lib/server/prisma";
+import type { NoteTree } from "$lib/schema/note";
 
 export class NoteService {
     constructor(
@@ -31,6 +32,24 @@ export class NoteService {
     public async getNoteCategoryByUserId(uid: string): Promise<string[]> {
         const categories = await this.noteCategoryRepository.findMany({ where: { userId: uid } });
         return categories.map(category => category.name);
+    }
+
+    public async getNoteTreeByUserId(uid: string): Promise<NoteTree[]> {
+        return this.noteCategoryRepository.findMany({
+            where: { userId: uid },
+            select: {
+                id: true,
+                name: true,
+                iconName: true,
+                notes: {
+                    select: {
+                        id: true,
+                        title: true,
+                        createdAt: true
+                    }
+                }
+            }
+        });
     }
 
     public async createNoteCategory(uid: string, categoryName: string, iconName: string): Promise<string> {

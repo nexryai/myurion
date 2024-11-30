@@ -171,6 +171,12 @@ export class AppController {
         })
 
         //@ts-ignore
+        this.router.get("/api/note/tree", async ({uid}) => {
+            const tree = await this.noteService.getNoteTreeByUserId(uid)
+            return tree
+        })
+
+        //@ts-ignore
         this.router.post("/api/note/create-category", async ({uid, body}) => {
             const categoryId = await this.noteService.createNoteCategory(uid, body.name, body.iconName)
             return {
