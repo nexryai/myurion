@@ -180,9 +180,6 @@ export class AppController {
                 }),
                 title: t.String({
                     error: "title must be a string"
-                }),
-                content: t.String({
-                    error: "content must be a string"
                 })
             })
         })
