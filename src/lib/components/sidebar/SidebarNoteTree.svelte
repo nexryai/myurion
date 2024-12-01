@@ -1,9 +1,7 @@
 <script lang="ts">
     import type { NoteTree } from "$lib/schema/note";
     import * as Collapsible from "$lib/components/ui/collapsible";
-    import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-    import { Ellipsis } from "lucide-svelte";
     import ChevronRight from "lucide-svelte/icons/chevron-right";
     import RenderIcon from "$lib/components/icons/RenderIcon.svelte";
     import { goto } from "$app/navigation";
@@ -43,23 +41,6 @@
                                         <span {...props}>{note.title}</span>
                                     {/snippet}
                                 </Sidebar.MenuButton>
-                                <DropdownMenu.Root>
-                                    <DropdownMenu.Trigger>
-                                        {#snippet child({ props })}
-                                            <Sidebar.MenuAction {...props}>
-                                                <Ellipsis />
-                                            </Sidebar.MenuAction>
-                                        {/snippet}
-                                    </DropdownMenu.Trigger>
-                                    <DropdownMenu.Content side="left" align="start">
-                                        <DropdownMenu.Item>
-                                            <span>Edit Note</span>
-                                        </DropdownMenu.Item>
-                                        <DropdownMenu.Item>
-                                            <span>Delete Note</span>
-                                        </DropdownMenu.Item>
-                                    </DropdownMenu.Content>
-                                </DropdownMenu.Root>
                             </Sidebar.MenuSubItem>
                         {/each}
                     </Sidebar.MenuSub>

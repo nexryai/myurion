@@ -7,7 +7,7 @@
     import { Skeleton } from "$lib/components/ui/skeleton";
     import { allowUnload, preventUnload } from "$lib/browser/lock";
     import { toast } from "svelte-sonner";
-    import { CloudAlert } from "lucide-svelte";
+    import { ChevronDown, CloudAlert, PencilLine, Trash2 } from "lucide-svelte";
     import { browser } from "$app/environment";
     import { Button } from "$lib/components/ui/button";
     import { IconFileTextSpark } from "@tabler/icons-svelte";
@@ -146,6 +146,28 @@
                 </DropdownMenu.Root>
             {/if}
             <p class="ml-4">{noteTitle} - {statusText}</p>
+            <DropdownMenu.Root>
+                <DropdownMenu.Trigger>
+                    <Button variant="ghost" class="ml-4 w-4 h-6">
+                        <ChevronDown />
+                    </Button>
+                </DropdownMenu.Trigger>
+                <DropdownMenu.Content class="w-48 mr-6">
+                    <DropdownMenu.Group>
+                        <DropdownMenu.GroupHeading>Rename</DropdownMenu.GroupHeading>
+                        <DropdownMenu.Separator />
+                        <Input class="mx-auto mt-3 mb-5 w-40" bind:value={noteTitle} />
+                    </DropdownMenu.Group>
+                    <DropdownMenu.Group>
+                        <DropdownMenu.GroupHeading>Dangerous Zone</DropdownMenu.GroupHeading>
+                        <DropdownMenu.Separator />
+                        <DropdownMenu.Item class="text-red-500">
+                            <Trash2 />
+                            Delete
+                        </DropdownMenu.Item>
+                    </DropdownMenu.Group>
+                </DropdownMenu.Content>
+            </DropdownMenu.Root>
         {/if}
     </div>
 </header>
