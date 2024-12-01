@@ -52,6 +52,17 @@ export class NoteService {
         return updated !== null;
     }
 
+    public async deleteNoteById(uid: string, noteId: string): Promise<boolean> {
+        const deleted = await this.noteRepository.delete({
+            where: {
+                id: noteId,
+                userId: uid
+            }
+        });
+
+        return deleted !== null;
+    }
+
     public async getNoteTreeByUserId(uid: string): Promise<NoteTree[]> {
         return this.noteCategoryRepository.findMany({
             where: { userId: uid },

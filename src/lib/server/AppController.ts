@@ -262,5 +262,17 @@ export class AppController {
                 })
             })
         })
+
+        //@ts-ignore
+        this.router.delete("/api/note/:noteId", async ({uid, params}) => {
+            const deleted = await this.noteService.deleteNoteById(uid, params.noteId)
+            return { ok: deleted }
+        }, {
+            params: t.Object({
+                noteId: t.String({
+                    error: "noteId must be a string"
+                })
+            })
+        })
     }
 }
