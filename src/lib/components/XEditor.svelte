@@ -6,7 +6,6 @@
     import * as Dialog from "$lib/components/ui/dialog/index.js";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import { Skeleton } from "$lib/components/ui/skeleton";
-    import { allowUnload, preventUnload } from "$lib/browser/lock";
     import { toast } from "svelte-sonner";
     import { ChevronDown, CloudAlert, Trash2, Undo2 } from "lucide-svelte";
     import { browser } from "$app/environment";
@@ -16,7 +15,7 @@
     import RenderIcon from "$lib/components/icons/RenderIcon.svelte";
     import { Input } from "$lib/components/ui/input";
     import { onDestroy } from "svelte";
-    import { goto } from "$app/navigation";
+    import { beforeNavigate, goto } from "$app/navigation";
 
     // Props
     let {
@@ -29,6 +28,8 @@
 
     const noteEndpoint = noteId ? `/api/note/${noteId}` : "/api/me/quick-note";
     let timer: number | null = null;
+    let allowUnload = true;
+    let lastSavedContentJson: string | null = null;
 
     // States
     let noteTitle = $state(title ?? "Loading...");
@@ -54,7 +55,13 @@
     };
 
     const onChanged = (content: Content) => {
-        preventUnload();
+        const contentJson = JSON.stringify(content);
+        if (contentJson === lastSavedContentJson) {
+            return;
+        } else {
+            allowUnload = false;
+        }
+
         statusText = 'saving...';
 
         if (timer) {
@@ -64,9 +71,9 @@
         timer = window.setTimeout(() => {
             const request = noteId ? {
                 "title" : noteTitle,
-                "content" : JSON.stringify(content)
+                "content" : contentJson
             }: {
-                "content" : JSON.stringify(content)
+                "content" : contentJson
             };
 
             callApi(noteEndpoint, "PUT", request).catch(error => {
@@ -76,7 +83,9 @@
                 statusText = 'NOT SAVED - ERROR';
             }).then(() => {
                 statusText = 'saved';
-                allowUnload();
+                lastSavedContentJson = contentJson;
+                connectionIsLost = false;
+                allowUnload = true;
             });
         }, 1000);
     };
@@ -110,6 +119,14 @@
             toast.error('Failed to delete');
         }
     };
+
+    beforeNavigate(({ cancel }) => {
+        if (!allowUnload) {
+            if (!confirm('Are you sure you want to leave this page? You have unsaved changes that will be lost.')) {
+                cancel();
+            }
+        }
+    });
 
     onDestroy(() => {
         if (timer) {
