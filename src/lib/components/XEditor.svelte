@@ -28,13 +28,15 @@
     let timer: number | null = null;
 
     // States
+    let noteTitle = $state(title ?? "Loading...");
     let statusText = $state('saved');
     let connectionIsLost = $state(false);
     let publishTitle = $state('Untitled');
 
     const fetchContent = async () => {
         try {
-            const response = await callApi(noteEndpoint, "GET") as unknown as { content: string };
+            const response = await callApi(noteEndpoint, "GET") as unknown as { title?: string, content: string };
+            noteTitle = noteId ? response.title ?? "Untitled" : "Quick Note";
             return response.content ? JSON.parse(response.content) as Content : "Start writing...";
         } catch (error) {
             console.error(error);
@@ -131,7 +133,7 @@
                     </DropdownMenu.Content>
                 </DropdownMenu.Root>
             {/if}
-            <p class="ml-4">{title ?? "Quick Note"} - {statusText}</p>
+            <p class="ml-4">{noteTitle} - {statusText}</p>
         {/if}
     </div>
 </header>
