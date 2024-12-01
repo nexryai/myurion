@@ -16,9 +16,8 @@
 	import TaskList from './icons/task-list.svelte';
 	import Highlighter from './icons/highlighter.svelte';
 	import Superscript from './icons/superscript.svelte';
-	import Textcolor from './icons/textcolor.svelte';
 	import Align from './icons/textalign.svelte';
-	import Quickcolor from './icons/quickcolor.svelte';
+	import TextColor from './icons/quickcolor.svelte';
 	import Table from './icons/table.svelte';
 	import Image from './icons/image.svelte';
 	import Text from './icons/text.svelte';
@@ -51,8 +50,7 @@
 	<TaskList {editor} />
 	<Image {editor} />
 	<Table {editor} />
-	<Textcolor {editor} />
 	<Highlighter {editor} />
-	<Quickcolor {editor} />
+	<TextColor {editor} />
 	<SearchReplace {editor} />
 </div>

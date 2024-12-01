@@ -1,19 +1,26 @@
 <script lang="ts">
-	import { Highlighter } from 'lucide-svelte';
-	import { X } from 'lucide-svelte';
+	import { Check, Highlighter } from 'lucide-svelte';
 	import { ChevronDown } from 'lucide-svelte';
 	import { type Editor } from '@tiptap/core';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { cn } from '$lib/utils.js';
-	import * as Popover from '$lib/components/ui/popover/index.js';
-	import { mode } from 'mode-watcher';
-	import ColorPicker from 'svelte-awesome-color-picker';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 
 	interface Props {
 		editor: Editor;
 		color?: string;
 	}
+
+	const colors = [
+		{ label: 'Default', value: '' },
+		{ label: 'Blue', value: '#75a6ff' },
+		{ label: 'Green', value: '#9ef19e' },
+		{ label: 'Grey', value: '#808080' },
+		{ label: 'Orange', value: '#FFA500' },
+		{ label: 'Red', value: '#ffa6a6' },
+		{ label: 'Yellow', value: '#FFFF00' }
+	];
 
 	let { editor, color = $bindable('') }: Props = $props();
 </script>
@@ -21,8 +28,8 @@
 <Tooltip.Provider>
 	<Tooltip.Root>
 		<Tooltip.Trigger>
-			<Popover.Root>
-				<Popover.Trigger>
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger>
 					<Button
 						variant="ghost"
 						size="sm"
@@ -32,41 +39,33 @@
 						<Highlighter />
 						<ChevronDown class="!size-3 text-muted-foreground" />
 					</Button>
-				</Popover.Trigger>
-				<Popover.Content class="bg-popover shadow-lg *:my-2">
-					<div class="flex items-center justify-between">
-						<h1 class="text-[1.2rem] font-bold">Pick a highlight color</h1>
-						<Popover.Close>
-							<X class="size-4 text-muted-foreground" />
-						</Popover.Close>
-					</div>
-					<div class:dark={$mode === 'dark'}>
-						<ColorPicker
-							bind:hex={color}
-							sliderDirection="vertical"
-							isTextInput={false}
-							isAlpha
-							on:input={(event) => {
-								if (event.detail.hex === undefined) return;
-								color = event.detail.hex;
-								editor.chain().focus().setHighlight({ color }).run();
-							}}
-							isDialog={false}
-							--picker-indicator-size="1rem"
-							--input-size="1rem"
-						/>
-					</div>
-					<div class="flex items-center justify-end gap-2">
-						<Button
-							variant="outline"
-							size="sm"
-							class="border-destructive text-destructive hover:bg-destructive hover:text-foreground"
-							onclick={() => editor.chain().focus().unsetHighlight().run()}
-							>Remove Highlight
-						</Button>
-					</div>
-				</Popover.Content>
-			</Popover.Root>
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content class="max-h-[25rem] w-40 overflow-auto">
+					<DropdownMenu.Group>
+						<span class="text-[0.75rem] font-medium text-muted-foreground">Highlight Color</span>
+						{#each colors as color}
+							<DropdownMenu.Item
+									class="flex items-center"
+									onclick={() => {
+									if (color.value === '' || color.label === 'Default')
+										editor.chain().focus().unsetHighlight().run();
+									else editor.chain().focus().toggleHighlight({ color: color.value }).run();
+								}}
+									closeOnSelect={false}
+							>
+								<span
+										class="rounded px-1 py-px font-medium"
+										style={`background-color: ${color.value};`}>A</span
+								>
+								<span>{color.label}</span>
+								{#if editor.isActive('highlight', { color: color.value })}
+									<Check class="absolute right-2 !size-3 text-muted-foreground" />
+								{/if}
+							</DropdownMenu.Item>
+						{/each}
+					</DropdownMenu.Group>
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
 		</Tooltip.Trigger>
 		<Tooltip.Content>
 			<p>Highlighter (⌘⇧H)</p>

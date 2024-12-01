@@ -61,30 +61,6 @@
 							</DropdownMenu.Item>
 						{/each}
 					</DropdownMenu.Group>
-					<DropdownMenu.Separator />
-					<DropdownMenu.Group>
-						<span class="text-[0.75rem] font-medium text-muted-foreground">Background Colors</span>
-						{#each colors as color}
-							<DropdownMenu.Item
-								class="flex items-center"
-								onclick={() => {
-									if (color.value === '' || color.label === 'Default')
-										editor.chain().focus().unsetHighlight().run();
-									else editor.chain().focus().toggleHighlight({ color: color.value }).run();
-								}}
-								closeOnSelect={false}
-							>
-								<span
-									class="rounded px-1 py-px font-medium"
-									style={`background-color: ${color.value};`}>A</span
-								>
-								<span>{color.label}</span>
-								{#if editor.isActive('highlight', { color: color.value })}
-									<Check class="absolute right-2 !size-3 text-muted-foreground" />
-								{/if}
-							</DropdownMenu.Item>
-						{/each}
-					</DropdownMenu.Group>
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
 		</Tooltip.Trigger>
