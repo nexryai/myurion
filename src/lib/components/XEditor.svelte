@@ -3,11 +3,12 @@
     import ShadEditor from '$lib/components/shad-editor/shad-editor.svelte';
     import type { Content } from "@tiptap/core";
     import { callApi } from "$lib/browser/api";
+    import * as Dialog from "$lib/components/ui/dialog/index.js";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import { Skeleton } from "$lib/components/ui/skeleton";
     import { allowUnload, preventUnload } from "$lib/browser/lock";
     import { toast } from "svelte-sonner";
-    import { ChevronDown, CloudAlert, PencilLine, Trash2 } from "lucide-svelte";
+    import { ChevronDown, CloudAlert, Trash2, Undo2 } from "lucide-svelte";
     import { browser } from "$app/environment";
     import { Button } from "$lib/components/ui/button";
     import { IconFileTextSpark } from "@tabler/icons-svelte";
@@ -15,6 +16,7 @@
     import RenderIcon from "$lib/components/icons/RenderIcon.svelte";
     import { Input } from "$lib/components/ui/input";
     import { onDestroy } from "svelte";
+    import { goto } from "$app/navigation";
 
     // Props
     let {
@@ -33,6 +35,7 @@
     let statusText = $state('saved');
     let connectionIsLost = $state(false);
     let publishTitle = $state('Untitled');
+    let deleteConfirmDialogIsOpen = $state(false);
 
     const fetchContent = async () => {
         try {
@@ -93,6 +96,17 @@
             toast.success('Published');
         } else {
             toast.error('Failed to publish');
+        }
+    };
+
+    const deleteNote = async () => {
+        const response = await callApi(noteEndpoint, "DELETE") as unknown as { ok: boolean };
+
+        if (response.ok) {
+            toast.success('Deleted');
+            await goto('/');
+        } else {
+            toast.error('Failed to delete');
         }
     };
 
@@ -161,10 +175,32 @@
                     <DropdownMenu.Group>
                         <DropdownMenu.GroupHeading>Dangerous Zone</DropdownMenu.GroupHeading>
                         <DropdownMenu.Separator />
-                        <DropdownMenu.Item class="text-red-500">
-                            <Trash2 />
-                            Delete
-                        </DropdownMenu.Item>
+                        <Dialog.Root bind:open={deleteConfirmDialogIsOpen}>
+                            <Dialog.Trigger class="w-full">
+                                <DropdownMenu.Item class="text-red-500">
+                                    <Trash2 />
+                                    Delete
+                                </DropdownMenu.Item>
+                            </Dialog.Trigger>
+                            <Dialog.Content>
+                                <Dialog.Header>
+                                    <Dialog.Title>
+                                        Are you sure absolutely sure?
+                                    </Dialog.Title>
+                                    <Dialog.Description>
+                                        This action cannot be undone. This will permanently delete the note.
+                                    </Dialog.Description>
+                                </Dialog.Header>
+                                <Dialog.Footer>
+                                    <Button variant="destructive" onclick={() => {deleteNote()}}>
+                                        <Trash2 />Delete forever
+                                    </Button>
+                                    <Button variant="outline" onclick={() => {deleteConfirmDialogIsOpen = false}}>
+                                        <Undo2 />Cancel
+                                    </Button>
+                                </Dialog.Footer>
+                            </Dialog.Content>
+                        </Dialog.Root>
                     </DropdownMenu.Group>
                 </DropdownMenu.Content>
             </DropdownMenu.Root>
