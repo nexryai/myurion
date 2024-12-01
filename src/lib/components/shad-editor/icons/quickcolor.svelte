@@ -3,7 +3,8 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { type Editor } from '@tiptap/core';
-	import { Check, ChevronDown } from 'lucide-svelte';
+	import { Check, ChevronDown, Highlighter, PenTool } from 'lucide-svelte';
+	import { cn } from '$lib/utils.js';
 
 	let { editor }: { editor: Editor } = $props();
 
@@ -28,9 +29,9 @@
 		<Tooltip.Trigger>
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger>
-					<Button variant="ghost" size="sm" class="h-8" style={`color: ${currentColor}`}>
-						A
-						<ChevronDown class="!size-3" />
+					<Button variant="ghost" size="sm" class={cn('h-8', currentColor && 'bg-muted')}>
+						<PenTool />
+						<ChevronDown class="!size-3 text-muted-foreground" />
 					</Button>
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content class="max-h-[25rem] w-40 overflow-auto">
