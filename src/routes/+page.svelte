@@ -2,4 +2,4 @@
 import XEditor from "$lib/components/XEditor.svelte";
 </script>
 
-<XEditor />
+<XEditor noteId={null} title={null} />
