@@ -20,8 +20,8 @@
         title,
         noteId
     }: {
-        title: string | undefined;
-        noteId: string | undefined;
+        title: string | null;
+        noteId: string | null;
     } = $props();
 
     const noteEndpoint = noteId ? `/api/note/${noteId}` : "/api/me/quick-note";
