@@ -14,6 +14,7 @@
     import { type NoteCategory } from "@prisma/client";
     import RenderIcon from "$lib/components/icons/RenderIcon.svelte";
     import { Input } from "$lib/components/ui/input";
+    import { onDestroy } from "svelte";
 
     // Props
     let {
@@ -94,6 +95,12 @@
             toast.error('Failed to publish');
         }
     };
+
+    onDestroy(() => {
+        if (timer) {
+            window.clearTimeout(timer);
+        }
+    });
 </script>
 
 <header class="flex h-12 items-center justify-between px-4">
