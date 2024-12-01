@@ -161,50 +161,52 @@
                 </DropdownMenu.Root>
             {/if}
             <p class="ml-4">{noteTitle} - {statusText}</p>
-            <DropdownMenu.Root>
-                <DropdownMenu.Trigger>
-                    <Button variant="ghost" class="ml-4 w-4 h-6">
-                        <ChevronDown />
-                    </Button>
-                </DropdownMenu.Trigger>
-                <DropdownMenu.Content class="w-48 mr-6">
-                    <DropdownMenu.Group>
-                        <DropdownMenu.GroupHeading>Rename</DropdownMenu.GroupHeading>
-                        <DropdownMenu.Separator />
-                        <Input class="mx-auto mt-3 mb-5 w-40" bind:value={noteTitle} />
-                    </DropdownMenu.Group>
-                    <DropdownMenu.Group>
-                        <DropdownMenu.GroupHeading>Dangerous Zone</DropdownMenu.GroupHeading>
-                        <DropdownMenu.Separator />
-                        <Dialog.Root bind:open={deleteConfirmDialogIsOpen}>
-                            <Dialog.Trigger class="w-full">
-                                <DropdownMenu.Item class="text-red-500">
-                                    <Trash2 />
-                                    Delete
-                                </DropdownMenu.Item>
-                            </Dialog.Trigger>
-                            <Dialog.Content>
-                                <Dialog.Header>
-                                    <Dialog.Title>
-                                        Are you sure absolutely sure?
-                                    </Dialog.Title>
-                                    <Dialog.Description>
-                                        This action cannot be undone. This will permanently delete the note.
-                                    </Dialog.Description>
-                                </Dialog.Header>
-                                <Dialog.Footer>
-                                    <Button variant="destructive" onclick={() => {deleteNote()}}>
-                                        <Trash2 />Delete forever
-                                    </Button>
-                                    <Button variant="outline" onclick={() => {deleteConfirmDialogIsOpen = false}}>
-                                        <Undo2 />Cancel
-                                    </Button>
-                                </Dialog.Footer>
-                            </Dialog.Content>
-                        </Dialog.Root>
-                    </DropdownMenu.Group>
-                </DropdownMenu.Content>
-            </DropdownMenu.Root>
+            {#if noteId}
+                <DropdownMenu.Root>
+                    <DropdownMenu.Trigger>
+                        <Button variant="ghost" class="ml-4 w-4 h-6">
+                            <ChevronDown />
+                        </Button>
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content class="w-48 mr-6">
+                        <DropdownMenu.Group>
+                            <DropdownMenu.GroupHeading>Rename</DropdownMenu.GroupHeading>
+                            <DropdownMenu.Separator />
+                            <Input class="mx-auto mt-3 mb-5 w-40" bind:value={noteTitle} />
+                        </DropdownMenu.Group>
+                        <DropdownMenu.Group>
+                            <DropdownMenu.GroupHeading>Dangerous Zone</DropdownMenu.GroupHeading>
+                            <DropdownMenu.Separator />
+                            <Dialog.Root bind:open={deleteConfirmDialogIsOpen}>
+                                <Dialog.Trigger class="w-full">
+                                    <DropdownMenu.Item class="text-red-500">
+                                        <Trash2 />
+                                        Delete
+                                    </DropdownMenu.Item>
+                                </Dialog.Trigger>
+                                <Dialog.Content>
+                                    <Dialog.Header>
+                                        <Dialog.Title>
+                                            Are you sure absolutely sure?
+                                        </Dialog.Title>
+                                        <Dialog.Description>
+                                            This action cannot be undone. This will permanently delete the note.
+                                        </Dialog.Description>
+                                    </Dialog.Header>
+                                    <Dialog.Footer>
+                                        <Button variant="destructive" onclick={() => {deleteNote()}}>
+                                            <Trash2 />Delete forever
+                                        </Button>
+                                        <Button variant="outline" onclick={() => {deleteConfirmDialogIsOpen = false}}>
+                                            <Undo2 />Cancel
+                                        </Button>
+                                    </Dialog.Footer>
+                                </Dialog.Content>
+                            </Dialog.Root>
+                        </DropdownMenu.Group>
+                    </DropdownMenu.Content>
+                </DropdownMenu.Root>
+            {/if}
         {/if}
     </div>
 </header>
