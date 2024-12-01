@@ -15,21 +15,20 @@
         currentPath: string;
     } = $props();
 
-    const shouldCollapse = (tree: NoteTree[]): boolean => {
-        for (const category of tree) {
-            for (const note of category.notes) {
-                if (currentPath === `/note/${note.id}`) {
-                    return false;
-                }
+    const shouldCollapse = (category: NoteTree): boolean => {
+        for (const note of category.notes) {
+            if (currentPath === `/note/${note.id}`) {
+                return false;
             }
         }
+
         return true;
     };
 </script>
 
 <Sidebar.Menu>
     {#each tree as category}
-        <Collapsible.Root open={!shouldCollapse(tree)} class="group/collapsible">
+        <Collapsible.Root open={!shouldCollapse(category)} class="group/collapsible">
             <Sidebar.MenuItem>
                 <Collapsible.Trigger>
                     {#snippet child({ props })}
