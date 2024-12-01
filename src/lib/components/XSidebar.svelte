@@ -6,7 +6,7 @@
 
     import { browser } from "$app/environment";
     import { goto } from "$app/navigation";
-    import AddCategoryDialog from "$lib/components/auth/AddCategoryDialog.svelte";
+    import AddCategoryDialog from "$lib/components/AddCategoryDialog.svelte";
     import { callApi } from "$lib/browser/api";
     import type { NoteTree } from "$lib/schema/note";
 
