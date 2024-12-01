@@ -58,9 +58,14 @@
         }
 
         timer = window.setTimeout(() => {
-            callApi(noteEndpoint, "PUT", {
+            const request = noteId ? {
+                "title" : noteTitle,
                 "content" : JSON.stringify(content)
-            }).catch(error => {
+            }: {
+                "content" : JSON.stringify(content)
+            };
+
+            callApi(noteEndpoint, "PUT", request).catch(error => {
                 console.error("Failed to save content", error);
                 toast.error('Failed to save content');
                 connectionIsLost = true;
