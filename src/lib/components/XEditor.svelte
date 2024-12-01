@@ -16,6 +16,7 @@
     import { Input } from "$lib/components/ui/input";
     import { onDestroy } from "svelte";
     import { beforeNavigate, goto } from "$app/navigation";
+    import { Label } from "$lib/components/ui/label";
 
     // Props
     let {
@@ -33,6 +34,8 @@
 
     // States
     let noteTitle = $state(title ?? "Loading...");
+    let characterCount = $state(0);
+    let createdAt: Date | undefined = $state(undefined);
     let statusText = $state('saved');
     let connectionIsLost = $state(false);
     let publishTitle = $state('Untitled');
@@ -40,8 +43,9 @@
 
     const fetchContent = async () => {
         try {
-            const response = await callApi(noteEndpoint, "GET") as unknown as { title?: string, content: string };
+            const response = await callApi(noteEndpoint, "GET") as unknown as { title?: string, content: string, createdAt?: string };
             noteTitle = noteId ? response.title ?? "Untitled" : "Quick Note";
+            createdAt = response.createdAt ? new Date(response.createdAt) : undefined;
             return response.content ? JSON.parse(response.content) as Content : "Start writing...";
         } catch (error) {
             console.error(error);
@@ -152,8 +156,6 @@
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Content class="w-64">
                         <DropdownMenu.Group>
-                            <DropdownMenu.GroupHeading>Title</DropdownMenu.GroupHeading>
-                            <DropdownMenu.Separator />
                             <Input class="mx-auto mt-4 mb-5 w-48" bind:value={publishTitle} />
                         </DropdownMenu.Group>
                         <DropdownMenu.Group>
@@ -185,21 +187,27 @@
                             <ChevronDown />
                         </Button>
                     </DropdownMenu.Trigger>
-                    <DropdownMenu.Content class="w-48 mr-6">
+                    <DropdownMenu.Content class="w-80 mr-6">
                         <DropdownMenu.Group>
-                            <DropdownMenu.GroupHeading>Rename</DropdownMenu.GroupHeading>
+                            <DropdownMenu.GroupHeading>Properties</DropdownMenu.GroupHeading>
                             <DropdownMenu.Separator />
-                            <Input class="mx-auto mt-3 mb-5 w-40" bind:value={noteTitle} />
+                            <div class="grid grid-cols-3 grid-rows-3 gap-4 p-4">
+                                <div><Label>Title</Label></div>
+                                <div class="col-span-2"><Input class="mx-auto w-40" bind:value={noteTitle} /></div>
+                                <div class="row-start-2"><Label>Character Count</Label></div>
+                                <div class="col-span-2 row-start-2"><p class="ml-5">{characterCount}</p></div>
+                                <div class="row-start-3"><Label>Created At</Label></div>
+                                <div class="col-span-2 row-start-3"><p class="ml-5">{createdAt ? createdAt.toLocaleString(navigator.language, { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }) : "Unknown"}</p></div>
+                            </div>
                         </DropdownMenu.Group>
                         <DropdownMenu.Group>
-                            <DropdownMenu.GroupHeading>Dangerous Zone</DropdownMenu.GroupHeading>
                             <DropdownMenu.Separator />
                             <Dialog.Root bind:open={deleteConfirmDialogIsOpen}>
-                                <Dialog.Trigger class="w-full">
-                                    <DropdownMenu.Item class="text-red-500">
+                                <Dialog.Trigger class="w-full text-right">
+                                    <Button variant="destructive" class="m-4">
                                         <Trash2 />
                                         Delete
-                                    </DropdownMenu.Item>
+                                    </Button>
                                 </Dialog.Trigger>
                                 <Dialog.Content>
                                     <Dialog.Header>
@@ -236,7 +244,7 @@
             </div>
         {:then content}
             {#if content}
-                <ShadEditor class="h-[40rem]" content={content} onChanged={onChanged} />
+                <ShadEditor class="h-[40rem]" content={content} bind:characterCount={characterCount} onChanged={onChanged} />
             {/if}
         {:catch error}
             <p class="text-red-500">{error.message}</p>

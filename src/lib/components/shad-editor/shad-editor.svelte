@@ -7,6 +7,7 @@
 	import EditorToolbar from './editor-toolbar.svelte';
 	import { cn } from '$lib/utils.js';
 
+	import CharacterCount from '@tiptap/extension-character-count'
 	import { Subscript } from '@tiptap/extension-subscript';
 	import { Superscript } from '@tiptap/extension-superscript';
 	import { Underline } from '@tiptap/extension-underline';
@@ -41,6 +42,7 @@
 	interface Props {
 		class?: string;
 		content?: Content;
+		characterCount?: number;
 		showToolbar?: boolean;
 		onChanged?: (content: Content) => void;
 	}
@@ -48,6 +50,7 @@
 	let {
 		class: className = '',
 		content = $bindable(''),
+		characterCount = $bindable(0),
 		showToolbar = true,
 		onChanged = () => {}
 	}: Props = $props();
@@ -124,7 +127,8 @@
 				TableRow,
 				TableHeader,
 				TableCell,
-				ImageExtension
+				ImageExtension,
+				CharacterCount
 			],
 			autofocus: true,
 			onTransaction: (transaction) => {
@@ -137,6 +141,7 @@
 				editor = undefined;
 				editor = transaction.editor;
 				content = editor.getJSON();
+				characterCount = editor.storage.characterCount.characters();
 				onChanged(content);
 			}
 		});
