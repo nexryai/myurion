@@ -56,7 +56,7 @@
         }
 
         timer = window.setTimeout(() => {
-            callApi(noteEndpoint, "POST", {
+            callApi(noteEndpoint, "PUT", {
                 "content" : JSON.stringify(content)
             }).catch(error => {
                 console.error("Failed to save content", error);
