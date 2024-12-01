@@ -185,6 +185,26 @@ export class AppController {
         })
 
         //@ts-ignore
+        this.router.post("/api/note/create", async ({uid, body}) => {
+            const created = await this.noteService.createNote(uid, body.title, body.content, body.categoryId)
+            return {
+                id: created
+            }
+        }, {
+            body: t.Object({
+                title: t.String({
+                    error: "title must be a string"
+                }),
+                content: t.String({
+                    error: "content must be a string"
+                }),
+                categoryId: t.String({
+                    error: "categoryId must be a string"
+                })
+            })
+        })
+
+        //@ts-ignore
         this.router.get("/api/note/tree", async ({uid}) => {
             return await this.noteService.getNoteTreeByUserId(uid)
         })
@@ -209,6 +229,38 @@ export class AppController {
         //@ts-ignore
         this.router.get("/api/note/categories", async ({uid}) => {
             return await this.noteService.getNoteCategoriesByUserId(uid)
+        })
+
+        // catch-allなので最後に置く
+        //@ts-ignore
+        this.router.get("/api/note/:noteId", async ({uid, params}) => {
+            return await this.noteService.getNoteById(uid, params.noteId)
+        }, {
+            params: t.Object({
+                noteId: t.String({
+                    error: "noteId must be a string"
+                })
+            })
+        })
+
+        //@ts-ignore
+        this.router.put("/api/note/:noteId", async ({uid, params, body}) => {
+            const updated = await this.noteService.updateNoteById(uid, params.noteId, body.title, body.content)
+            return { ok: updated }
+        }, {
+            params: t.Object({
+                noteId: t.String({
+                    error: "noteId must be a string"
+                })
+            }),
+            body: t.Object({
+                title: t.String({
+                    error: "title must be a string"
+                }),
+                content: t.String({
+                    error: "content must be a string"
+                })
+            })
         })
     }
 }

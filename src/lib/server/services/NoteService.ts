@@ -1,4 +1,4 @@
-import { Prisma, type Note, type NoteCategory } from "@prisma/client";
+import type { Note, NoteCategory } from "@prisma/client";
 import type { INoteCategoryRepository, INoteRepository } from "$lib/server/prisma";
 import type { NoteTree } from "$lib/schema/note";
 
@@ -7,23 +7,6 @@ export class NoteService {
         private readonly noteRepository: INoteRepository,
         private readonly noteCategoryRepository: INoteCategoryRepository
     ) {}
-
-    public async getNoteById(id: string): Promise<Note | null> {
-        return this.noteRepository.findUnique({ where: { id } })
-    }
-
-    public async getNotesByUserId(uid: string): Promise<Note[]> {
-        return this.noteRepository.findMany({ where: { userId: uid } })
-    }
-
-    public async updateNoteById(id: string, data: Prisma.NoteUpdateInput): Promise<Note> {
-        return this.noteRepository.update({ where: { id }, data })
-    }
-
-    public async deleteNoteById(id: string): Promise<void> {
-        await this.noteRepository.delete({ where: { id } })
-        return
-    }
 
     public async createNote(uid: string, title: string, content: string, categoryId: string): Promise<string> {
         const created = await this.noteRepository.create({
@@ -43,6 +26,30 @@ export class NoteService {
         });
 
         return created.id;
+    }
+
+    public async getNoteById(uid: string, noteId: string): Promise<Note | null> {
+        return this.noteRepository.findUnique({
+            where: {
+                id: noteId,
+                userId: uid
+            }
+        });
+    }
+
+    public async updateNoteById(uid: string, noteId: string, title: string, content: string): Promise<boolean> {
+        const updated = await this.noteRepository.update({
+            where: {
+                id: noteId,
+                userId: uid
+            },
+            data: {
+                title: title,
+                content: content
+            }
+        });
+
+        return updated !== null;
     }
 
     public async getNoteTreeByUserId(uid: string): Promise<NoteTree[]> {
