@@ -3,4 +3,6 @@
     let { data } = $props();
 </script>
 
-<XEditor noteId={data.id} title={null} />
+{#key data.id}
+    <XEditor noteId={data.id} title={null} />
+{/key}

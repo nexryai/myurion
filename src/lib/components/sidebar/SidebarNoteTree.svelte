@@ -6,6 +6,7 @@
     import { Ellipsis } from "lucide-svelte";
     import ChevronRight from "lucide-svelte/icons/chevron-right";
     import RenderIcon from "$lib/components/icons/RenderIcon.svelte";
+    import { goto } from "$app/navigation";
 
     let {
         tree
@@ -37,11 +38,9 @@
                     <Sidebar.MenuSub>
                         {#each category.notes as note}
                             <Sidebar.MenuSubItem>
-                                <Sidebar.MenuButton>
+                                <Sidebar.MenuButton onclick={() => {goto(`/note/${note.id}`)}}>
                                     {#snippet child({ props })}
-                                        <a href={`/note/${note.id}`} {...props}>
-                                            <span>{note.title}</span>
-                                        </a>
+                                        <span {...props}>{note.title}</span>
                                     {/snippet}
                                 </Sidebar.MenuButton>
                                 <DropdownMenu.Root>
