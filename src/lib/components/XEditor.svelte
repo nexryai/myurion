@@ -94,6 +94,7 @@
 
         if (response.created) {
             toast.success('Published');
+            await goto(`/note/${response.created}`);
         } else {
             toast.error('Failed to publish');
         }
