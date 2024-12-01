@@ -1,6 +1,6 @@
 <script lang="ts">
-    import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import * as Sidebar from "$lib/components/ui/sidebar/index.js";
+    import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import * as Command from "$lib/components/ui/command/index.js";
     import { ChevronUp, LoaderCircle, Plus, Search, Zap } from "lucide-svelte";
 
@@ -11,6 +11,7 @@
     import type { NoteTree } from "$lib/schema/note";
 
     import SidebarNoteTree from "$lib/components/sidebar/SidebarNoteTree.svelte";
+    import { page } from "$app/stores";
 
     // props
     let {
@@ -28,6 +29,15 @@
         return response as NoteTree[];
     };
 
+    let currentPath = $state($page.url.pathname);
+    $effect(() => {
+        if (currentPath !== $page.url.pathname) {
+            searchDialogIsOpen = false
+            addCategoryDialogIsOpen = false
+            currentPath = $page.url.pathname
+        }
+    });
+
 </script>
 
 <Sidebar.Root>
@@ -37,7 +47,7 @@
             <Sidebar.GroupContent>
                 <Sidebar.Menu>
                     <Sidebar.MenuItem>
-                        <Sidebar.MenuButton isActive>
+                        <Sidebar.MenuButton isActive={currentPath === "/"}>
                             {#snippet child({ props })}
                                 <a tabindex={0} href="/" {...props}>
                                     <Zap />
@@ -72,7 +82,7 @@
                     </div>
                 {:then tree}
                     {#if tree}
-                        <SidebarNoteTree tree={tree} />
+                        <SidebarNoteTree tree={tree} bind:currentPath={currentPath} />
                     {/if}
                 {:catch error}
                     <p class="text-red-500">{error.message}</p>

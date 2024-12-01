@@ -5,17 +5,31 @@
     import ChevronRight from "lucide-svelte/icons/chevron-right";
     import RenderIcon from "$lib/components/icons/RenderIcon.svelte";
     import { goto } from "$app/navigation";
+    import { page } from "$app/stores";
 
     let {
-        tree
+        tree,
+        currentPath = $bindable($page.url.pathname)
     }: {
         tree: NoteTree[];
+        currentPath: string;
     } = $props();
+
+    const shouldCollapse = (tree: NoteTree[]): boolean => {
+        for (const category of tree) {
+            for (const note of category.notes) {
+                if (currentPath === `/note/${note.id}`) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
 </script>
 
 <Sidebar.Menu>
     {#each tree as category}
-        <Collapsible.Root open class="group/collapsible">
+        <Collapsible.Root open={!shouldCollapse(tree)} class="group/collapsible">
             <Sidebar.MenuItem>
                 <Collapsible.Trigger>
                     {#snippet child({ props })}
@@ -36,7 +50,7 @@
                     <Sidebar.MenuSub>
                         {#each category.notes as note}
                             <Sidebar.MenuSubItem>
-                                <Sidebar.MenuButton onclick={() => {goto(`/note/${note.id}`)}}>
+                                <Sidebar.MenuButton onclick={() => {goto(`/note/${note.id}`)}} isActive={currentPath === `/note/${note.id}` }>
                                     {#snippet child({ props })}
                                         <span {...props}>{note.title}</span>
                                     {/snippet}
