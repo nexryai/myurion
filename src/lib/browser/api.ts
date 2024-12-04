@@ -1,4 +1,6 @@
-export async function callApi<T>(url: string, method: string, body?: unknown): Promise<T> {
+type allowedMethods = 'GET' | 'POST' | 'PUT' | 'DELETE';
+
+export async function callApi<T>(url: string, method: allowedMethods, body?: unknown): Promise<T> {
     console.group('API CALL');
     console.log('URL:', url);
     console.log('Method:', method);
