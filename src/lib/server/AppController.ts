@@ -39,32 +39,6 @@ export class AppController {
             return "An unexpected error occurred. The request was aborted."
         })
 
-    private readonly authMiddleware = (app: Elysia) =>
-        app.derive(({ cookie: {token} }) => {
-            if (!token || !token.value) {
-                return error(401, {
-                    message: 'Unauthorized',
-                    uid: null,
-                })
-            }
-
-            try {
-                const user = this.passkeyAuthService.decryptToken(token.value, false)
-                if (!user) {
-                    throw new Error("Invalid token")
-                }
-
-                return {
-                    uid: user.uid,
-                }
-            } catch {
-                return error(401, {
-                    message: 'Unauthorized',
-                    uid: null,
-                })
-            }
-        })
-
     public configAuthRouter() {
         this.router.post("/auth/register-request", async ({body, cookie: {challengeSession}}) => {
             const user = await this.userService.createUser({name: body.displayName})
@@ -138,141 +112,151 @@ export class AppController {
 
     public configApiRouter() {
         this.router.use(this.errorHandler)
-        this.router.use(this.authMiddleware)
-
-        //@ts-ignore
-        this.router.get("/api/me", async ({uid}) => {
-            return await this.userService.getUserById(uid)
-        })
-
-        //@ts-ignore
-        this.router.put("/api/me/quick-note", async ({uid, body}) => {
-            await this.userService.updateQuickNote(uid, body.content)
-            return {
-                saved: true
-            }
-        }, {
-            body: t.Object({
-                content: t.String({
-                    error: "content must be a string"
+        this.router.derive(({ cookie: {token} }) => {
+            // Auth middleware
+            if (!token || !token.value) {
+                return error(401, {
+                    message: 'Unauthorized',
+                    uid: null,
                 })
-            })
-        })
+            }
 
-        //@ts-ignore
-        this.router.get("/api/me/quick-note", async ({uid}) => {
-            const note = await this.userService.getQuickNote(uid)
-            return {
-                content: note
+            try {
+                const user = this.passkeyAuthService.decryptToken(token.value, false)
+                if (!user) {
+                    throw new Error("Invalid token")
+                }
+
+                return {
+                    uid: user.uid,
+                }
+            } catch {
+                return error(401, {
+                    message: 'Unauthorized',
+                    uid: null,
+                })
             }
         })
+            .get("/api/me", async ({uid}) => {
+                return await this.userService.getUserById(uid)
+            }).put("/api/me/quick-note", async ({uid, body}) => {
+                await this.userService.updateQuickNote(uid, body.content)
+                return {
+                    saved: true
+                }
+            }, {
+                body: t.Object({
+                    content: t.String({
+                        error: "content must be a string"
+                    })
+                })
+            })
 
-        //@ts-ignore
-        this.router.post("/api/me/promote-quick-note", async ({uid, body}) => {
-            const quickNoteContent = await this.userService.getQuickNote(uid)
-            const created = await this.noteService.createNote(uid, body.title, quickNoteContent, body.categoryId)
-            await this.userService.updateQuickNote(uid, "")
-            return { created }
-        }, {
-            body: t.Object({
-                categoryId: t.String({
-                    error: "id must be a string"
+            .get("/api/me/quick-note", async ({uid}) => {
+                const note = await this.userService.getQuickNote(uid)
+                return {
+                    content: note
+                }
+            })
+
+            .post("/api/me/promote-quick-note", async ({uid, body}) => {
+                const quickNoteContent = await this.userService.getQuickNote(uid)
+                const created = await this.noteService.createNote(uid, body.title, quickNoteContent, body.categoryId)
+                await this.userService.updateQuickNote(uid, "")
+                return { created }
+            }, {
+                body: t.Object({
+                    categoryId: t.String({
+                        error: "id must be a string"
+                    }),
+                    title: t.String({
+                        error: "title must be a string"
+                    })
+                })
+            })
+
+            .post("/api/note/create", async ({uid, body}) => {
+                const created = await this.noteService.createNote(uid, body.title, body.content, body.categoryId)
+                return {
+                    id: created
+                }
+            }, {
+                body: t.Object({
+                    title: t.String({
+                        error: "title must be a string"
+                    }),
+                    content: t.String({
+                        error: "content must be a string"
+                    }),
+                    categoryId: t.String({
+                        error: "categoryId must be a string"
+                    })
+                })
+            })
+
+            .get("/api/note/tree", async ({uid}) => {
+                return await this.noteService.getNoteTreeByUserId(uid)
+            })
+
+            .post("/api/note/create-category", async ({uid, body}) => {
+                const categoryId = await this.noteService.createNoteCategory(uid, body.name, body.iconName)
+                return {
+                    id: categoryId
+                }
+            }, {
+                body: t.Object({
+                    name: t.String({
+                        error: "name must be a string"
+                    }),
+                    iconName: t.String({
+                        error: "iconName must be a string"
+                    })
+                })
+            })
+
+            .get("/api/note/categories", async ({uid}) => {
+                return await this.noteService.getNoteCategoriesByUserId(uid)
+            })
+
+            // catch-allなので最後に置く
+            .get("/api/note/:noteId", async ({uid, params}) => {
+                return await this.noteService.getNoteById(uid, params.noteId)
+            }, {
+                params: t.Object({
+                    noteId: t.String({
+                        error: "noteId must be a string"
+                    })
+                })
+            })
+
+            .put("/api/note/:noteId", async ({uid, params, body}) => {
+                const updated = await this.noteService.updateNoteById(uid, params.noteId, body.title, body.content)
+                return { ok: updated }
+            }, {
+                params: t.Object({
+                    noteId: t.String({
+                        error: "noteId must be a string"
+                    })
                 }),
-                title: t.String({
-                    error: "title must be a string"
+                body: t.Object({
+                    title: t.String({
+                        error: "title must be a string"
+                    }),
+                    content: t.String({
+                        error: "content must be a string"
+                    })
                 })
             })
-        })
 
-        //@ts-ignore
-        this.router.post("/api/note/create", async ({uid, body}) => {
-            const created = await this.noteService.createNote(uid, body.title, body.content, body.categoryId)
-            return {
-                id: created
-            }
-        }, {
-            body: t.Object({
-                title: t.String({
-                    error: "title must be a string"
-                }),
-                content: t.String({
-                    error: "content must be a string"
-                }),
-                categoryId: t.String({
-                    error: "categoryId must be a string"
+            .delete("/api/note/:noteId", async ({uid, params}) => {
+                const deleted = await this.noteService.deleteNoteById(uid, params.noteId)
+                return { ok: deleted }
+            }, {
+                params: t.Object({
+                    noteId: t.String({
+                        error: "noteId must be a string"
+                    })
                 })
             })
-        })
-
-        //@ts-ignore
-        this.router.get("/api/note/tree", async ({uid}) => {
-            return await this.noteService.getNoteTreeByUserId(uid)
-        })
-
-        //@ts-ignore
-        this.router.post("/api/note/create-category", async ({uid, body}) => {
-            const categoryId = await this.noteService.createNoteCategory(uid, body.name, body.iconName)
-            return {
-                id: categoryId
-            }
-        }, {
-            body: t.Object({
-                name: t.String({
-                    error: "name must be a string"
-                }),
-                iconName: t.String({
-                    error: "iconName must be a string"
-                })
-            })
-        })
-
-        //@ts-ignore
-        this.router.get("/api/note/categories", async ({uid}) => {
-            return await this.noteService.getNoteCategoriesByUserId(uid)
-        })
-
-        // catch-allなので最後に置く
-        //@ts-ignore
-        this.router.get("/api/note/:noteId", async ({uid, params}) => {
-            return await this.noteService.getNoteById(uid, params.noteId)
-        }, {
-            params: t.Object({
-                noteId: t.String({
-                    error: "noteId must be a string"
-                })
-            })
-        })
-
-        //@ts-ignore
-        this.router.put("/api/note/:noteId", async ({uid, params, body}) => {
-            const updated = await this.noteService.updateNoteById(uid, params.noteId, body.title, body.content)
-            return { ok: updated }
-        }, {
-            params: t.Object({
-                noteId: t.String({
-                    error: "noteId must be a string"
-                })
-            }),
-            body: t.Object({
-                title: t.String({
-                    error: "title must be a string"
-                }),
-                content: t.String({
-                    error: "content must be a string"
-                })
-            })
-        })
-
-        //@ts-ignore
-        this.router.delete("/api/note/:noteId", async ({uid, params}) => {
-            const deleted = await this.noteService.deleteNoteById(uid, params.noteId)
-            return { ok: deleted }
-        }, {
-            params: t.Object({
-                noteId: t.String({
-                    error: "noteId must be a string"
-                })
-            })
-        })
     }
 }
