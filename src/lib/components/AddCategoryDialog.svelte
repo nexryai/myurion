@@ -21,13 +21,12 @@
             return;
         }
 
-        const resp = await callApi('/api/note/create-category', 'POST', {
+        const response = await callApi<{ id :string }>('/api/note/create-category', 'POST', {
             name,
             iconName: icon,
         });
 
-        const created = resp as unknown as {id :string}
-        if (created.id) {
+        if (response.id) {
             isOpen = false;
         }
     }

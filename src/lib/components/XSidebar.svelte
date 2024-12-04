@@ -25,8 +25,7 @@
     let addCategoryDialogIsOpen = $state(false);
 
     const fetchNoteTree = async (): Promise<NoteTree[]> => {
-        const response = await callApi("/api/note/tree", "GET");
-        return response as NoteTree[];
+        return callApi<NoteTree[]>("/api/note/tree", "GET");
     };
 
     let currentPath = $state($page.url.pathname);
@@ -37,7 +36,6 @@
             currentPath = $page.url.pathname
         }
     });
-
 </script>
 
 <Sidebar.Root>
