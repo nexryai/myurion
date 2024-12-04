@@ -139,7 +139,9 @@ export class AppController {
         })
             .get("/api/me", async ({uid}) => {
                 return await this.userService.getUserById(uid)
-            }).put("/api/me/quick-note", async ({uid, body}) => {
+            })
+
+            .put("/api/me/quick-note", async ({uid, body}) => {
                 await this.userService.updateQuickNote(uid, body.content)
                 return {
                     saved: true
