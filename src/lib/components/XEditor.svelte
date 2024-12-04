@@ -43,7 +43,7 @@
 
     const fetchContent = async () => {
         try {
-            const response = await callApi(noteEndpoint, "GET") as unknown as { title?: string, content: string, createdAt?: string };
+            const response = await callApi<{ title?: string, content: string, createdAt?: string }>(noteEndpoint, "GET");
             noteTitle = noteId ? response.title ?? "Untitled" : "Quick Note";
             createdAt = response.createdAt ? new Date(response.createdAt) : undefined;
             return response.content ? JSON.parse(response.content) as Content : "Start writing...";
@@ -53,9 +53,8 @@
         }
     };
 
-    const fetchNoteCategories = async () => {
-        const response = await callApi("/api/note/categories", "GET");
-        return response as NoteCategory[];
+    const fetchNoteCategories = async (): Promise<NoteCategory[]> => {
+        return callApi<NoteCategory[]>("/api/note/categories", "GET");
     };
 
     const onChanged = (content: Content) => {
@@ -100,10 +99,10 @@
             return;
         }
 
-        const response = await callApi("/api/me/promote-quick-note", "POST", {
+        const response = await callApi<{ created: string }>("/api/me/promote-quick-note", "POST", {
             title: publishTitle,
             categoryId,
-        }) as unknown as { created: string };
+        });
 
         if (response.created) {
             toast.success('Published');
@@ -114,7 +113,7 @@
     };
 
     const deleteNote = async () => {
-        const response = await callApi(noteEndpoint, "DELETE") as unknown as { ok: boolean };
+        const response = await callApi<{ ok: boolean }>(noteEndpoint, "DELETE");
 
         if (response.ok) {
             toast.success('Deleted');

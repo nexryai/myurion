@@ -8,7 +8,7 @@ export async function callApi<T>(url: string, method: string, body?: unknown): P
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
+        body: body ? JSON.stringify(body) : undefined,
     }).catch((error) => {
         console.error('API call failed - unexpected exception');
         console.group('ERROR DETAILS');
@@ -29,8 +29,8 @@ export async function callApi<T>(url: string, method: string, body?: unknown): P
         throw new Error('API call failed: non-ok status code');
     }
 
+    const data: T = await response.json();
     console.log('SUCCESS!');
     console.groupEnd();
-
-    return response.json();
+    return data;
 }
