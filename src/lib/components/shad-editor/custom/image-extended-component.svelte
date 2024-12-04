@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { onDestroy, onMount } from 'svelte';
-	import { NodeViewWrapper } from 'svelte-tiptap';
-	import type { NodeViewProps } from '@tiptap/core';
-	import { cn } from '$lib/utils.js';
-	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
+	import { onDestroy, onMount } from "svelte";
+	import { NodeViewWrapper } from "svelte-tiptap";
+	import type { NodeViewProps } from "@tiptap/core";
+	import { cn } from "$lib/utils.js";
+	import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
 	import {
 		AlignCenter,
 		AlignLeft,
@@ -13,9 +13,9 @@
 		Fullscreen,
 		Trash,
 		Captions
-	} from 'lucide-svelte';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-	import { duplicateContent } from './utils.js';
+	} from "lucide-svelte";
+	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+	import { duplicateContent } from "./utils.js";
 
 	const { node, editor, selected, deleteNode, updateAttributes }: NodeViewProps = $props();
 
@@ -27,10 +27,10 @@
 	let resizing = $state(false);
 	let resizingInitialWidth = $state(0);
 	let resizingInitialMouseX = $state(0);
-	let resizingPosition = $state<'left' | 'right'>('left');
+	let resizingPosition = $state<"left" | "right">("left");
 	let openedMore = $state(false);
 
-	function handleResizingPosition(e: MouseEvent, position: 'left' | 'right') {
+	function handleResizingPosition(e: MouseEvent, position: "left" | "right") {
 		startResize(e);
 		resizingPosition = position;
 	}
@@ -45,7 +45,7 @@
 	function resize(e: MouseEvent) {
 		if (!resizing) return;
 		let dx = e.clientX - resizingInitialMouseX;
-		if (resizingPosition === 'left') {
+		if (resizingPosition === "left") {
 			dx = resizingInitialMouseX - e.clientX;
 		}
 		const newWidth = Math.max(resizingInitialWidth + dx, minWidth);
@@ -61,7 +61,7 @@
 		resizingInitialWidth = 0;
 	}
 
-	function handleTouchStart(e: TouchEvent, position: 'left' | 'right') {
+	function handleTouchStart(e: TouchEvent, position: "left" | "right") {
 		e.preventDefault();
 		resizing = true;
 		resizingPosition = position;
@@ -72,7 +72,7 @@
 	function handleTouchMove(e: TouchEvent) {
 		if (!resizing) return;
 		let dx = e.touches[0].clientX - resizingInitialMouseX;
-		if (resizingPosition === 'left') {
+		if (resizingPosition === "left") {
 			dx = resizingInitialMouseX - e.touches[0].clientX;
 		}
 		const newWidth = Math.max(resizingInitialWidth + dx, minWidth);
@@ -90,36 +90,36 @@
 
 	onMount(() => {
 		// Attach id to nodeRef
-		nodeRef = document.getElementById('resizable-container') as HTMLDivElement;
+		nodeRef = document.getElementById("resizable-container") as HTMLDivElement;
 
 		// Mouse events
-		window.addEventListener('mousemove', resize);
-		window.addEventListener('mouseup', endResize);
+		window.addEventListener("mousemove", resize);
+		window.addEventListener("mouseup", endResize);
 		// Touch events
-		window.addEventListener('touchmove', handleTouchMove);
-		window.addEventListener('touchend', handleTouchEnd);
+		window.addEventListener("touchmove", handleTouchMove);
+		window.addEventListener("touchend", handleTouchEnd);
 	});
 
 	onDestroy(() => {
-		window.removeEventListener('mousemove', resize);
-		window.removeEventListener('mouseup', endResize);
-		window.removeEventListener('touchmove', handleTouchMove);
-		window.removeEventListener('touchend', handleTouchEnd);
+		window.removeEventListener("mousemove", resize);
+		window.removeEventListener("mouseup", endResize);
+		window.removeEventListener("touchmove", handleTouchMove);
+		window.removeEventListener("touchend", handleTouchEnd);
 	});
 </script>
 
 <NodeViewWrapper
 	id="resizable-container"
 	class={cn(
-		'relative flex flex-col rounded-md border-2 border-transparent',
-		selected ? 'border-muted-foreground' : '',
-		node.attrs.align === 'left' && 'left-0 -translate-x-0',
-		node.attrs.align === 'center' && 'left-1/2 -translate-x-1/2',
-		node.attrs.align === 'right' && 'left-full -translate-x-full'
+		"relative flex flex-col rounded-md border-2 border-transparent",
+		selected ? "border-muted-foreground" : "",
+		node.attrs.align === "left" && "left-0 -translate-x-0",
+		node.attrs.align === "center" && "left-1/2 -translate-x-1/2",
+		node.attrs.align === "right" && "left-full -translate-x-full"
 	)}
 	style={`width: ${node.attrs.width}px`}
 >
-	<div class={cn('group relative flex flex-col rounded-md', resizing && '')}>
+	<div class={cn("group relative flex flex-col rounded-md", resizing && "")}>
 		<img
 			bind:this={imgRef}
 			src={node.attrs.src}
@@ -127,7 +127,7 @@
 			title={node.attrs.title}
 			class="m-0 object-cover"
 		/>
-		{#if node.attrs.title !== null && node.attrs.title.trim() !== ''}
+		{#if node.attrs.title !== null && node.attrs.title.trim() !== ""}
 			<input
 				value={node.attrs.title}
 				type="text"
@@ -148,10 +148,10 @@
 				class="absolute inset-y-0 z-20 flex w-[25px] cursor-col-resize items-center justify-start p-2"
 				style="left: 0px"
 				onmousedown={(event: MouseEvent) => {
-					handleResizingPosition(event, 'left');
+					handleResizingPosition(event, "left");
 				}}
 				ontouchstart={(event: TouchEvent) => {
-					handleTouchStart(event, 'left');
+					handleTouchStart(event, "left");
 				}}
 			>
 				<div
@@ -166,10 +166,10 @@
 				class="absolute inset-y-0 z-20 flex w-[25px] cursor-col-resize items-center justify-end p-2"
 				style="right: 0px"
 				onmousedown={(event: MouseEvent) => {
-					handleResizingPosition(event, 'right');
+					handleResizingPosition(event, "right");
 				}}
 				ontouchstart={(event: TouchEvent) => {
-					handleTouchStart(event, 'right');
+					handleTouchStart(event, "right");
 				}}
 			>
 				<div
@@ -178,42 +178,42 @@
 			</div>
 			<div
 				class={cn(
-					'absolute right-4 top-2 flex items-center gap-1 rounded border bg-background p-1 opacity-0 transition-opacity',
-					!resizing && 'group-hover:opacity-100',
-					openedMore && 'opacity-100'
+					"absolute right-4 top-2 flex items-center gap-1 rounded border bg-background p-1 opacity-0 transition-opacity",
+					!resizing && "group-hover:opacity-100",
+					openedMore && "opacity-100"
 				)}
 			>
 				<Button
 					variant="ghost"
-					class={cn('size-6 p-0', node.attrs.align === 'left' && 'bg-muted')}
-					onclick={() => updateAttributes({ align: 'left' })}
+					class={cn("size-6 p-0", node.attrs.align === "left" && "bg-muted")}
+					onclick={() => updateAttributes({ align: "left" })}
 				>
 					<AlignLeft class="size-4" />
 				</Button>
 				<Button
 					variant="ghost"
-					class={cn('size-6 p-0', node.attrs.align === 'center' && 'bg-muted')}
-					onclick={() => updateAttributes({ align: 'center' })}
+					class={cn("size-6 p-0", node.attrs.align === "center" && "bg-muted")}
+					onclick={() => updateAttributes({ align: "center" })}
 				>
 					<AlignCenter class="size-4" />
 				</Button>
 				<Button
 					variant="ghost"
-					class={cn('size-6 p-0', node.attrs.align === 'right' && 'bg-muted')}
-					onclick={() => updateAttributes({ align: 'right' })}
+					class={cn("size-6 p-0", node.attrs.align === "right" && "bg-muted")}
+					onclick={() => updateAttributes({ align: "right" })}
 				>
 					<AlignRight class="size-4" />
 				</Button>
 				<DropdownMenu.Root bind:open={openedMore} onOpenChange={(value) => (openedMore = value)}>
-					<DropdownMenu.Trigger class={buttonVariants({ variant: 'ghost', class: 'size-6 p-0' })}>
+					<DropdownMenu.Trigger class={buttonVariants({ variant: "ghost", class: "size-6 p-0" })}>
 						<EllipsisVertical class="size-4" />
 					</DropdownMenu.Trigger>
 					<DropdownMenu.Content align="start" alignOffset={-90} class="mt-1 overflow-auto text-sm">
 						<DropdownMenu.Item
 							onclick={() => {
-								if (node.attrs.title === null || node.attrs.title.trim() === '')
+								if (node.attrs.title === null || node.attrs.title.trim() === "")
 									updateAttributes({
-										title: 'Image Caption'
+										title: "Image Caption"
 									});
 							}}
 						>
@@ -229,7 +229,7 @@
 						<DropdownMenu.Item
 							onclick={() => {
 								updateAttributes({
-									width: 'fit-content'
+									width: "fit-content"
 								});
 							}}
 						>

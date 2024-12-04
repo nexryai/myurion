@@ -1,5 +1,5 @@
 <script lang="ts">
-    import '../app.css';
+    import "../app.css";
     let { children } = $props();
 
     import * as Sidebar from "$lib/components/ui/sidebar/index.js";
@@ -33,15 +33,15 @@
         } catch (error) {
             console.error(error);
             toast.error("Failed to sign in", {
-                description: `An error occurred while signing in. Please try again later.`,
+                description: "An error occurred while signing in. Please try again later.",
             });
         }
-    }
+    };
 
     const setUserInformation = async (res: Response) => {
         const user: User = await res.json();
         username = user.name ?? "User";
-    }
+    };
 
     if (browser && isSignedIn) {
         // fetch user data

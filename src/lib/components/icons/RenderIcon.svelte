@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { userSelectableIcons } from './icons'; // アイコンリストをimport
+    import { userSelectableIcons } from "./icons"; // アイコンリストをimport
 
     let {
         iconName,

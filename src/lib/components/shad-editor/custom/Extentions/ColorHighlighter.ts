@@ -1,10 +1,10 @@
-import { Extension } from '@tiptap/core';
-import { Plugin } from '@tiptap/pm/state';
+import { Extension } from "@tiptap/core";
+import { Plugin } from "@tiptap/pm/state";
 
-import findColors from '../utils.js';
+import findColors from "../utils.js";
 
 export const ColorHighlighter = Extension.create({
-	name: 'colorHighlighter',
+	name: "colorHighlighter",
 
 	addProseMirrorPlugins() {
 		return [

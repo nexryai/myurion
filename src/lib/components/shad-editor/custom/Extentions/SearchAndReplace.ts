@@ -20,12 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import { Extension, type Range, type Dispatch } from '@tiptap/core';
-import { Decoration, DecorationSet } from '@tiptap/pm/view';
-import { Plugin, PluginKey, type EditorState, type Transaction } from '@tiptap/pm/state';
-import { Node as PMNode } from '@tiptap/pm/model';
+import { Extension, type Range, type Dispatch } from "@tiptap/core";
+import { Decoration, DecorationSet } from "@tiptap/pm/view";
+import { Plugin, PluginKey, type EditorState, type Transaction } from "@tiptap/pm/state";
+import { Node as PMNode } from "@tiptap/pm/model";
 
-declare module '@tiptap/core' {
+declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
 		search: {
 			/**
@@ -71,8 +71,8 @@ interface TextNodesWithPosition {
 
 const getRegex = (s: string, disableRegex: boolean, caseSensitive: boolean): RegExp => {
 	return RegExp(
-		disableRegex ? s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') : s,
-		caseSensitive ? 'gu' : 'gui'
+		disableRegex ? s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") : s,
+		caseSensitive ? "gu" : "gui"
 	);
 };
 
@@ -125,7 +125,7 @@ function processSearches(
 		const matches = Array.from(text.matchAll(searchTerm)).filter(([matchText]) => matchText.trim());
 
 		for (const m of matches) {
-			if (m[0] === '') break;
+			if (m[0] === "") break;
 
 			if (m.index !== undefined) {
 				results.push({
@@ -218,7 +218,7 @@ const replaceAll = (
 	dispatch(tr);
 };
 
-export const searchAndReplacePluginKey = new PluginKey('searchAndReplacePlugin');
+export const searchAndReplacePluginKey = new PluginKey("searchAndReplacePlugin");
 
 export interface SearchAndReplaceOptions {
 	searchResultClass: string;
@@ -237,21 +237,21 @@ export interface SearchAndReplaceStorage {
 }
 
 export const SearchAndReplace = Extension.create<SearchAndReplaceOptions, SearchAndReplaceStorage>({
-	name: 'searchAndReplace',
+	name: "searchAndReplace",
 
 	addOptions() {
 		return {
-			searchResultClass: 'search-result',
+			searchResultClass: "search-result",
 			disableRegex: true
 		};
 	},
 
 	addStorage() {
 		return {
-			searchTerm: '',
-			replaceTerm: '',
+			searchTerm: "",
+			replaceTerm: "",
 			results: [],
-			lastSearchTerm: '',
+			lastSearchTerm: "",
 			caseSensitive: false,
 			lastCaseSensitive: false,
 			resultIndex: 0,

@@ -9,11 +9,11 @@
     let { isOpen = $bindable() } : {isOpen: boolean} = $props();
 
     let readyToSubmit = $state<boolean>(false);
-    let name = $state<string>('');
-    let icon = $state<string>('');
+    let name = $state<string>("");
+    let icon = $state<string>("");
 
     $effect(() => {
-        readyToSubmit = name.length > 0 && icon !== '';
+        readyToSubmit = name.length > 0 && icon !== "";
     });
 
     async function create() {
@@ -21,7 +21,7 @@
             return;
         }
 
-        const response = await callApi<{ id :string }>('/api/note/create-category', 'POST', {
+        const response = await callApi<{ id :string }>("/api/note/create-category", "POST", {
             name,
             iconName: icon,
         });
@@ -58,7 +58,7 @@
             <Button
                     disabled={!readyToSubmit}
                     type="submit"
-                    onclick={() => {create()}}
+                    onclick={() => {create();}}
             >
                 Create
             </Button>

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { Input } from '$lib/components/ui/input/index.js';
-	import * as Popover from '$lib/components/ui/popover/index.js';
-	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import { type Editor } from '@tiptap/core';
+	import { Button } from "$lib/components/ui/button/index.js";
+	import { Input } from "$lib/components/ui/input/index.js";
+	import * as Popover from "$lib/components/ui/popover/index.js";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { type Editor } from "@tiptap/core";
 	import {
 		ArrowLeft,
 		ArrowRight,
@@ -12,12 +12,12 @@
 		Replace,
 		ReplaceAll,
 		ChevronDown
-	} from 'lucide-svelte';
+	} from "lucide-svelte";
 
 	let { editor }: { editor: Editor } = $props();
 
-	let searchText = $state('');
-	let replaceText = $state('');
+	let searchText = $state("");
+	let replaceText = $state("");
 	let caseSensitive = $state(false);
 
 	let searchIndex = $derived(editor.storage?.searchAndReplace?.resultIndex);
@@ -38,7 +38,7 @@
 		//@ts-ignore
 		editor.commands.setTextSelection(position);
 		const { node } = editor.view.domAtPos(editor.state.selection.anchor);
-		node instanceof HTMLElement && node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		node instanceof HTMLElement && node.scrollIntoView({ behavior: "smooth", block: "center" });
 	}
 
 	function replace() {
@@ -57,8 +57,8 @@
 	};
 
 	const clear = () => {
-		searchText = '';
-		replaceText = '';
+		searchText = "";
+		replaceText = "";
 		editor.commands.resetIndex();
 	};
 

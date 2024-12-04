@@ -1,8 +1,8 @@
 import { startAuthentication } from "@simplewebauthn/browser";
 
 export async function signIn(): Promise<void> {
-    const response = await fetch("/auth/login-request")
-    const loginOptions = await response.json()
+    const response = await fetch("/auth/login-request");
+    const loginOptions = await response.json();
 
     let asseResp;
     try {
@@ -14,17 +14,17 @@ export async function signIn(): Promise<void> {
         throw error;
     }
 
-    const verificationResp = await fetch('/auth/verify-login', {
-        method: 'POST',
+    const verificationResp = await fetch("/auth/verify-login", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
         },
         body: JSON.stringify(asseResp),
     });
 
     if (!verificationResp.ok) {
-        throw new Error('Authentication failed');
+        throw new Error("Authentication failed");
     }
 
-    localStorage.setItem('isLoggedIn', "true");
+    localStorage.setItem("isLoggedIn", "true");
 }

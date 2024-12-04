@@ -1,21 +1,21 @@
 <script lang="ts">
-	import { Link, Unlink } from 'lucide-svelte';
-	import { ChevronDown } from 'lucide-svelte';
-	import { type Editor } from '@tiptap/core';
-	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { cn } from '$lib/utils.js';
-	import * as Popover from '$lib/components/ui/popover/index.js';
-	import { Input } from '$lib/components/ui/input/index.js';
+	import { Link, Unlink } from "lucide-svelte";
+	import { ChevronDown } from "lucide-svelte";
+	import { type Editor } from "@tiptap/core";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { Button } from "$lib/components/ui/button/index.js";
+	import { cn } from "$lib/utils.js";
+	import * as Popover from "$lib/components/ui/popover/index.js";
+	import { Input } from "$lib/components/ui/input/index.js";
 
 	let { editor }: { editor: Editor } = $props();
 
 	function setLink(url: string) {
-		if (url.trim() === '') {
-			editor.chain().focus().extendMarkRange('link').unsetLink().run();
+		if (url.trim() === "") {
+			editor.chain().focus().extendMarkRange("link").unsetLink().run();
 			return;
 		}
-		editor?.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+		editor?.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
 	}
 </script>
 
@@ -27,7 +27,7 @@
 					<Button
 						variant="ghost"
 						size="sm"
-						class={cn('h-8', editor.isActive('link') && 'bg-muted')}
+						class={cn("h-8", editor.isActive("link") && "bg-muted")}
 					>
 						<Link />
 						<ChevronDown class="!size-3 text-muted-foreground" />
@@ -36,7 +36,7 @@
 				<Popover.Content class="bg-popover shadow-lg">
 					<Input
 						placeholder="Enter link to attach.."
-						value={editor?.getAttributes('link').href}
+						value={editor?.getAttributes("link").href}
 						onchange={(e) => {
 							//@ts-ignore
 							if (e !== null && e.target !== null) setLink(e.target.value);
@@ -50,7 +50,7 @@
 							class="text-red-500"
 							size="icon"
 							onclick={() => {
-								editor.chain().focus().extendMarkRange('link').unsetLink().run();
+								editor.chain().focus().extendMarkRange("link").unsetLink().run();
 							}}>
 							<Unlink />
 						</Button>

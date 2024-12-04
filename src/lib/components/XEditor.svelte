@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Trigger as SidebarTrigger } from "$lib/components/ui/sidebar/index.js";
-    import ShadEditor from '$lib/components/shad-editor/shad-editor.svelte';
+    import ShadEditor from "$lib/components/shad-editor/shad-editor.svelte";
     import type { Content } from "@tiptap/core";
     import { callApi } from "$lib/browser/api";
     import * as Dialog from "$lib/components/ui/dialog/index.js";
@@ -36,9 +36,9 @@
     let noteTitle = $state(title ?? "Loading...");
     let characterCount = $state(0);
     let createdAt: Date | undefined = $state(undefined);
-    let statusText = $state('saved');
+    let statusText = $state("saved");
     let connectionIsLost = $state(false);
-    let publishTitle = $state('Untitled');
+    let publishTitle = $state("Untitled");
     let deleteConfirmDialogIsOpen = $state(false);
 
     const fetchContent = async () => {
@@ -49,7 +49,7 @@
             return response.content ? JSON.parse(response.content) as Content : "Start writing...";
         } catch (error) {
             console.error(error);
-            return '';
+            return "";
         }
     };
 
@@ -65,7 +65,7 @@
             allowUnload = false;
         }
 
-        statusText = 'saving...';
+        statusText = "saving...";
 
         if (timer) {
             window.clearTimeout(timer);
@@ -81,11 +81,11 @@
 
             callApi(noteEndpoint, "PUT", request).catch(error => {
                 console.error("Failed to save content", error);
-                toast.error('Failed to save content');
+                toast.error("Failed to save content");
                 connectionIsLost = true;
-                statusText = 'NOT SAVED - ERROR';
+                statusText = "NOT SAVED - ERROR";
             }).then(() => {
-                statusText = 'saved';
+                statusText = "saved";
                 lastSavedContentJson = contentJson;
                 connectionIsLost = false;
                 allowUnload = true;
@@ -95,7 +95,7 @@
 
     const publish = async (categoryId: string) => {
         if (!publishTitle) {
-            toast.error('Title is required');
+            toast.error("Title is required");
             return;
         }
 
@@ -105,10 +105,10 @@
         });
 
         if (response.created) {
-            toast.success('Published');
+            toast.success("Published");
             await goto(`/note/${response.created}`);
         } else {
-            toast.error('Failed to publish');
+            toast.error("Failed to publish");
         }
     };
 
@@ -116,16 +116,16 @@
         const response = await callApi<{ ok: boolean }>(noteEndpoint, "DELETE");
 
         if (response.ok) {
-            toast.success('Deleted');
-            await goto('/');
+            toast.success("Deleted");
+            await goto("/");
         } else {
-            toast.error('Failed to delete');
+            toast.error("Failed to delete");
         }
     };
 
     beforeNavigate(({ cancel }) => {
         if (!allowUnload) {
-            if (!confirm('Are you sure you want to leave this page? You have unsaved changes that will be lost.')) {
+            if (!confirm("Are you sure you want to leave this page? You have unsaved changes that will be lost.")) {
                 cancel();
             }
         }
@@ -218,10 +218,10 @@
                                         </Dialog.Description>
                                     </Dialog.Header>
                                     <Dialog.Footer>
-                                        <Button variant="destructive" onclick={() => {deleteNote()}}>
+                                        <Button variant="destructive" onclick={() => {deleteNote();}}>
                                             <Trash2 />Delete forever
                                         </Button>
-                                        <Button variant="outline" onclick={() => {deleteConfirmDialogIsOpen = false}}>
+                                        <Button variant="outline" onclick={() => {deleteConfirmDialogIsOpen = false;}}>
                                             <Undo2 />Cancel
                                         </Button>
                                     </Dialog.Footer>

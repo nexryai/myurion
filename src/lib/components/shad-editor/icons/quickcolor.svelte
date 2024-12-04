@@ -1,27 +1,27 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button/index.js';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import { type Editor } from '@tiptap/core';
-	import { Check, ChevronDown, Highlighter, PenTool } from 'lucide-svelte';
-	import { cn } from '$lib/utils.js';
+	import { Button } from "$lib/components/ui/button/index.js";
+	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { type Editor } from "@tiptap/core";
+	import { Check, ChevronDown, PenTool } from "lucide-svelte";
+	import { cn } from "$lib/utils.js";
 
 	let { editor }: { editor: Editor } = $props();
 
 	const colors = [
-		{ label: 'Default', value: '' },
-		{ label: 'Blue', value: '#0000FF' },
-		{ label: 'Brown', value: '#A52A2A' },
-		{ label: 'Green', value: '#008000' },
-		{ label: 'Grey', value: '#808080' },
-		{ label: 'Orange', value: '#FFA500' },
-		{ label: 'Pink', value: '#FFC0CB' },
-		{ label: 'Purple', value: '#800080' },
-		{ label: 'Red', value: '#FF0000' },
-		{ label: 'Yellow', value: '#FFFF00' }
+		{ label: "Default", value: "" },
+		{ label: "Blue", value: "#0000FF" },
+		{ label: "Brown", value: "#A52A2A" },
+		{ label: "Green", value: "#008000" },
+		{ label: "Grey", value: "#808080" },
+		{ label: "Orange", value: "#FFA500" },
+		{ label: "Pink", value: "#FFC0CB" },
+		{ label: "Purple", value: "#800080" },
+		{ label: "Red", value: "#FF0000" },
+		{ label: "Yellow", value: "#FFFF00" }
 	];
 
-	const currentColor = $derived(editor.getAttributes('textStyle').color);
+	const currentColor = $derived(editor.getAttributes("textStyle").color);
 </script>
 
 <Tooltip.Provider>
@@ -29,7 +29,7 @@
 		<Tooltip.Trigger>
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger>
-					<Button variant="ghost" size="sm" class={cn('h-8', currentColor && 'bg-muted')}>
+					<Button variant="ghost" size="sm" class={cn("h-8", currentColor && "bg-muted")}>
 						<PenTool />
 						<ChevronDown class="!size-3 text-muted-foreground" />
 					</Button>
@@ -41,13 +41,13 @@
 							<DropdownMenu.Item
 								class="flex items-center"
 								onclick={() => {
-									if (color.value === '' || color.label === 'Default')
+									if (color.value === "" || color.label === "Default")
 										editor.chain().focus().unsetColor().run();
 									else
 										editor
 											.chain()
 											.focus()
-											.setColor(currentColor === color.value ? '' : color.value)
+											.setColor(currentColor === color.value ? "" : color.value)
 											.run();
 								}}
 								closeOnSelect={false}
@@ -56,7 +56,7 @@
 									>A</span
 								>
 								<span>{color.label}</span>
-								{#if editor.isActive('textStyle', { color: color.value })}
+								{#if editor.isActive("textStyle", { color: color.value })}
 									<Check class="absolute right-2 !size-3 text-muted-foreground" />
 								{/if}
 							</DropdownMenu.Item>

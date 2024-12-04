@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { mode } from 'mode-watcher';
+	import { mode } from "mode-watcher";
 	let { hex = $bindable() }: { hex: string } = $props();
-	import ColorPicker from 'svelte-awesome-color-picker';
+	import ColorPicker from "svelte-awesome-color-picker";
 </script>
 
-<div class:dark={$mode === 'dark'}>
+<div class:dark={$mode === "dark"}>
 	<ColorPicker
 		bind:hex
 		sliderDirection="vertical"

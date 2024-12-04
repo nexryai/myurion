@@ -8,11 +8,11 @@
 		ChevronDown,
 		Check,
 		Minus
-	} from 'lucide-svelte';
-	import { type Editor } from '@tiptap/core';
-	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-	import Button from '$lib/components/ui/button/button.svelte';
+	} from "lucide-svelte";
+	import { type Editor } from "@tiptap/core";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+	import Button from "$lib/components/ui/button/button.svelte";
 
 	let { editor }: { editor: Editor } = $props();
 </script>
@@ -23,15 +23,15 @@
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger>
 					<Button variant="ghost" size="sm" class="h-8">
-						{#if editor.isActive('heading', { level: 1 })}
+						{#if editor.isActive("heading", { level: 1 })}
 							<Heading1 />
-						{:else if editor.isActive('heading', { level: 2 })}
+						{:else if editor.isActive("heading", { level: 2 })}
 							<Heading2 />
-						{:else if editor.isActive('heading', { level: 3 })}
+						{:else if editor.isActive("heading", { level: 3 })}
 							<Heading3 />
-						{:else if editor.isActive('paragraph')}
+						{:else if editor.isActive("paragraph")}
 							<Pilcrow />
-						{:else if editor.isActive('codeBlock')}
+						{:else if editor.isActive("codeBlock")}
 							<FileJson />
 						{:else}
 							<Minus />
@@ -45,7 +45,7 @@
 						closeOnSelect={false}
 					>
 						<Heading1 /> Heading 1
-						{#if editor.isActive('heading', { level: 1 })}
+						{#if editor.isActive("heading", { level: 1 })}
 							<Check class="absolute right-2 !size-3 text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
@@ -54,7 +54,7 @@
 						closeOnSelect={false}
 					>
 						<Heading2 /> Heading 2
-						{#if editor.isActive('heading', { level: 2 })}
+						{#if editor.isActive("heading", { level: 2 })}
 							<Check class="absolute right-2 !size-3 text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
@@ -63,7 +63,7 @@
 						closeOnSelect={false}
 					>
 						<Heading3 /> Heading 3
-						{#if editor.isActive('heading', { level: 3 })}
+						{#if editor.isActive("heading", { level: 3 })}
 							<Check class="absolute right-2 !size-3 text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
@@ -72,7 +72,7 @@
 						closeOnSelect={false}
 					>
 						<Pilcrow /> Paragraph
-						{#if editor.isActive('paragraph')}
+						{#if editor.isActive("paragraph")}
 							<Check class="absolute right-2 !size-3 text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
@@ -81,7 +81,7 @@
 						closeOnSelect={false}
 					>
 						<FileJson /> Code Block
-						{#if editor.isActive('codeBlock')}
+						{#if editor.isActive("codeBlock")}
 							<Check class="absolute right-2 !size-3 text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>

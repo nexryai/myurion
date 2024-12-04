@@ -1,5 +1,5 @@
-import { type IUserRepository } from "$lib/server/prisma"
-import { type User, Prisma } from "@prisma/client"
+import { type IUserRepository } from "$lib/server/prisma";
+import { type User, Prisma } from "@prisma/client";
 
 export class UserService {
     constructor(
@@ -9,18 +9,18 @@ export class UserService {
     public async isExistUser(uid: string): Promise<boolean> {
         const user = await this.userRepository.findUnique({
             where: {id: uid}
-        })
-        return user !== null
+        });
+        return user !== null;
     }
 
     public getUserById(uid: string): Promise<User | null> {
         return this.userRepository.findUnique({ where: {
             id: uid
-        }})
+        }});
     }
 
     public createUser(data: Prisma.UserCreateInput): Promise<User> {
-        return this.userRepository.create({ data })
+        return this.userRepository.create({ data });
     }
 
     public async getQuickNote(uid: string): Promise<string> {
@@ -44,6 +44,6 @@ export class UserService {
     }
 
     public updateUser(where: Prisma.UserWhereUniqueInput, data: Prisma.UserUpdateInput): Promise<User> {
-        return this.userRepository.update({ where, data })
+        return this.userRepository.update({ where, data });
     }
 }

@@ -31,9 +31,9 @@
     let currentPath = $state($page.url.pathname);
     $effect(() => {
         if (currentPath !== $page.url.pathname) {
-            searchDialogIsOpen = false
-            addCategoryDialogIsOpen = false
-            currentPath = $page.url.pathname
+            searchDialogIsOpen = false;
+            addCategoryDialogIsOpen = false;
+            currentPath = $page.url.pathname;
         }
     });
 </script>
@@ -57,7 +57,7 @@
                     <Sidebar.MenuItem>
                         <Sidebar.MenuButton>
                             {#snippet child({ props })}
-                                <div role="button" tabindex={1} {...props} onclick={() => {searchDialogIsOpen = !searchDialogIsOpen}}>
+                                <div role="button" tabindex={1} {...props} onclick={() => {searchDialogIsOpen = !searchDialogIsOpen;}}>
                                     <Search />
                                     <span>Search</span>
                                 </div>
@@ -70,7 +70,7 @@
 
         <Sidebar.Group>
             <Sidebar.GroupLabel>Notes</Sidebar.GroupLabel>
-            <Sidebar.GroupAction title="Add Project" onclick={() => {addCategoryDialogIsOpen = true}}>
+            <Sidebar.GroupAction title="Add Project" onclick={() => {addCategoryDialogIsOpen = true;}}>
                 <Plus /> <span class="sr-only">Add Project</span>
             </Sidebar.GroupAction>
             <Sidebar.GroupContent>
@@ -107,7 +107,7 @@
                             side="top"
                             class="w-[--bits-dropdown-menu-anchor-width]"
                     >
-                        <DropdownMenu.Item class="hover:cursor-pointer" onclick={() => {goto("/test")}}>
+                        <DropdownMenu.Item class="hover:cursor-pointer" onclick={() => {goto("/test");}}>
                             <span>Settings</span>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item>

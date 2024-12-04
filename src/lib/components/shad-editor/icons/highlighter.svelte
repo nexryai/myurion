@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Check, Highlighter } from 'lucide-svelte';
-	import { ChevronDown } from 'lucide-svelte';
-	import { type Editor } from '@tiptap/core';
-	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { cn } from '$lib/utils.js';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import { Check, Highlighter } from "lucide-svelte";
+	import { ChevronDown } from "lucide-svelte";
+	import { type Editor } from "@tiptap/core";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { Button } from "$lib/components/ui/button/index.js";
+	import { cn } from "$lib/utils.js";
+	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
 
 	interface Props {
 		editor: Editor;
@@ -13,16 +13,16 @@
 	}
 
 	const colors = [
-		{ label: 'Default', value: '' },
-		{ label: 'Blue', value: '#75a6ff' },
-		{ label: 'Green', value: '#9ef19e' },
-		{ label: 'Grey', value: '#808080' },
-		{ label: 'Orange', value: '#FFA500' },
-		{ label: 'Red', value: '#ffa6a6' },
-		{ label: 'Yellow', value: '#FFFF00' }
+		{ label: "Default", value: "" },
+		{ label: "Blue", value: "#75a6ff" },
+		{ label: "Green", value: "#9ef19e" },
+		{ label: "Grey", value: "#808080" },
+		{ label: "Orange", value: "#FFA500" },
+		{ label: "Red", value: "#ffa6a6" },
+		{ label: "Yellow", value: "#FFFF00" }
 	];
 
-	let { editor, color = $bindable('') }: Props = $props();
+	let { editor, color = $bindable("") }: Props = $props();
 </script>
 
 <Tooltip.Provider>
@@ -33,7 +33,7 @@
 					<Button
 						variant="ghost"
 						size="sm"
-						class={cn('h-8', editor.isActive('highlight') && 'bg-muted')}
+						class={cn("h-8", editor.isActive("highlight") && "bg-muted")}
 						onclick={() => editor.chain().focus()}
 					>
 						<Highlighter />
@@ -47,7 +47,7 @@
 							<DropdownMenu.Item
 									class="flex items-center"
 									onclick={() => {
-									if (color.value === '' || color.label === 'Default')
+									if (color.value === "" || color.label === "Default")
 										editor.chain().focus().unsetHighlight().run();
 									else editor.chain().focus().toggleHighlight({ color: color.value }).run();
 								}}
@@ -58,7 +58,7 @@
 										style={`background-color: ${color.value};`}>A</span
 								>
 								<span>{color.label}</span>
-								{#if editor.isActive('highlight', { color: color.value })}
+								{#if editor.isActive("highlight", { color: color.value })}
 									<Check class="absolute right-2 !size-3 text-muted-foreground" />
 								{/if}
 							</DropdownMenu.Item>

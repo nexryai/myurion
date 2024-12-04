@@ -1,4 +1,4 @@
-import crypto from "crypto"
+import crypto from "crypto";
 import type {
     PublicKeyCredentialCreationOptionsJSON,
     PublicKeyCredentialRequestOptionsJSON,
@@ -11,7 +11,7 @@ import {
     verifyRegistrationResponse
 } from "@simplewebauthn/server";
 import type { IPasskeyRepository } from "$lib/server/prisma";
-import { isoBase64URL } from '@simplewebauthn/server/helpers';
+import { isoBase64URL } from "@simplewebauthn/server/helpers";
 
 enum TokenPermission {
     APP = "APP",
@@ -34,36 +34,36 @@ interface ChallengeTokenClaims extends TokenClaims {
 }
 
 class AuthService {
-    private readonly secretKey = crypto.randomBytes(32)
-    private readonly challengeSecretKey = crypto.randomBytes(32)
+    private readonly secretKey = crypto.randomBytes(32);
+    private readonly challengeSecretKey = crypto.randomBytes(32);
 
     private encrypt(data: string, key: Buffer): string {
-        const iv = crypto.randomBytes(12)
-        const cipher = crypto.createCipheriv("aes-256-gcm", key, iv)
+        const iv = crypto.randomBytes(12);
+        const cipher = crypto.createCipheriv("aes-256-gcm", key, iv);
 
-        const enc1 = cipher.update(data, "utf8")
-        const enc2 = cipher.final()
-        return Buffer.concat([enc1, enc2, iv, cipher.getAuthTag()]).toString("base64")
+        const enc1 = cipher.update(data, "utf8");
+        const enc2 = cipher.final();
+        return Buffer.concat([enc1, enc2, iv, cipher.getAuthTag()]).toString("base64");
     }
 
     private decrypt(encryptedData: string, key: Buffer): string {
-        const dataBuffer = Buffer.from(encryptedData, "base64")
+        const dataBuffer = Buffer.from(encryptedData, "base64");
 
-        const ivStart: number = dataBuffer.length - 28
-        const ivEnd: number = dataBuffer.length - 16
-        const authTagStart: number = dataBuffer.length - 16
+        const ivStart: number = dataBuffer.length - 28;
+        const ivEnd: number = dataBuffer.length - 16;
+        const authTagStart: number = dataBuffer.length - 16;
 
-        const iv = dataBuffer.slice(ivStart, ivEnd)
-        const authTag = dataBuffer.slice(authTagStart)
-        const encryptedText = dataBuffer.slice(0, ivStart)
+        const iv = dataBuffer.slice(ivStart, ivEnd);
+        const authTag = dataBuffer.slice(authTagStart);
+        const encryptedText = dataBuffer.slice(0, ivStart);
 
-        const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv)
-        decipher.setAuthTag(authTag)
+        const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv);
+        decipher.setAuthTag(authTag);
 
-        const dec1 = decipher.update(encryptedText)
-        const dec2 = decipher.final()
+        const dec1 = decipher.update(encryptedText);
+        const dec2 = decipher.final();
 
-        return Buffer.concat([dec1, dec2]).toString("utf8")
+        return Buffer.concat([dec1, dec2]).toString("utf8");
     }
 
     /***
@@ -77,8 +77,8 @@ class AuthService {
             role: TokenPermission.APP,
             uid,
             expireAt: expireAt.toISOString()
-        })
-        return this.encrypt(payload, this.secretKey)
+        });
+        return this.encrypt(payload, this.secretKey);
     }
 
     /***
@@ -95,8 +95,8 @@ class AuthService {
             uid,
             challenge,
             expireAt: expireAt.toISOString()
-        })
-        return this.encrypt(payload, this.challengeSecretKey)
+        });
+        return this.encrypt(payload, this.challengeSecretKey);
     }
 
     /***
@@ -108,49 +108,49 @@ class AuthService {
             * @returns token data
      ***/
     public decryptToken(encryptedData: string, isChallengeToken: boolean): { uid: string, expireAt: Date, challenge?: string } | null {
-        const decryptedData = this.decrypt(encryptedData, isChallengeToken ? this.challengeSecretKey : this.secretKey)
-        const parsedData: TokenClaims = JSON.parse(decryptedData)
+        const decryptedData = this.decrypt(encryptedData, isChallengeToken ? this.challengeSecretKey : this.secretKey);
+        const parsedData: TokenClaims = JSON.parse(decryptedData);
 
         // 有効期限の確認
-        const expireAt = new Date(parsedData.expireAt)
-        const now = new Date()
+        const expireAt = new Date(parsedData.expireAt);
+        const now = new Date();
 
         if (expireAt <= now) {
-            console.log("Token has expired.")
-            return null
+            console.log("Token has expired.");
+            return null;
         }
 
         if (isChallengeToken) {
-            const parsed = parsedData as ChallengeTokenClaims
+            const parsed = parsedData as ChallengeTokenClaims;
             if (!parsed || !parsed.challenge || parsed.role !== TokenPermission.CHALLENGE) {
-                console.log("Invalid token.")
-                return null
+                console.log("Invalid token.");
+                return null;
             }
 
             return {
                 uid: parsed.uid,
                 challenge: parsed.challenge,
                 expireAt
-            }
+            };
         } else {
-            const parsed = parsedData as AppTokenClaims
+            const parsed = parsedData as AppTokenClaims;
             if (!parsed || parsed.role !== TokenPermission.APP) {
-                console.log("Invalid token.")
-                return null
+                console.log("Invalid token.");
+                return null;
             }
 
             return {
                 uid: parsed.uid,
                 expireAt
-            }
+            };
         }
     }
 }
 
 export class PasskeyAuthService extends AuthService {
-    private readonly rpName = "Goshenite Notes"
-    private readonly rpId = "localhost"
-    private readonly origin = "http://localhost:5173"
+    private readonly rpName = "Goshenite Notes";
+    private readonly rpId = "localhost";
+    private readonly origin = "http://localhost:5173";
 
     constructor(
         private readonly passkeyRepository: IPasskeyRepository
@@ -177,25 +177,25 @@ export class PasskeyAuthService extends AuthService {
             // See "Guiding use of authenticators via authenticatorSelection" below
             authenticatorSelection: {
                 // Require the user to use a resident key
-                residentKey: 'required',
+                residentKey: "required",
                 requireResidentKey: true,
-                userVerification: 'preferred',
-                authenticatorAttachment: 'platform',
+                userVerification: "preferred",
+                authenticatorAttachment: "platform",
             },
         });
 
-        const encryptedChallenge = this.generateChallengeToken(uid, options.challenge, new Date(Date.now() + 6000))
-        return { options, encryptedChallenge }
+        const encryptedChallenge = this.generateChallengeToken(uid, options.challenge, new Date(Date.now() + 6000));
+        return { options, encryptedChallenge };
     }
 
     public async verifyRegistration(encryptedChallenge: string, body: unknown, passkeyName?: string): Promise<boolean> {
-        const tokenData = this.decryptToken(encryptedChallenge, true)
+        const tokenData = this.decryptToken(encryptedChallenge, true);
         if (!tokenData) {
-            return false
+            return false;
         }
 
         if (!tokenData.challenge) {
-            throw new Error('Challenge not found in decrypted token. THIS IS A BUG OR LEAK OF SERVER SECRET KEY.');
+            throw new Error("Challenge not found in decrypted token. THIS IS A BUG OR LEAK OF SERVER SECRET KEY.");
         }
 
 
@@ -209,7 +209,7 @@ export class PasskeyAuthService extends AuthService {
         });
 
         if (!verified || !registrationInfo) {
-            throw new Error('Verification failed.');
+            throw new Error("Verification failed.");
         }
 
         const credential = registrationInfo.credential;
@@ -227,9 +227,9 @@ export class PasskeyAuthService extends AuthService {
                 },
                 transports: credential.transports?.join(",") || "",
             }
-        })
+        });
 
-        return true
+        return true;
     }
 
     public async genLoginChallenge(): Promise<{options:  PublicKeyCredentialRequestOptionsJSON, encryptedChallenge: string}> {
@@ -238,31 +238,31 @@ export class PasskeyAuthService extends AuthService {
             allowCredentials: [],
         });
 
-        const encryptedChallenge = this.generateChallengeToken("_LOGIN_CHALLENGE", options.challenge, new Date(Date.now() + 6000))
-        return { options, encryptedChallenge }
+        const encryptedChallenge = this.generateChallengeToken("_LOGIN_CHALLENGE", options.challenge, new Date(Date.now() + 6000));
+        return { options, encryptedChallenge };
     }
 
     public async verifyLogin(encryptedChallenge: string, body: unknown): Promise<string> {
-        const tokenData = this.decryptToken(encryptedChallenge, true)
+        const tokenData = this.decryptToken(encryptedChallenge, true);
         if (!tokenData) {
-            throw new Error('Invalid token.');
+            throw new Error("Invalid token.");
         }
 
         if (!tokenData.challenge) {
-            throw new Error('Challenge not found in decrypted token. THIS IS A BUG OR LEAK OF SERVER SECRET KEY.');
+            throw new Error("Challenge not found in decrypted token. THIS IS A BUG OR LEAK OF SERVER SECRET KEY.");
         }
 
         const authRequest = body as AuthenticationResponseJSON;
         const passkeyId = authRequest.id;
         if (!passkeyId) {
-            throw new Error('Passkey ID not found in the response.');
+            throw new Error("Passkey ID not found in the response.");
         }
 
         const cred = await this.passkeyRepository.findUniqueOrThrow({
             where: {
                 passkeyUserId: passkeyId
             }
-        })
+        });
 
         const { verified } = await verifyAuthenticationResponse({
             response: body as AuthenticationResponseJSON,
@@ -279,7 +279,7 @@ export class PasskeyAuthService extends AuthService {
         });
 
         if (!verified) {
-            throw new Error('Verification failed.');
+            throw new Error("Verification failed.");
         } else {
             // Update the counter
             // iCloudキーチェーンがカウンター非対応でエラーになるのでコメントアウト
@@ -296,6 +296,6 @@ export class PasskeyAuthService extends AuthService {
             */
         }
 
-        return this.generateAppToken(cred.userId, new Date(Date.now() + 30 * 60 * 1000))
+        return this.generateAppToken(cred.userId, new Date(Date.now() + 30 * 60 * 1000));
     }
 }

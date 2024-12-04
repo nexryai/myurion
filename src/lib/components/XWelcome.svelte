@@ -20,7 +20,7 @@
         } catch (error) {
             console.error(error);
             toast.error("Failed to sign in", {
-                description: `An error occurred while signing in. Please try again later.`,
+                description: "An error occurred while signing in. Please try again later.",
             });
         } finally {
             isLoading = false;

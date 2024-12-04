@@ -9,7 +9,7 @@
     let { isOpen = $bindable() } : {isOpen: boolean} = $props();
 
     let readyToSubmit = $state<boolean>(false);
-    let name = $state<string>('');
+    let name = $state<string>("");
     let terms = $state<boolean>(false);
 
     $effect(() => {
@@ -21,28 +21,28 @@
             return;
         }
 
-        const resp = await fetch('/auth/register-request', {
-            method: 'POST',
+        const resp = await fetch("/auth/register-request", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({ displayName: name })
         });
 
         const passkeyOptions = await resp.json();
-        let attResp
+        let attResp;
         try {
             // Pass the options to the authenticator and wait for a response
             attResp = await startRegistration({ optionsJSON: passkeyOptions });
         } catch (error) {
-            alert('Error registering passkey');
+            alert("Error registering passkey");
             throw error;
         }
 
-        const verificationResp = await fetch('/auth/verify-registration', {
-            method: 'POST',
+        const verificationResp = await fetch("/auth/verify-registration", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(attResp),
         });
@@ -84,7 +84,7 @@
             <Button
                     disabled={!readyToSubmit}
                     type="submit"
-                    onclick={() => {register()}}
+                    onclick={() => {register();}}
             >
                 Passkey to finish signing up
             </Button>

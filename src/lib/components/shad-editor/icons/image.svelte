@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Image } from 'lucide-svelte';
-	import { ChevronDown } from 'lucide-svelte';
-	import { type Editor } from '@tiptap/core';
-	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import * as Popover from '$lib/components/ui/popover/index.js';
-	import { Input } from '$lib/components/ui/input/index.js';
+	import { Image } from "lucide-svelte";
+	import { ChevronDown } from "lucide-svelte";
+	import { type Editor } from "@tiptap/core";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { Button } from "$lib/components/ui/button/index.js";
+	import * as Popover from "$lib/components/ui/popover/index.js";
+	import { Input } from "$lib/components/ui/input/index.js";
 
 	let { editor }: { editor: Editor } = $props();
 </script>

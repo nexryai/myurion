@@ -6,7 +6,7 @@ import { noteCategoryRepository, noteRepository, passkeyRepository, userReposito
 import { NoteService } from "$lib/server/services/NoteService";
 
 export function getServer(): (request: Request) => MaybePromise<Response> {
-    const server = new Elysia()
+    const server = new Elysia();
     const mainController = new AppController(
         server,
         new UserService(
@@ -19,9 +19,9 @@ export function getServer(): (request: Request) => MaybePromise<Response> {
         new PasskeyAuthService(
             passkeyRepository
         )
-    )
+    );
 
-    mainController.configAuthRouter()
-    mainController.configApiRouter()
-    return server.fetch
+    mainController.configAuthRouter();
+    mainController.configApiRouter();
+    return server.fetch;
 }

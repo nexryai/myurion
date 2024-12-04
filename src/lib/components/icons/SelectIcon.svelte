@@ -6,7 +6,7 @@
         selected = $bindable("")
     }: {
         selected?: string;
-    } = $props()
+    } = $props();
 
     const icons = userSelectableIcons;
 

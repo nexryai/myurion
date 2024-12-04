@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Redo } from 'lucide-svelte';
-	import { type Editor } from '@tiptap/core';
-	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
+	import { Redo } from "lucide-svelte";
+	import { type Editor } from "@tiptap/core";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { Button } from "$lib/components/ui/button/index.js";
 
 	let { editor }: { editor: Editor } = $props();
 </script>

@@ -49,7 +49,7 @@
                     <Sidebar.MenuSub>
                         {#each category.notes as note}
                             <Sidebar.MenuSubItem>
-                                <Sidebar.MenuButton onclick={() => {goto(`/note/${note.id}`)}} isActive={currentPath === `/note/${note.id}` }>
+                                <Sidebar.MenuButton onclick={() => {goto(`/note/${note.id}`);}} isActive={currentPath === `/note/${note.id}` }>
                                     {#snippet child({ props })}
                                         <span {...props}>{note.title}</span>
                                     {/snippet}

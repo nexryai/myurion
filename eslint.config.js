@@ -27,6 +27,8 @@ export default ts.config(
 			"@typescript-eslint/no-unused-expressions": "off",
 			"@typescript-eslint/ban-ts-comment": "off",
 			"@typescript-eslint/no-explicit-any": "off",
+			"quotes": ["error", "double"],
+			"semi": ["error", "always"],
 		}
 	},
 	{
