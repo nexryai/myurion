@@ -54,7 +54,7 @@
 					url(https://images.unsplash.com/photo-1660491630578-4299a3c09db0?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);"
         ></div>
         <div class="relative z-20 flex items-center text-lg font-medium">
-            Goshenite Notes
+            Myurion Notes
         </div>
         <div class="relative z-20 mt-auto">
             <blockquote class="space-y-2">
