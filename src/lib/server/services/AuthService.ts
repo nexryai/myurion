@@ -149,9 +149,9 @@ class AuthService {
 }
 
 export class PasskeyAuthService extends AuthService {
-    private readonly rpName = "Goshenite Notes";
-    private readonly rpId = "localhost";
-    private readonly origin = "http://localhost:5173";
+    private readonly rpName = "Myurion Notes";
+    private readonly rpId = process.env.RP_ID || "localhost";
+    private readonly origin = process.env.APP_URL || "http://localhost:5173";
 
     constructor(
         private readonly passkeyRepository: IPasskeyRepository
