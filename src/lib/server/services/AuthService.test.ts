@@ -20,8 +20,8 @@ describe("AuthService test", () => {
 
     it("App Tokenの有効期限が切れていたらnullを返す", () => {
         const uid = "DUMMY_USER_ID";
-        const before = new Date(0);
-        const encrypted = authService.genAppToken(uid, before);
+        const longLongAgo = new Date(0);
+        const encrypted = authService.genAppToken(uid, longLongAgo);
         const decrypted = authService.decryptAppToken(encrypted);
         expect(decrypted).toBeNull();
     });
@@ -45,8 +45,8 @@ describe("AuthService test", () => {
     it("Challenge Tokenの有効期限が切れていたらnullを返す", () => {
         const uid = "DUMMY_USER_ID";
         const challenge = "DUMMY_CHALLENGE";
-        const before = new Date(0);
-        const encrypted = authService.genChallengeToken(uid, challenge, before);
+        const longLongAgo = new Date(0);
+        const encrypted = authService.genChallengeToken(uid, challenge, longLongAgo);
         const decrypted = authService.decryptChallengeToken(encrypted);
         expect(decrypted).toBeNull();
     });
