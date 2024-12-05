@@ -35,6 +35,11 @@ interface ChallengeTokenClaims extends TokenClaims {
     challenge: string
 }
 
+/*
+    AuthService provides methods to generate and verify tokens for authentication and challenge.
+    This class is designed to be stateless and does not depend on any external services.
+    Tokens are encrypted with AES-256-GCM.
+*/
 class AuthService {
     private readonly secretKey = crypto.randomBytes(32);
     private readonly challengeSecretKey = crypto.randomBytes(32);
@@ -148,6 +153,10 @@ class AuthService {
     }
 }
 
+/*
+    PasskeyAuthService provides methods to authenticate users with WebAuthn.
+    This class depends on the PasskeyRepository to store the user's passkeys.
+*/
 export class PasskeyAuthService extends AuthService {
     private readonly rpName = "Myurion Notes";
     private readonly rpId = process.env.RP_ID || "localhost";
@@ -301,6 +310,13 @@ export class PasskeyAuthService extends AuthService {
     }
 }
 
+/*
+    !! ⚠️DO NOT USE THIS CLASS IN ANY CODE EXCEPT FOR TESTS☠️ !!
+    UnsafeDebugAuthService provides methods for integration and unit tests.
+    This class is only used for:
+        - Unit tests of AuthService
+        - Generating tokens for integration tests
+*/
 export class UnsafeDebugAuthService extends AuthService {
     constructor() {
         if (process.env.NODE_ENV !== "development" && process.env.NODE_ENV !== "test") {
