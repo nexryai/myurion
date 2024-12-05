@@ -1,9 +1,10 @@
 import Elysia, { type MaybePromise } from "elysia";
+
 import { AppController } from "$lib/server/AppController";
-import { UserService } from "$lib/server/services/UserService";
-import { PasskeyAuthService } from "$lib/server/services/AuthService";
 import { noteCategoryRepository, noteRepository, passkeyRepository, userRepository } from "$lib/server/prisma";
+import { PasskeyAuthService } from "$lib/server/services/AuthService";
 import { NoteService } from "$lib/server/services/NoteService";
+import { UserService } from "$lib/server/services/UserService";
 
 export function getServer(): (request: Request) => MaybePromise<Response> {
     const server = new Elysia();

@@ -1,8 +1,11 @@
 <script lang="ts">
-	import { Skeleton } from "$lib/components/ui/skeleton/index.js";
-	import { cn } from "$lib/utils.js";
 	import type { WithElementRef } from "bits-ui";
 	import type { HTMLAttributes } from "svelte/elements";
+
+	import { Skeleton } from "$lib/components/ui/skeleton/index.js";
+	import { cn } from "$lib/utils.js";
+
+
 
 	let {
 		ref = $bindable(null),

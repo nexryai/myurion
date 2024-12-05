@@ -1,6 +1,7 @@
 <script lang="ts">
-    import * as Dialog from "$lib/components/ui/dialog/index.js";
     import { CircleX } from "lucide-svelte";
+
+    import * as Dialog from "$lib/components/ui/dialog/index.js";
 
     let {
         isOpen = $bindable(),

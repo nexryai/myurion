@@ -1,6 +1,6 @@
-import type { Note, NoteCategory } from "@prisma/client";
-import type { INoteCategoryRepository, INoteRepository } from "$lib/server/prisma";
 import type { NoteTree } from "$lib/schema/note";
+import type { INoteCategoryRepository, INoteRepository } from "$lib/server/prisma";
+import type { Note, NoteCategory } from "@prisma/client";
 
 export class NoteService {
     constructor(

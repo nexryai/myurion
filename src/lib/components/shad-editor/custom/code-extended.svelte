@@ -1,12 +1,16 @@
 <script lang="ts">
-	import { NodeViewWrapper, NodeViewContent } from "svelte-tiptap";
-	import type { NodeViewProps } from "@tiptap/core";
-	import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
 	import { onMount } from "svelte";
-	const { node, updateAttributes, extension }: NodeViewProps =
-		$props();
+
+	import type { NodeViewProps } from "@tiptap/core";
 	import { Copy, Check, ChevronDown } from "lucide-svelte";
+	import { NodeViewWrapper, NodeViewContent } from "svelte-tiptap";
+
+	import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+
+
+	const { node, updateAttributes, extension }: NodeViewProps =
+			$props();
 
 	let preRef: HTMLPreElement;
 

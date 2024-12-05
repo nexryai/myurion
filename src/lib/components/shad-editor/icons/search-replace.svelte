@@ -1,8 +1,4 @@
 <script lang="ts">
-	import { Button } from "$lib/components/ui/button/index.js";
-	import { Input } from "$lib/components/ui/input/index.js";
-	import * as Popover from "$lib/components/ui/popover/index.js";
-	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
 	import { type Editor } from "@tiptap/core";
 	import {
 		ArrowLeft,
@@ -13,6 +9,11 @@
 		ReplaceAll,
 		ChevronDown
 	} from "lucide-svelte";
+
+	import { Button } from "$lib/components/ui/button/index.js";
+	import { Input } from "$lib/components/ui/input/index.js";
+	import * as Popover from "$lib/components/ui/popover/index.js";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
 
 	let { editor }: { editor: Editor } = $props();
 

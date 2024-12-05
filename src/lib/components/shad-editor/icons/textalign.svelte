@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { type Editor } from "@tiptap/core";
 	import {
 		AlignCenter,
 		AlignLeft,
@@ -7,10 +8,10 @@
 		ChevronDown,
 		Check
 	} from "lucide-svelte";
-	import { type Editor } from "@tiptap/core";
-	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
-	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+
 	import Button from "$lib/components/ui/button/button.svelte";
+	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
 
 	let { editor }: { editor: Editor } = $props();
 </script>

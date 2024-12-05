@@ -1,41 +1,42 @@
 <script lang="ts">
 	import "./editor.css";
 
-	import { Editor, type Content } from "@tiptap/core";
-	import StarterKit from "@tiptap/starter-kit";
-	import { onDestroy, onMount } from "svelte";
-	import EditorToolbar from "./editor-toolbar.svelte";
-	import { cn } from "$lib/utils.js";
 
+	import { onDestroy, onMount } from "svelte";
+
+	import { Editor, type Content } from "@tiptap/core";
 	import CharacterCount from "@tiptap/extension-character-count";
-	import { Subscript } from "@tiptap/extension-subscript";
-	import { Superscript } from "@tiptap/extension-superscript";
-	import { Underline } from "@tiptap/extension-underline";
-	import { Link } from "@tiptap/extension-link";
-	import TaskList from "@tiptap/extension-task-list";
-	import TaskItem from "@tiptap/extension-task-item";
-	import TextStyle from "@tiptap/extension-text-style";
+	import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
 	import Color from "@tiptap/extension-color";
 	import Highlight from "@tiptap/extension-highlight";
-	import Text from "@tiptap/extension-text";
-	import Typography from "@tiptap/extension-typography";
-	import TextAlign from "@tiptap/extension-text-align";
-
-	import { SmilieReplacer } from "./custom/Extentions/SmilieReplacer.js";
-	import { ColorHighlighter } from "./custom/Extentions/ColorHighlighter.js";
+	import { Link } from "@tiptap/extension-link";
+	import { Subscript } from "@tiptap/extension-subscript";
+	import { Superscript } from "@tiptap/extension-superscript";
 	import Table from "@tiptap/extension-table";
-	import TableRow from "@tiptap/extension-table-row";
-	import TableHeader from "@tiptap/extension-table-header";
 	import TableCell from "@tiptap/extension-table-cell";
-	import { ImageExtension } from "./custom/Extentions/ImageExtention.js";
-	import { SvelteNodeViewRenderer } from "svelte-tiptap";
-	import CodeExtended from "./custom/code-extended.svelte";
-
-	// Lowlight
-	import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
+	import TableHeader from "@tiptap/extension-table-header";
+	import TableRow from "@tiptap/extension-table-row";
+	import TaskItem from "@tiptap/extension-task-item";
+	import TaskList from "@tiptap/extension-task-list";
+	import Text from "@tiptap/extension-text";
+	import TextAlign from "@tiptap/extension-text-align";
+	import TextStyle from "@tiptap/extension-text-style";
+	import Typography from "@tiptap/extension-typography";
+	import { Underline } from "@tiptap/extension-underline";
+	import StarterKit from "@tiptap/starter-kit";
 	import { all, createLowlight } from "lowlight";
-	import "./onedark.css";
+	import { SvelteNodeViewRenderer } from "svelte-tiptap";
+
+	import { cn } from "$lib/utils.js";
+
+	import { ColorHighlighter } from "./custom/Extentions/ColorHighlighter.js";
+	import { ImageExtension } from "./custom/Extentions/ImageExtention.js";
 	import SearchAndReplace from "./custom/Extentions/SearchAndReplace.js";
+	import { SmilieReplacer } from "./custom/Extentions/SmilieReplacer.js";
+	import CodeExtended from "./custom/code-extended.svelte";
+	import EditorToolbar from "./editor-toolbar.svelte";
+
+	import "./onedark.css";
 
 	const lowlight = createLowlight(all);
 

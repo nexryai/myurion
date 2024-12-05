@@ -1,17 +1,19 @@
 import crypto from "crypto";
+
+import {
+    generateAuthenticationOptions,
+    generateRegistrationOptions, verifyAuthenticationResponse,
+    verifyRegistrationResponse
+} from "@simplewebauthn/server";
+import { isoBase64URL } from "@simplewebauthn/server/helpers";
 import type {
     PublicKeyCredentialCreationOptionsJSON,
     PublicKeyCredentialRequestOptionsJSON,
     RegistrationResponseJSON,
     AuthenticationResponseJSON, AuthenticatorTransportFuture
 } from "@simplewebauthn/types";
-import {
-    generateAuthenticationOptions,
-    generateRegistrationOptions, verifyAuthenticationResponse,
-    verifyRegistrationResponse
-} from "@simplewebauthn/server";
+
 import type { IPasskeyRepository } from "$lib/server/prisma";
-import { isoBase64URL } from "@simplewebauthn/server/helpers";
 
 enum TokenPermission {
     APP = "APP",

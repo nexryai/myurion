@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { CheckSquare } from "lucide-svelte";
 	import { type Editor } from "@tiptap/core";
-	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { CheckSquare } from "lucide-svelte";
+
 	import { Button } from "$lib/components/ui/button/index.js";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
 	import { cn } from "$lib/utils.js";
 
 	let { editor }: { editor: Editor } = $props();

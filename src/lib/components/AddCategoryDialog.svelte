@@ -1,10 +1,10 @@
 <script lang="ts">
+    import { callApi } from "$lib/browser/api";
+    import SelectIcon from "$lib/components/icons/SelectIcon.svelte";
+    import { Button } from "$lib/components/ui/button";
     import * as Dialog from "$lib/components/ui/dialog/index.js";
     import { Input } from "$lib/components/ui/input/index.js";
     import { Label } from "$lib/components/ui/label/index.js";
-    import { Button } from "$lib/components/ui/button";
-    import SelectIcon from "$lib/components/icons/SelectIcon.svelte";
-    import { callApi } from "$lib/browser/api";
 
     let { isOpen = $bindable() } : {isOpen: boolean} = $props();
 

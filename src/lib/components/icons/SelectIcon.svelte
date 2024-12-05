@@ -1,6 +1,8 @@
 <script lang="ts">
     import * as Select from "$lib/components/ui/select/index.js";
+
     import { userSelectableIcons } from "./icons";
+
 
     let {
         selected = $bindable("")

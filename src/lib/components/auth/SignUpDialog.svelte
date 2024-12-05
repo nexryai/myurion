@@ -1,10 +1,12 @@
 <script lang="ts">
+    import { startRegistration } from "@simplewebauthn/browser";
+
+    import { Button } from "$lib/components/ui/button";
+    import { Checkbox } from "$lib/components/ui/checkbox/index.js";
     import * as Dialog from "$lib/components/ui/dialog/index.js";
     import { Input } from "$lib/components/ui/input/index.js";
     import { Label } from "$lib/components/ui/label/index.js";
-    import { Checkbox } from "$lib/components/ui/checkbox/index.js";
-    import { Button } from "$lib/components/ui/button";
-    import { startRegistration } from "@simplewebauthn/browser";
+
 
     let { isOpen = $bindable() } : {isOpen: boolean} = $props();
 

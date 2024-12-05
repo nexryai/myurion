@@ -1,17 +1,17 @@
 <script lang="ts">
-    import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-    import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
-    import * as Command from "$lib/components/ui/command/index.js";
-    import { ChevronUp, LoaderCircle, Plus, Search, Zap } from "lucide-svelte";
-
     import { browser } from "$app/environment";
     import { goto } from "$app/navigation";
-    import AddCategoryDialog from "$lib/components/AddCategoryDialog.svelte";
-    import { callApi } from "$lib/browser/api";
-    import type { NoteTree } from "$lib/schema/note";
-
-    import SidebarNoteTree from "$lib/components/sidebar/SidebarNoteTree.svelte";
     import { page } from "$app/stores";
+
+    import { ChevronUp, LoaderCircle, Plus, Search, Zap } from "lucide-svelte";
+
+    import { callApi } from "$lib/browser/api";
+    import AddCategoryDialog from "$lib/components/AddCategoryDialog.svelte";
+    import SidebarNoteTree from "$lib/components/sidebar/SidebarNoteTree.svelte";
+    import * as Command from "$lib/components/ui/command/index.js";
+    import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+    import * as Sidebar from "$lib/components/ui/sidebar/index.js";
+    import type { NoteTree } from "$lib/schema/note";
 
     // props
     let {

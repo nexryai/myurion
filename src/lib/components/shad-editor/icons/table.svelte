@@ -1,9 +1,10 @@
 <script lang="ts">
+	import { type Editor } from "@tiptap/core";
+	import { Table, ChevronDown } from "lucide-svelte";
+
 	import { Button } from "$lib/components/ui/button/index.js";
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
 	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
-	import { type Editor } from "@tiptap/core";
-	import { Table, ChevronDown } from "lucide-svelte";
 
 	let { editor }: { editor: Editor } = $props();
 </script>

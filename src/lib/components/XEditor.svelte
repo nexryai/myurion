@@ -1,22 +1,24 @@
 <script lang="ts">
-    import { Trigger as SidebarTrigger } from "$lib/components/ui/sidebar/index.js";
-    import ShadEditor from "$lib/components/shad-editor/shad-editor.svelte";
+    import { browser } from "$app/environment";
+    import { beforeNavigate, goto } from "$app/navigation";
+    import { onDestroy } from "svelte";
+
+    import { IconFileTextSpark } from "@tabler/icons-svelte";
     import type { Content } from "@tiptap/core";
+    import { ChevronDown, CloudAlert, Trash2, Undo2 } from "lucide-svelte";
+    import { toast } from "svelte-sonner";
+
     import { callApi } from "$lib/browser/api";
+    import RenderIcon from "$lib/components/icons/RenderIcon.svelte";
+    import ShadEditor from "$lib/components/shad-editor/shad-editor.svelte";
+    import { Button } from "$lib/components/ui/button";
     import * as Dialog from "$lib/components/ui/dialog/index.js";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
-    import { Skeleton } from "$lib/components/ui/skeleton";
-    import { toast } from "svelte-sonner";
-    import { ChevronDown, CloudAlert, Trash2, Undo2 } from "lucide-svelte";
-    import { browser } from "$app/environment";
-    import { Button } from "$lib/components/ui/button";
-    import { IconFileTextSpark } from "@tabler/icons-svelte";
-    import { type NoteCategory } from "@prisma/client";
-    import RenderIcon from "$lib/components/icons/RenderIcon.svelte";
     import { Input } from "$lib/components/ui/input";
-    import { onDestroy } from "svelte";
-    import { beforeNavigate, goto } from "$app/navigation";
     import { Label } from "$lib/components/ui/label";
+    import { Trigger as SidebarTrigger } from "$lib/components/ui/sidebar/index.js";
+    import { Skeleton } from "$lib/components/ui/skeleton";
+    import type { NoteCategory } from "@prisma/client";
 
     // Props
     let {

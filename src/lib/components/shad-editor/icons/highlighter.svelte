@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Check, Highlighter } from "lucide-svelte";
-	import { ChevronDown } from "lucide-svelte";
 	import { type Editor } from "@tiptap/core";
-	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { Check, Highlighter , ChevronDown } from "lucide-svelte";
+	
 	import { Button } from "$lib/components/ui/button/index.js";
-	import { cn } from "$lib/utils.js";
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { cn } from "$lib/utils.js";
 
 	interface Props {
 		editor: Editor;

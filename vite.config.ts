@@ -1,6 +1,6 @@
-import { defineConfig } from "vitest/config";
 import { sveltekit } from "@sveltejs/kit/vite";
 import MagicString from "magic-string";
+import { defineConfig } from "vitest/config";
 
 // see https://github.com/tabler/tabler-icons/issues/669#issuecomment-1993756128
 function tablerSvelteImportOptimizer(): import("vite").Plugin {

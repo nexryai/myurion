@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { Link, Unlink } from "lucide-svelte";
-	import { ChevronDown } from "lucide-svelte";
 	import { type Editor } from "@tiptap/core";
-	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { Link, Unlink , ChevronDown } from "lucide-svelte";
+	
 	import { Button } from "$lib/components/ui/button/index.js";
-	import { cn } from "$lib/utils.js";
-	import * as Popover from "$lib/components/ui/popover/index.js";
 	import { Input } from "$lib/components/ui/input/index.js";
+	import * as Popover from "$lib/components/ui/popover/index.js";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { cn } from "$lib/utils.js";
 
 	let { editor }: { editor: Editor } = $props();
 

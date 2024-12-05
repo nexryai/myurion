@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { onDestroy, onMount } from "svelte";
-	import { NodeViewWrapper } from "svelte-tiptap";
+
 	import type { NodeViewProps } from "@tiptap/core";
-	import { cn } from "$lib/utils.js";
-	import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
 	import {
 		AlignCenter,
 		AlignLeft,
@@ -14,8 +12,17 @@
 		Trash,
 		Captions
 	} from "lucide-svelte";
+	import { NodeViewWrapper } from "svelte-tiptap";
+
+
+
+	import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+	import { cn } from "$lib/utils.js";
+
 	import { duplicateContent } from "./utils.js";
+
+
 
 	const { node, editor, selected, deleteNode, updateAttributes }: NodeViewProps = $props();
 

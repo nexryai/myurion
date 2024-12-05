@@ -1,11 +1,15 @@
 <script lang="ts">
-    import type { NoteTree } from "$lib/schema/note";
-    import * as Collapsible from "$lib/components/ui/collapsible";
-    import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-    import ChevronRight from "lucide-svelte/icons/chevron-right";
-    import RenderIcon from "$lib/components/icons/RenderIcon.svelte";
     import { goto } from "$app/navigation";
     import { page } from "$app/stores";
+
+    import ChevronRight from "lucide-svelte/icons/chevron-right";
+
+
+    import RenderIcon from "$lib/components/icons/RenderIcon.svelte";
+    import * as Collapsible from "$lib/components/ui/collapsible";
+    import * as Sidebar from "$lib/components/ui/sidebar/index.js";
+    import type { NoteTree } from "$lib/schema/note";
+
 
     let {
         tree,

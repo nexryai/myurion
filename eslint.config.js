@@ -1,14 +1,20 @@
-import js from '@eslint/js';
-import svelte from 'eslint-plugin-svelte';
-import globals from 'globals';
-import ts from 'typescript-eslint';
+import js from "@eslint/js";
+import importPlugin from "eslint-plugin-import";
+import svelte from "eslint-plugin-svelte";
+import globals from "globals";
+import ts from "typescript-eslint";
+
 
 export default ts.config(
 	js.configs.recommended,
 	...ts.configs.recommended,
 	...svelte.configs["flat/recommended"],
+	importPlugin.flatConfigs.recommended,
+	importPlugin.flatConfigs.typescript,
 	{
 		languageOptions: {
+			ecmaVersion: "latest",
+			sourceType: "module",
 			globals: {
 				...globals.browser,
 				...globals.node
@@ -16,7 +22,7 @@ export default ts.config(
 		}
 	},
 	{
-		files: ["**/*.svelte", "**/*.ts"],
+		files: ["**/*.svelte", "**/*.ts", "**/*.js"],
 
 		languageOptions: {
 			parserOptions: {
@@ -29,6 +35,33 @@ export default ts.config(
 			"@typescript-eslint/no-explicit-any": "off",
 			"quotes": ["error", "double"],
 			"semi": ["error", "always"],
+			"import/no-cycle": "error",
+			// https://github.com/import-js/eslint-plugin-import/issues/2765
+			"import/no-unresolved": "off",
+			"import/no-named-as-default": "off",
+			"import/order": [
+				"error",
+				{
+					groups: ["builtin", "external", "parent", "sibling", "index", "object"],
+					pathGroups: [
+						{
+							pattern: "{svelte,$app/**,Elysia}",
+							group: "builtin",
+							position: "before",
+						},
+						{
+							pattern: "{@src/**,$lib/**,@prisma/client}",
+							group: "parent",
+							position: "before",
+						},
+					],
+					pathGroupsExcludedImportTypes: ["type"],
+					alphabetize: {
+						order: "asc",
+					},
+					"newlines-between": "always",
+				},
+			],
 		}
 	},
 	{

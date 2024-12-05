@@ -1,7 +1,8 @@
 import Elysia, { error, t } from "elysia";
+
 import type { PasskeyAuthService } from "$lib/server/services/AuthService";
-import type { UserService } from "$lib/server/services/UserService";
 import type { NoteService } from "$lib/server/services/NoteService";
+import type { UserService } from "$lib/server/services/UserService";
 
 export class AppController {
     constructor(

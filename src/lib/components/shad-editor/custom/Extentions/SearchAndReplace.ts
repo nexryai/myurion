@@ -21,9 +21,9 @@
 // SOFTWARE.
 
 import { Extension, type Range, type Dispatch } from "@tiptap/core";
-import { Decoration, DecorationSet } from "@tiptap/pm/view";
-import { Plugin, PluginKey, type EditorState, type Transaction } from "@tiptap/pm/state";
 import { Node as PMNode } from "@tiptap/pm/model";
+import { Plugin, PluginKey, type EditorState, type Transaction } from "@tiptap/pm/state";
+import { Decoration, DecorationSet } from "@tiptap/pm/view";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {

@@ -2,17 +2,20 @@
     import "../app.css";
     let { children } = $props();
 
-    import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 
+    import { browser } from "$app/environment";
+
+    import { toast, Toaster } from "svelte-sonner";
+
+
+
+    import { signIn } from "$lib/browser/auth";
+    import XSidebar from "$lib/components/XSidebar.svelte";
     import XWelcome from "$lib/components/XWelcome.svelte";
     import AuthDialog from "$lib/components/auth/AuthDialog.svelte";
-    import { toast, Toaster } from "svelte-sonner";
-    import { browser } from "$app/environment";
     import FatalErrorDialog from "$lib/components/error/FatalErrorDialog.svelte";
-    import { signIn } from "$lib/browser/auth";
-
+    import * as Sidebar from "$lib/components/ui/sidebar/index.js";
     import { type User } from "@prisma/client";
-    import XSidebar from "$lib/components/XSidebar.svelte";
 
     // states
     let tokenExpired = $state(false);

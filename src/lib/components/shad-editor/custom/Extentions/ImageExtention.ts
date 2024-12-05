@@ -1,6 +1,7 @@
-import { SvelteNodeViewRenderer } from "svelte-tiptap";
-import ImageExtendedComponent from "../image-extended-component.svelte";
 import Image from "@tiptap/extension-image";
+import { SvelteNodeViewRenderer } from "svelte-tiptap";
+
+import ImageExtendedComponent from "../image-extended-component.svelte";
 
 export const ImageExtension = Image.extend({
 	addAttributes() {
