@@ -302,6 +302,14 @@ export class PasskeyAuthService extends AuthService {
 }
 
 export class UnsafeDebugAuthService extends AuthService {
+    constructor() {
+        if (process.env.NODE_ENV !== "development" && process.env.NODE_ENV !== "test") {
+            throw new Error("UnsafeDebugAuthService is only available in development mode.");
+        }
+
+        super();
+    }
+
     public genAppToken(uid: string, expireAt?: Date): string {
         return this.generateAppToken(uid, expireAt || new Date(Date.now() + 30 * 60 * 1000));
     }
