@@ -18,7 +18,7 @@
         readyToSubmit = name.length > 0 && terms;
     });
 
-    async function register() {
+    const register = async() => {
         if (!readyToSubmit) {
             return;
         }
@@ -51,17 +51,15 @@
 
         const verificationResult = await verificationResp.json();
         console.log(verificationResult);
-    }
-
-
+    };
 </script>
 
 <Dialog.Root bind:open={isOpen}>
     <Dialog.Content class="sm:max-w-[500px]" escapeKeydownBehavior="ignore" interactOutsideBehavior="ignore">
         <Dialog.Header>
-            <Dialog.Title>Sing Up to Goshenite</Dialog.Title>
+            <Dialog.Title>Sing Up</Dialog.Title>
             <Dialog.Description>
-                Welcome to Goshenite! Sign up to start using the app.
+                Welcome! Sign up to start using the app.
             </Dialog.Description>
         </Dialog.Header>
         <div class="grid gap-4 py-4">
@@ -88,7 +86,7 @@
                     type="submit"
                     onclick={() => {register();}}
             >
-                Passkey to finish signing up
+                Register with Passkey
             </Button>
         </Dialog.Footer>
     </Dialog.Content>
