@@ -118,7 +118,6 @@ class AuthService {
         const now = new Date();
 
         if (expireAt <= now) {
-            console.log("Token has expired.");
             return null;
         }
 
@@ -299,5 +298,23 @@ export class PasskeyAuthService extends AuthService {
         }
 
         return this.generateAppToken(cred.userId, new Date(Date.now() + 30 * 60 * 1000));
+    }
+}
+
+export class UnsafeDebugAuthService extends AuthService {
+    public genAppToken(uid: string, expireAt?: Date): string {
+        return this.generateAppToken(uid, expireAt || new Date(Date.now() + 30 * 60 * 1000));
+    }
+
+    public genChallengeToken(uid: string, challenge: string, expireAt?: Date): string {
+        return this.generateChallengeToken(uid, challenge, expireAt || new Date(Date.now() + 6000));
+    }
+
+    public decryptAppToken(encryptedData: string): { uid: string, expireAt: Date } | null {
+        return this.decryptToken(encryptedData, false);
+    }
+
+    public decryptChallengeToken(encryptedData: string): { uid: string, expireAt: Date, challenge?: string } | null {
+        return this.decryptToken(encryptedData, true);
     }
 }
