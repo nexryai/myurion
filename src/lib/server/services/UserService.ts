@@ -43,7 +43,7 @@ export class UserService {
         return;
     }
 
-    public updateUser(where: Prisma.UserWhereUniqueInput, data: Prisma.UserUpdateInput): Promise<User> {
-        return this.userRepository.update({ where, data });
+    public updateUser(uid: string, data: Prisma.UserUpdateInput): Promise<User> {
+        return this.userRepository.update({ where: { id: uid }, data });
     }
 }
