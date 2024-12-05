@@ -111,9 +111,6 @@
                             <span>Settings</span>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item>
-                            <span>Billing</span>
-                        </DropdownMenu.Item>
-                        <DropdownMenu.Item>
                             <span>Sign out</span>
                         </DropdownMenu.Item>
                     </DropdownMenu.Content>
