@@ -1,5 +1,6 @@
 <script lang="ts">
     import { startRegistration } from "@simplewebauthn/browser";
+    import { toast } from "svelte-sonner";
 
     import { Button } from "$lib/components/ui/button";
     import { Checkbox } from "$lib/components/ui/checkbox/index.js";
@@ -37,7 +38,7 @@
             // Pass the options to the authenticator and wait for a response
             attResp = await startRegistration({ optionsJSON: passkeyOptions });
         } catch (error) {
-            alert("Error registering passkey");
+            toast.error("Failed to sign up", {description: `${error}`, duration: 5000});
             throw error;
         }
 
@@ -51,6 +52,8 @@
 
         const verificationResult = await verificationResp.json();
         console.log(verificationResult);
+
+        toast.success("Successfully signed up", {description: "Please sign in to continue.", duration: 5000});
     };
 </script>
 
@@ -84,6 +87,7 @@
             <Button
                     disabled={!readyToSubmit}
                     type="submit"
+                    id="sign-up-submit-button"
                     onclick={() => {register();}}
             >
                 Register with Passkey
