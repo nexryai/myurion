@@ -25,6 +25,9 @@ jobs:
       - name: Enable corepack
         run: corepack enable
 
+      - name: Create .env file
+        run: echo "DATABASE_URL=\"file:./test.db\"" > .env
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
