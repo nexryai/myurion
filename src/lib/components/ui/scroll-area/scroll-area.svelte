@@ -7,13 +7,13 @@
 
 
 	let {
-		ref = $bindable(null),
-		class: className,
-		orientation = "vertical",
-		scrollbarXClasses = "",
-		scrollbarYClasses = "",
-		children,
-		...restProps
+	    ref = $bindable(null),
+	    class: className,
+	    orientation = "vertical",
+	    scrollbarXClasses = "",
+	    scrollbarYClasses = "",
+	    children,
+	    ...restProps
 	}: WithoutChild<ScrollAreaPrimitive.RootProps> & {
 		orientation?: "vertical" | "horizontal" | "both" | undefined;
 		scrollbarXClasses?: string | undefined;

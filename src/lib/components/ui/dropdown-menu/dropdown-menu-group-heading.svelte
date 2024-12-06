@@ -4,10 +4,10 @@
 	import { cn } from "$lib/utils.js";
 
 	let {
-		ref = $bindable(null),
-		class: className,
-		inset,
-		...restProps
+	    ref = $bindable(null),
+	    class: className,
+	    inset,
+	    ...restProps
 	}: DropdownMenuPrimitive.GroupHeadingProps & {
 		inset?: boolean;
 	} = $props();

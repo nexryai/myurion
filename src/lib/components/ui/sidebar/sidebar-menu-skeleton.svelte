@@ -8,11 +8,11 @@
 
 
 	let {
-		ref = $bindable(null),
-		class: className,
-		showIcon = false,
-		children,
-		...restProps
+	    ref = $bindable(null),
+	    class: className,
+	    showIcon = false,
+	    children,
+	    ...restProps
 	}: WithElementRef<HTMLAttributes<HTMLElement>> & {
 		showIcon?: boolean;
 	} = $props();

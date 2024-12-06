@@ -4,11 +4,11 @@
 	import { cn } from "$lib/utils.js";
 
 	let {
-		ref = $bindable(null),
-		class: className,
-		orientation = "vertical",
-		children,
-		...restProps
+	    ref = $bindable(null),
+	    class: className,
+	    orientation = "vertical",
+	    children,
+	    ...restProps
 	}: WithoutChild<ScrollAreaPrimitive.ScrollbarProps> = $props();
 </script>
 
@@ -16,10 +16,10 @@
 	bind:ref
 	{orientation}
 	class={cn(
-		"flex touch-none select-none transition-colors",
-		orientation === "vertical" && "h-full w-2.5 border-l border-l-transparent p-px",
-		orientation === "horizontal" && "h-2.5 w-full border-t border-t-transparent p-px",
-		className
+	    "flex touch-none select-none transition-colors",
+	    orientation === "vertical" && "h-full w-2.5 border-l border-l-transparent p-px",
+	    orientation === "horizontal" && "h-2.5 w-full border-t border-t-transparent p-px",
+	    className
 	)}
 	{...restProps}
 >

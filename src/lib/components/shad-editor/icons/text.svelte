@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { type Editor } from "@tiptap/core";
 	import {
-		Heading1,
-		Heading2,
-		Heading3,
-		Pilcrow,
-		FileJson,
-		ChevronDown,
-		Check,
-		Minus
+	    Heading1,
+	    Heading2,
+	    Heading3,
+	    Pilcrow,
+	    FileJson,
+	    ChevronDown,
+	    Check,
+	    Minus
 	} from "lucide-svelte";
 
 	import Button from "$lib/components/ui/button/button.svelte";

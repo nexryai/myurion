@@ -21,15 +21,15 @@
 	let defaultLanguage = $state(node.attrs.language);
 
 	onMount(() => {
-		console.log(node);
+	    console.log(node);
 	});
 
 	function copyCode() {
-		isCopying = true;
-		navigator.clipboard.writeText(preRef.innerText);
-		setTimeout(() => {
-			isCopying = false;
-		}, 1000);
+	    isCopying = true;
+	    navigator.clipboard.writeText(preRef.innerText);
+	    setTimeout(() => {
+	        isCopying = false;
+	    }, 1000);
 	}
 </script>
 
@@ -41,9 +41,9 @@
 		<DropdownMenu.Trigger
 			contenteditable="false"
 			class={buttonVariants({
-				variant: "ghost",
-				size: "sm",
-				class:
+			    variant: "ghost",
+			    size: "sm",
+			    class:
 					"absolute left-2 top-2 h-4 rounded px-1 py-2 text-xs capitalize text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
 			})}
 			>{defaultLanguage}
@@ -56,8 +56,8 @@
 					data-current={defaultLanguage === language}
 					class="capitalize data-[current=true]:bg-muted"
 					onclick={() => {
-						defaultLanguage = language;
-						updateAttributes({ language: defaultLanguage });
+					    defaultLanguage = language;
+					    updateAttributes({ language: defaultLanguage });
 					}}
 				>
 					<span>{language}</span>

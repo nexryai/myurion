@@ -11,11 +11,11 @@
 	let { editor }: { editor: Editor } = $props();
 
 	function setLink(url: string) {
-		if (url.trim() === "") {
-			editor.chain().focus().extendMarkRange("link").unsetLink().run();
-			return;
-		}
-		editor?.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+	    if (url.trim() === "") {
+	        editor.chain().focus().extendMarkRange("link").unsetLink().run();
+	        return;
+	    }
+	    editor?.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
 	}
 </script>
 
@@ -38,8 +38,8 @@
 						placeholder="Enter link to attach.."
 						value={editor?.getAttributes("link").href}
 						onchange={(e) => {
-							//@ts-ignore
-							if (e !== null && e.target !== null) setLink(e.target.value);
+						    //@ts-ignore
+						    if (e !== null && e.target !== null) setLink(e.target.value);
 						}}
 						class="w-full"
 						type="url"
@@ -50,7 +50,7 @@
 							class="text-red-500"
 							size="icon"
 							onclick={() => {
-								editor.chain().focus().extendMarkRange("link").unsetLink().run();
+							    editor.chain().focus().extendMarkRange("link").unsetLink().run();
 							}}>
 							<Unlink />
 						</Button>

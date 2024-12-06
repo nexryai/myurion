@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { type Editor } from "@tiptap/core";
 	import {
-		ArrowLeft,
-		ArrowRight,
-		TextSearch,
-		X,
-		Replace,
-		ReplaceAll,
-		ChevronDown
+	    ArrowLeft,
+	    ArrowRight,
+	    TextSearch,
+	    X,
+	    Replace,
+	    ReplaceAll,
+	    ChevronDown
 	} from "lucide-svelte";
 
 	import { Button } from "$lib/components/ui/button/index.js";
@@ -25,42 +25,42 @@
 	let searchCount = $derived(editor.storage?.searchAndReplace?.results.length);
 
 	function updateSearchTerm(clearIndex: boolean = false) {
-		if (clearIndex) editor.commands.resetIndex();
+	    if (clearIndex) editor.commands.resetIndex();
 
-		editor.commands.setSearchTerm(searchText);
-		editor.commands.setReplaceTerm(replaceText);
-		editor.commands.setCaseSensitive(caseSensitive);
+	    editor.commands.setSearchTerm(searchText);
+	    editor.commands.setReplaceTerm(replaceText);
+	    editor.commands.setCaseSensitive(caseSensitive);
 	}
 
 	function goToSelection() {
-		const { results, resultIndex } = editor.storage.searchAndReplace;
-		const position: Range = results[resultIndex];
-		if (!position) return;
-		//@ts-ignore
-		editor.commands.setTextSelection(position);
-		const { node } = editor.view.domAtPos(editor.state.selection.anchor);
-		node instanceof HTMLElement && node.scrollIntoView({ behavior: "smooth", block: "center" });
+	    const { results, resultIndex } = editor.storage.searchAndReplace;
+	    const position: Range = results[resultIndex];
+	    if (!position) return;
+	    //@ts-ignore
+	    editor.commands.setTextSelection(position);
+	    const { node } = editor.view.domAtPos(editor.state.selection.anchor);
+	    node instanceof HTMLElement && node.scrollIntoView({ behavior: "smooth", block: "center" });
 	}
 
 	function replace() {
-		editor.commands.replace();
-		goToSelection();
+	    editor.commands.replace();
+	    goToSelection();
 	}
 
 	const next = () => {
-		editor.commands.nextSearchResult();
-		goToSelection();
+	    editor.commands.nextSearchResult();
+	    goToSelection();
 	};
 
 	const previous = () => {
-		editor.commands.previousSearchResult();
-		goToSelection();
+	    editor.commands.previousSearchResult();
+	    goToSelection();
 	};
 
 	const clear = () => {
-		searchText = "";
-		replaceText = "";
-		editor.commands.resetIndex();
+	    searchText = "";
+	    replaceText = "";
+	    editor.commands.resetIndex();
 	};
 
 	const replaceAll = () => editor.commands.replaceAll();
@@ -71,11 +71,11 @@
 		<Tooltip.Trigger>
 			<Popover.Root
 				onOpenChange={(open) => {
-					if (open) updateSearchTerm();
-					else {
-						clear();
-						updateSearchTerm(true);
-					}
+				    if (open) updateSearchTerm();
+				    else {
+				        clear();
+				        updateSearchTerm(true);
+				    }
 				}}
 			>
 				<Popover.Trigger>
@@ -88,8 +88,8 @@
 					<Popover.Close
 						class="absolute right-2 top-0 text-muted-foreground"
 						onclick={() => {
-							clear();
-							updateSearchTerm(true);
+						    clear();
+						    updateSearchTerm(true);
 						}}
 					>
 						<X class="size-4" />

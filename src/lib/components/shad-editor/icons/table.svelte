@@ -22,7 +22,7 @@
 				<DropdownMenu.Content class="max-h-[25rem] w-40 overflow-auto">
 					<DropdownMenu.Item
 						onclick={() =>
-							editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
+						    editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
 					>
 						<span>Insert Table</span>
 					</DropdownMenu.Item>

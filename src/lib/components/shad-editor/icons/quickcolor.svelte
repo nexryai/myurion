@@ -10,16 +10,16 @@
 	let { editor }: { editor: Editor } = $props();
 
 	const colors = [
-		{ label: "Default", value: "" },
-		{ label: "Blue", value: "#0000FF" },
-		{ label: "Brown", value: "#A52A2A" },
-		{ label: "Green", value: "#008000" },
-		{ label: "Grey", value: "#808080" },
-		{ label: "Orange", value: "#FFA500" },
-		{ label: "Pink", value: "#FFC0CB" },
-		{ label: "Purple", value: "#800080" },
-		{ label: "Red", value: "#FF0000" },
-		{ label: "Yellow", value: "#FFFF00" }
+	    { label: "Default", value: "" },
+	    { label: "Blue", value: "#0000FF" },
+	    { label: "Brown", value: "#A52A2A" },
+	    { label: "Green", value: "#008000" },
+	    { label: "Grey", value: "#808080" },
+	    { label: "Orange", value: "#FFA500" },
+	    { label: "Pink", value: "#FFC0CB" },
+	    { label: "Purple", value: "#800080" },
+	    { label: "Red", value: "#FF0000" },
+	    { label: "Yellow", value: "#FFFF00" }
 	];
 
 	const currentColor = $derived(editor.getAttributes("textStyle").color);
@@ -42,14 +42,14 @@
 							<DropdownMenu.Item
 								class="flex items-center"
 								onclick={() => {
-									if (color.value === "" || color.label === "Default")
-										editor.chain().focus().unsetColor().run();
-									else
-										editor
-											.chain()
-											.focus()
-											.setColor(currentColor === color.value ? "" : color.value)
-											.run();
+								    if (color.value === "" || color.label === "Default")
+								        editor.chain().focus().unsetColor().run();
+								    else
+								        editor
+								            .chain()
+								            .focus()
+								            .setColor(currentColor === color.value ? "" : color.value)
+								            .run();
 								}}
 								closeOnSelect={false}
 							>

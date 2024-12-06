@@ -4,11 +4,11 @@
 	import { cn } from "$lib/utils.js";
 
 	let {
-		ref = $bindable(null),
-		class: className,
-		children,
-		heading,
-		...restProps
+	    ref = $bindable(null),
+	    class: className,
+	    children,
+	    heading,
+	    ...restProps
 	}: CommandPrimitive.GroupProps & {
 		heading?: string;
 	} = $props();

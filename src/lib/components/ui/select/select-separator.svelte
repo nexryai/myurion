@@ -7,9 +7,9 @@
 
 
 	let {
-		ref = $bindable(null),
-		class: className,
-		...restProps
+	    ref = $bindable(null),
+	    class: className,
+	    ...restProps
 	}: SeparatorPrimitive.RootProps = $props();
 </script>
 

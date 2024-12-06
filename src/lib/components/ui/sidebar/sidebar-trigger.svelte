@@ -14,10 +14,10 @@
 
 
 	let {
-		ref = $bindable(null),
-		class: className,
-		onclick,
-		...restProps
+	    ref = $bindable(null),
+	    class: className,
+	    onclick,
+	    ...restProps
 	}: ComponentProps<typeof Button> & {
 		onclick?: (e: MouseEvent) => void;
 	} = $props();
@@ -28,8 +28,8 @@
 <Button
 	type="button"
 	onclick={(e) => {
-		onclick?.(e);
-		sidebar.toggle();
+	    onclick?.(e);
+	    sidebar.toggle();
 	}}
 	data-sidebar="trigger"
 	variant="ghost"

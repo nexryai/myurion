@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { type Editor } from "@tiptap/core";
 	import {
-		AlignCenter,
-		AlignLeft,
-		AlignRight,
-		AlignJustify,
-		ChevronDown,
-		Check
+	    AlignCenter,
+	    AlignLeft,
+	    AlignRight,
+	    AlignJustify,
+	    ChevronDown,
+	    Check
 	} from "lucide-svelte";
 
 	import Button from "$lib/components/ui/button/button.svelte";

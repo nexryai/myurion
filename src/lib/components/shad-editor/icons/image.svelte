@@ -26,10 +26,10 @@
 						placeholder="Enter image url..."
 						type="url"
 						onchange={(e) => {
-							if (e !== null && e.target !== null) {
-								//@ts-ignore
-								editor.chain().focus().setImage({ src: e.target.value }).run();
-							}
+						    if (e !== null && e.target !== null) {
+						        //@ts-ignore
+						        editor.chain().focus().setImage({ src: e.target.value }).run();
+						    }
 						}}
 						class="w-full"
 					/>
@@ -40,20 +40,20 @@
 						accept="image/*"
 						multiple={false}
 						onchange={(e: Event) => {
-							//@ts-ignore
-							if (e.target && e.target.files) {
-								//@ts-ignore
-								const files = Array.from(e.target.files || []);
-								files.map((file) => {
-									const reader = new FileReader();
-									reader.onload = () => {
-										const src = reader.result as string;
-										editor.chain().focus().setImage({ src }).run();
-									};
-									//@ts-ignore
-									reader.readAsDataURL(file);
-								});
-							}
+						    //@ts-ignore
+						    if (e.target && e.target.files) {
+						        //@ts-ignore
+						        const files = Array.from(e.target.files || []);
+						        files.map((file) => {
+						            const reader = new FileReader();
+						            reader.onload = () => {
+						                const src = reader.result as string;
+						                editor.chain().focus().setImage({ src }).run();
+						            };
+						            //@ts-ignore
+						            reader.readAsDataURL(file);
+						        });
+						    }
 						}}
 					/>
 				</Popover.Content>

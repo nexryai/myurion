@@ -7,11 +7,11 @@
 
 
 	let {
-		ref = $bindable(null),
-		class: className,
-		inset,
-		children,
-		...restProps
+	    ref = $bindable(null),
+	    class: className,
+	    inset,
+	    children,
+	    ...restProps
 	}: WithElementRef<HTMLAttributes<HTMLDivElement>> & {
 		inset?: boolean;
 	} = $props();

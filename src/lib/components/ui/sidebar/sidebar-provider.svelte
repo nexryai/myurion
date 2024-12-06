@@ -6,10 +6,10 @@
 	import { cn } from "$lib/utils.js";
 
 	import {
-		SIDEBAR_COOKIE_MAX_AGE,
-		SIDEBAR_COOKIE_NAME,
-		SIDEBAR_WIDTH,
-		SIDEBAR_WIDTH_ICON,
+	    SIDEBAR_COOKIE_MAX_AGE,
+	    SIDEBAR_COOKIE_NAME,
+	    SIDEBAR_WIDTH,
+	    SIDEBAR_WIDTH_ICON,
 	} from "./constants.js";
 	import { setSidebar } from "./context.svelte.js";
 
@@ -17,14 +17,14 @@
 
 
 	let {
-		ref = $bindable(null),
-		open = $bindable(true),
-		onOpenChange = () => {},
-		controlledOpen = false,
-		class: className,
-		style,
-		children,
-		...restProps
+	    ref = $bindable(null),
+	    open = $bindable(true),
+	    onOpenChange = () => {},
+	    controlledOpen = false,
+	    class: className,
+	    style,
+	    children,
+	    ...restProps
 	}: WithElementRef<HTMLAttributes<HTMLDivElement>> & {
 		open?: boolean;
 		onOpenChange?: (open: boolean) => void;
@@ -32,18 +32,18 @@
 	} = $props();
 
 	const sidebar = setSidebar({
-		open: () => open,
-		setOpen: (value: boolean) => {
-			if (controlledOpen) {
-				onOpenChange(value);
-			} else {
-				open = value;
-				onOpenChange(value);
-			}
+	    open: () => open,
+	    setOpen: (value: boolean) => {
+	        if (controlledOpen) {
+	            onOpenChange(value);
+	        } else {
+	            open = value;
+	            onOpenChange(value);
+	        }
 
-			// This sets the cookie to keep the sidebar state.
-			document.cookie = `${SIDEBAR_COOKIE_NAME}=${open}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
-		},
+	        // This sets the cookie to keep the sidebar state.
+	        document.cookie = `${SIDEBAR_COOKIE_NAME}=${open}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+	    },
 	});
 </script>
 
@@ -53,8 +53,8 @@
 	<div
 		style="--sidebar-width: {SIDEBAR_WIDTH}; --sidebar-width-icon: {SIDEBAR_WIDTH_ICON}; {style}"
 		class={cn(
-			"group/sidebar-wrapper has-[[data-variant=inset]]:bg-sidebar flex min-h-svh w-full",
-			className
+		    "group/sidebar-wrapper has-[[data-variant=inset]]:bg-sidebar flex min-h-svh w-full",
+		    className
 		)}
 		bind:this={ref}
 		{...restProps}

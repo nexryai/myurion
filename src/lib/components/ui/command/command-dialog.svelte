@@ -3,9 +3,9 @@
 	import type { Snippet } from "svelte";
 
 	import type {
-		Command as CommandPrimitive,
-		Dialog as DialogPrimitive,
-		WithoutChildrenOrChild,
+	    Command as CommandPrimitive,
+	    Dialog as DialogPrimitive,
+	    WithoutChildrenOrChild,
 	} from "bits-ui";
 
 	import * as Dialog from "$lib/components/ui/dialog/index.js";
@@ -15,11 +15,11 @@
 
 
 	let {
-		open = $bindable(false),
-		ref = $bindable(null),
-		value = $bindable(""),
-		children,
-		...restProps
+	    open = $bindable(false),
+	    ref = $bindable(null),
+	    value = $bindable(""),
+	    children,
+	    ...restProps
 	}: WithoutChildrenOrChild<DialogPrimitive.RootProps> &
 		WithoutChildrenOrChild<CommandPrimitive.RootProps> & {
 			children: Snippet;

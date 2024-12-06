@@ -13,13 +13,13 @@
 	}
 
 	const colors = [
-		{ label: "Default", value: "" },
-		{ label: "Blue", value: "#75a6ff" },
-		{ label: "Green", value: "#9ef19e" },
-		{ label: "Grey", value: "#808080" },
-		{ label: "Orange", value: "#FFA500" },
-		{ label: "Red", value: "#ffa6a6" },
-		{ label: "Yellow", value: "#FFFF00" }
+	    { label: "Default", value: "" },
+	    { label: "Blue", value: "#75a6ff" },
+	    { label: "Green", value: "#9ef19e" },
+	    { label: "Grey", value: "#808080" },
+	    { label: "Orange", value: "#FFA500" },
+	    { label: "Red", value: "#ffa6a6" },
+	    { label: "Yellow", value: "#FFFF00" }
 	];
 
 	let { editor, color = $bindable("") }: Props = $props();
@@ -47,10 +47,10 @@
 							<DropdownMenu.Item
 									class="flex items-center"
 									onclick={() => {
-									if (color.value === "" || color.label === "Default")
-										editor.chain().focus().unsetHighlight().run();
-									else editor.chain().focus().toggleHighlight({ color: color.value }).run();
-								}}
+									    if (color.value === "" || color.label === "Default")
+									        editor.chain().focus().unsetHighlight().run();
+									    else editor.chain().focus().toggleHighlight({ color: color.value }).run();
+									}}
 									closeOnSelect={false}
 							>
 								<span

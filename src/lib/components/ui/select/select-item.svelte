@@ -5,12 +5,12 @@
 	import { cn } from "$lib/utils.js";
 
 	let {
-		ref = $bindable(null),
-		class: className,
-		value,
-		label,
-		children: childrenProp,
-		...restProps
+	    ref = $bindable(null),
+	    class: className,
+	    value,
+	    label,
+	    children: childrenProp,
+	    ...restProps
 	}: WithoutChild<SelectPrimitive.ItemProps> = $props();
 </script>
 
@@ -18,8 +18,8 @@
 	bind:ref
 	{value}
 	class={cn(
-		"data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-		className
+	    "data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+	    className
 	)}
 	{...restProps}
 >
