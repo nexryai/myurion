@@ -1,5 +1,6 @@
 <script lang="ts">
     import { startRegistration } from "@simplewebauthn/browser";
+    import { LoaderCircle } from "lucide-svelte";
     import { toast } from "svelte-sonner";
 
     import { Button } from "$lib/components/ui/button";
@@ -8,10 +9,10 @@
     import { Input } from "$lib/components/ui/input/index.js";
     import { Label } from "$lib/components/ui/label/index.js";
 
-
     let { isOpen = $bindable() } : {isOpen: boolean} = $props();
 
     let readyToSubmit = $state<boolean>(false);
+    let isLoading = $state<boolean>(false);
     let name = $state<string>("");
     let terms = $state<boolean>(false);
 
@@ -24,6 +25,7 @@
             return;
         }
 
+        isLoading = true;
         const resp = await fetch("/auth/register-request", {
             method: "POST",
             headers: {
@@ -39,21 +41,26 @@
             attResp = await startRegistration({ optionsJSON: passkeyOptions });
         } catch (error) {
             toast.error("Failed to sign up", {description: `${error}`, duration: 5000});
+            isLoading = false;
             throw error;
         }
 
-        const verificationResp = await fetch("/auth/verify-registration", {
+        fetch("/auth/verify-registration", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(attResp),
+        }).then((response) => {
+            if (!response.ok) {
+                toast.error("Failed to sign up", {description: "An error occurred while signing up. Please try again later.", duration: 5000});
+            } else {
+                toast.success("Successfully signed up", {description: "Please sign in to continue.", duration: 5000});
+                isOpen = false;
+            }
+
+            isLoading = false;
         });
-
-        const verificationResult = await verificationResp.json();
-        console.log(verificationResult);
-
-        toast.success("Successfully signed up", {description: "Please sign in to continue.", duration: 5000});
     };
 </script>
 
@@ -85,11 +92,14 @@
         </div>
         <Dialog.Footer>
             <Button
-                    disabled={!readyToSubmit}
+                    disabled={!readyToSubmit || isLoading}
                     type="submit"
                     id="sign-up-submit-button"
                     onclick={() => {register();}}
             >
+                {#if isLoading}
+                    <LoaderCircle class="mr-2 h-4 w-4 animate-spin" />
+                {/if}
                 Register with Passkey
             </Button>
         </Dialog.Footer>
