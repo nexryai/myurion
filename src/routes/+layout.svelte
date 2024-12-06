@@ -7,8 +7,6 @@
 
     import { toast, Toaster } from "svelte-sonner";
 
-
-
     import { signIn } from "$lib/browser/auth";
     import XSidebar from "$lib/components/XSidebar.svelte";
     import XWelcome from "$lib/components/XWelcome.svelte";
@@ -64,6 +62,10 @@
         });
     }
 </script>
+
+<svelte:head>
+    <title>Myurion Note</title>
+</svelte:head>
 
 {#if !isSignedIn}
     <XWelcome />
