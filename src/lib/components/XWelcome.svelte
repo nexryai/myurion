@@ -19,6 +19,10 @@
             toast.success("Successfully signed in", {
                 description: "You have successfully signed in.",
             });
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
         } catch (error) {
             console.error(error);
             toast.error("Failed to sign in", {
@@ -43,6 +47,7 @@
             onclick={() => onSignUp()}
             variant="ghost"
             class="absolute right-4 top-4 md:right-8 md:top-8"
+            id="sign-up-button"
     >
         Create Account
     </Button>
@@ -73,7 +78,7 @@
             <div class={cn("grid gap-6", className)} {...$$restProps}>
                 <form on:submit|preventDefault={onSubmit}>
                     <div class="grid gap-2">
-                        <Button type="submit" disabled={isLoading}>
+                        <Button type="submit" disabled={isLoading} id="button-sign-in-with-passkey">
                             {#if isLoading}
                                 <LoaderCircle class="mr-2 h-4 w-4 animate-spin" />
                             {/if}
