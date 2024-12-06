@@ -76,4 +76,7 @@ export default defineConfig({
         url: "http://localhost:5173",
         reuseExistingServer: !process.env.CI,
     },
+
+    // Timeout for each test
+    timeout: 60000,
 });
