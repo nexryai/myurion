@@ -85,8 +85,8 @@ importers:
         specifier: ^2.9.1
         version: 2.9.1(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))
       '@tiptap/extension-task-item':
-        specifier: ^2.9.1
-        version: 2.9.1(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1)
+        specifier: ^2.10.3
+        version: 2.10.3(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1)
       '@tiptap/extension-task-list':
         specifier: ^2.9.1
         version: 2.9.1(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))
@@ -897,8 +897,8 @@ packages:
       '@tiptap/core': ^2.7.0
       '@tiptap/pm': ^2.7.0
 
-  '@tiptap/extension-task-item@2.9.1':
-    resolution: {integrity: sha512-nao7lg7MF6DXc8N7K2yP9Y6Gb8113cVSEIXxy6PU9oMgXp0xSzIL2pkG1E2bgSqkUIop1pHzeF4cNLMY+MO2fg==}
+  '@tiptap/extension-task-item@2.10.3':
+    resolution: {integrity: sha512-vE4qxGrZTdwynHq6l5xN0jI0ahDZpmKeoD6yuCMNyN831dgHXEjNrV8oBtZUvvqChFRc/LiSmUbrTInUn5xeNg==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
       '@tiptap/pm': ^2.7.0
@@ -3525,7 +3525,7 @@ snapshots:
       '@tiptap/core': 2.9.1(@tiptap/pm@2.9.1)
       '@tiptap/pm': 2.9.1
 
-  '@tiptap/extension-task-item@2.9.1(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1)':
+  '@tiptap/extension-task-item@2.10.3(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1)':
     dependencies:
       '@tiptap/core': 2.9.1(@tiptap/pm@2.9.1)
       '@tiptap/pm': 2.9.1
