@@ -70,7 +70,7 @@
 {#if !isSignedIn}
     <XWelcome />
 {:else }
-    <Sidebar.Provider class="w-screen justify-center">
+    <Sidebar.Provider class="w-screen justify-center" id="myurion-app-sidebar">
         <XSidebar username={username ?? "Loading..."} />
         <div class="w-full">
             {@render children()}
