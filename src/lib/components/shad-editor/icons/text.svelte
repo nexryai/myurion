@@ -4,6 +4,9 @@
 	    Heading1,
 	    Heading2,
 	    Heading3,
+	    Heading4,
+	    Heading5,
+	    Heading6,
 	    Pilcrow,
 	    FileJson,
 	    ChevronDown,
@@ -30,6 +33,12 @@
 							<Heading2 />
 						{:else if editor.isActive("heading", { level: 3 })}
 							<Heading3 />
+						{:else if editor.isActive("heading", { level: 4 })}
+							<Heading4 />
+						{:else if editor.isActive("heading", { level: 5 })}
+							<Heading5 />
+						{:else if editor.isActive("heading", { level: 6 })}
+							<Heading6 />
 						{:else if editor.isActive("paragraph")}
 							<Pilcrow />
 						{:else if editor.isActive("codeBlock")}
@@ -65,6 +74,33 @@
 					>
 						<Heading3 /> Heading 3
 						{#if editor.isActive("heading", { level: 3 })}
+							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+						{/if}
+					</DropdownMenu.Item>
+					<DropdownMenu.Item
+						onclick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+						closeOnSelect={false}
+					>
+						<Heading4 /> Heading 4
+						{#if editor.isActive("heading", { level: 4 })}
+							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+						{/if}
+					</DropdownMenu.Item>
+					<DropdownMenu.Item
+						onclick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
+						closeOnSelect={false}
+					>
+						<Heading5 /> Heading 5
+						{#if editor.isActive("heading", { level: 5 })}
+							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+						{/if}
+					</DropdownMenu.Item>
+					<DropdownMenu.Item
+						onclick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
+						closeOnSelect={false}
+					>
+						<Heading6 /> Heading 6
+						{#if editor.isActive("heading", { level: 6 })}
 							<Check class="absolute right-2 !size-3 text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>

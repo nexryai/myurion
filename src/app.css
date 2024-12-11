@@ -92,9 +92,24 @@ h3.tiptap-heading {
     @apply mb-3 mt-4 text-xl font-bold;
 }
 
+h4.tiptap-heading {
+    @apply mb-2 mt-3 text-lg font-bold;
+}
+
+h5.tiptap-heading {
+    @apply mb-2 mt-3 text-base font-bold;
+}
+
+h6.tiptap-heading {
+    @apply mb-2 mt-3 text-sm font-bold;
+}
+
 h1.tiptap-heading:first-child,
 h2.tiptap-heading:first-child,
-h3.tiptap-heading:first-child {
+h3.tiptap-heading:first-child,
+h4.tiptap-heading:first-child,
+h5.tiptap-heading:first-child,
+h6.tiptap-heading:first-child {
     margin-top: 0;
 }
 
