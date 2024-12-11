@@ -245,7 +245,7 @@
             </div>
         {:then content}
             {#if content}
-                <ShadEditor class="h-[40rem]" content={content} bind:characterCount={characterCount} onChanged={onChanged} />
+                <ShadEditor class="h-[90vh]" content={content} bind:characterCount={characterCount} onChanged={onChanged} />
             {/if}
         {:catch error}
             <p class="text-red-500">{error.message}</p>
