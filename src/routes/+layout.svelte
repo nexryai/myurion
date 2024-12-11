@@ -14,6 +14,7 @@
     import FatalErrorDialog from "$lib/components/error/FatalErrorDialog.svelte";
     import * as Sidebar from "$lib/components/ui/sidebar/index.js";
     import { type User } from "@prisma/client";
+    import { callApi } from "$lib/browser/api";
 
     // states
     let tokenExpired = $state(false);

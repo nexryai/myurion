@@ -109,6 +109,19 @@ export class AppController {
                 }),
             })
         });
+
+        this.router.get("/auth/logout", async ({cookie: {token}}) => {
+            token.value = "";
+            token.httpOnly = true;
+            token.secure = true;
+            token.sameSite = "strict";
+            token.expires = new Date(0);
+            token.path = "/api";
+
+            return {
+                loggedOut: true
+            };
+        });
     }
 
     public configApiRouter() {

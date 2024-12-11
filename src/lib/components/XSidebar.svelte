@@ -3,12 +3,14 @@
     import { goto } from "$app/navigation";
     import { page } from "$app/stores";
 
-    import { ChevronUp, LoaderCircle, Plus, Search, Zap } from "lucide-svelte";
+    import { ChevronUp, LoaderCircle, LogOut, Plus, Search, Undo2, Zap } from "lucide-svelte";
 
     import { callApi } from "$lib/browser/api";
     import AddCategoryDialog from "$lib/components/AddCategoryDialog.svelte";
     import SidebarNoteTree from "$lib/components/sidebar/SidebarNoteTree.svelte";
+    import { Button } from "$lib/components/ui/button";
     import * as Command from "$lib/components/ui/command/index.js";
+    import * as Dialog from "$lib/components/ui/dialog/index.js";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import * as Sidebar from "$lib/components/ui/sidebar/index.js";
     import type { NoteTree } from "$lib/schema/note";
@@ -23,9 +25,18 @@
     // states
     let searchDialogIsOpen = $state(false);
     let addCategoryDialogIsOpen = $state(false);
+    let signOutConfirmDialogIsOpen = $state(false);
 
     const fetchNoteTree = async (): Promise<NoteTree[]> => {
         return callApi<NoteTree[]>("/api/note/tree", "GET");
+    };
+
+    const signOut = async () => {
+        // Remove cookies
+        await callApi("/auth/logout", "GET");
+        localStorage.removeItem("isLoggedIn");
+
+        location.reload();
     };
 
     let currentPath = $state($page.url.pathname);
@@ -110,9 +121,32 @@
                         <DropdownMenu.Item class="hover:cursor-pointer" onclick={() => {goto("/test");}}>
                             <span>Settings</span>
                         </DropdownMenu.Item>
-                        <DropdownMenu.Item>
-                            <span>Sign out</span>
-                        </DropdownMenu.Item>
+
+                        <Dialog.Root bind:open={signOutConfirmDialogIsOpen}>
+                            <Dialog.Trigger class="w-full text-right">
+                                <DropdownMenu.Item class="hover:cursor-pointer" onclick={() => {signOutConfirmDialogIsOpen = true;}}>
+                                    <span>Sign out</span>
+                                </DropdownMenu.Item>
+                            </Dialog.Trigger>
+                            <Dialog.Content>
+                                <Dialog.Header>
+                                    <Dialog.Title>
+                                        Are you sure?
+                                    </Dialog.Title>
+                                    <Dialog.Description>
+                                        Do you really want to sign out? All unsaved changes will be lost.
+                                    </Dialog.Description>
+                                </Dialog.Header>
+                                <Dialog.Footer>
+                                    <Button variant="destructive" onclick={() => {signOut();}}>
+                                        <LogOut />Sign out
+                                    </Button>
+                                    <Button variant="outline" onclick={() => {signOutConfirmDialogIsOpen = false;}}>
+                                        <Undo2 />Cancel
+                                    </Button>
+                                </Dialog.Footer>
+                            </Dialog.Content>
+                        </Dialog.Root>
                     </DropdownMenu.Content>
                 </DropdownMenu.Root>
             </Sidebar.MenuItem>
