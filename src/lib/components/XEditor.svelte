@@ -262,5 +262,6 @@
             https://youtrack.jetbrains.com/issue/WEB-56256/CSS-Invalid-Property-Value-webkit-fill-available
         */
         width: -webkit-fill-available;
+        width: -moz-available;
     }
 </style>
