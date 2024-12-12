@@ -140,7 +140,7 @@
     });
 </script>
 
-<header class="flex h-12 items-center justify-between px-4">
+<header class="flex h-12 items-center justify-between px-4 fixed z-10" id="myurion-editor-header">
     <SidebarTrigger />
     <div class="flex">
         {#if connectionIsLost}
@@ -236,10 +236,10 @@
         {/if}
     </div>
 </header>
-<div class="">
-    <div class="h-full px-4 pb-6 lg:px-8 mx-auto">
+<div class="mt-12">
+    <div class="pb-6">
         {#await browser ? fetchContent() : Promise.resolve()}
-            <div class="space-y-2 mt-8">
+            <div class="space-y-2 mx-12 mt-32">
                 <Skeleton class="h-4 w-[250px]" />
                 <Skeleton class="h-4 w-[200px]" />
             </div>
@@ -252,3 +252,15 @@
         {/await}
     </div>
 </div>
+
+<style>
+    #myurion-editor-header {
+        background-color: #ffffff;
+        backdrop-filter: blur(12px);
+        /*
+            WebStorm側でエラーになるが無視してOK
+            https://youtrack.jetbrains.com/issue/WEB-56256/CSS-Invalid-Property-Value-webkit-fill-available
+        */
+        width: -webkit-fill-available;
+    }
+</style>

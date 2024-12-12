@@ -78,6 +78,7 @@
 .ProseMirror {
     @apply px-4 pt-2;
     outline: none !important;
+    scrollbar-width: none !important;
 }
 
 h1.tiptap-heading {
@@ -136,4 +137,8 @@ h3.tiptap-heading + h2.tiptap-heading {
     border-left: 3px solid gray;
     margin: 1.5rem 0;
     padding-left: 1rem;
+}
+
+body {
+    overflow-x: hidden;
 }

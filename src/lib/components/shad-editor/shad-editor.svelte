@@ -65,7 +65,7 @@
 	        editorProps: {
 	            attributes: {
 	                class:
-						"m-auto p-2 focus:outline-none flex-1 prose text-foreground min-w-full max-h-full overflow-auto dark:prose-invert *:my-2"
+						"m-auto p-2 focus:outline-none flex-1 prose text-foreground dark:prose-invert *:my-2"
 	            }
 	        },
 	        extensions: [
@@ -155,7 +155,22 @@
 
 <div class={cn("flex flex-col rounded", className)}>
 	{#if editor && showToolbar}
-		<EditorToolbar {editor} />
+		<div class="fixed w-auto" id="myurion-editor-toolbar">
+			<EditorToolbar {editor} />
+		</div>
 	{/if}
-	<div bind:this={element} spellcheck="false" class="h-full w-full md:w-[70vw] flex-1 overflow-auto"></div>
+	<div bind:this={element} spellcheck="false" class="w-full md:w-[70vw] mx-auto flex-1 mt-32"></div>
 </div>
+
+<style>
+	#myurion-editor-toolbar {
+		background-color: white;
+		z-index: 5;
+
+		/*
+            WebStorm側でエラーになるが無視してOK
+            https://youtrack.jetbrains.com/issue/WEB-56256/CSS-Invalid-Property-Value-webkit-fill-available
+        */
+		width: -webkit-fill-available;
+	}
+</style>

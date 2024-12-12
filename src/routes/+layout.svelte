@@ -72,7 +72,7 @@
 {:else }
     <Sidebar.Provider class="w-screen justify-center" id="myurion-app-sidebar">
         <XSidebar username={username ?? "Loading..."} />
-        <div class="w-full">
+        <div class="w-full relative">
             {@render children()}
         </div>
     </Sidebar.Provider>
