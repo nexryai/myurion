@@ -1,5 +1,7 @@
 import { browser } from "$app/environment";
 
-export function isSafari() {
-    return browser ? /^((?!chrome|android).)*safari/i.test(navigator.userAgent) : false;
+const browserIsSafari = browser ? /^((?!chrome|android).)*safari/i.test(navigator.userAgent) : false;
+
+export function isSafari(): boolean {
+    return browserIsSafari;
 }
