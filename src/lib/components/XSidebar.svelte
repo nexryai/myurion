@@ -49,7 +49,7 @@
     });
 </script>
 
-<Sidebar.Root>
+<Sidebar.Root class="z-20">
     <Sidebar.Header />
     <Sidebar.Content>
         <Sidebar.Group>
