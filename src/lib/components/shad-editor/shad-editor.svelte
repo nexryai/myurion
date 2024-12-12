@@ -157,5 +157,5 @@
 	{#if editor && showToolbar}
 		<EditorToolbar {editor} />
 	{/if}
-	<div bind:this={element} spellcheck="false" class="h-full w-full flex-1 overflow-auto"></div>
+	<div bind:this={element} spellcheck="false" class="h-full w-full md:w-[70vw] flex-1 overflow-auto"></div>
 </div>
