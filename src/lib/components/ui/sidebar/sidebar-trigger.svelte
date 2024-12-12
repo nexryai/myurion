@@ -9,10 +9,6 @@
 
 	import { useSidebar } from "./context.svelte.js";
 
-
-
-
-
 	let {
 	    ref = $bindable(null),
 	    class: className,

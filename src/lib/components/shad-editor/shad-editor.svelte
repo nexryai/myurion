@@ -27,6 +27,7 @@
 	import { all, createLowlight } from "lowlight";
 	import { SvelteNodeViewRenderer } from "svelte-tiptap";
 
+	import { isSafari } from "$lib/browser/env";
 	import { cn } from "$lib/utils.js";
 
 	import { ColorHighlighter } from "./custom/Extentions/ColorHighlighter.js";
@@ -38,6 +39,7 @@
 
 	import "./onedark.css";
 
+	const browserIsSafari = isSafari();
 	const lowlight = createLowlight(all);
 
 	interface Props {
@@ -45,6 +47,7 @@
 		content?: Content;
 		characterCount?: number;
 		showToolbar?: boolean;
+		sidebarIsOpen?: boolean;
 		onChanged?: (content: Content) => void;
 	}
 
@@ -53,6 +56,7 @@
 	    content = $bindable(""),
 	    characterCount = $bindable(0),
 	    showToolbar = true,
+	    sidebarIsOpen = $bindable(true),
 	    onChanged = () => {}
 	}: Props = $props();
 	let editor = $state<Editor>();
@@ -155,7 +159,12 @@
 
 <div class={cn("flex flex-col rounded", className)}>
 	{#if editor && showToolbar}
-		<div class="fixed w-auto" id="myurion-editor-toolbar">
+		<div
+				class="fixed w-auto toolbar-width-sidebar-open"
+				id="myurion-editor-toolbar"
+				class:toolbar-width-sidebar-closed={!sidebarIsOpen && browserIsSafari}
+				class:toolbar-width-on-smart-browsers={!browserIsSafari}
+		>
 			<EditorToolbar {editor} />
 		</div>
 	{/if}
@@ -166,12 +175,27 @@
 	#myurion-editor-toolbar {
 		background-color: white;
 		z-index: 5;
+	}
 
-		/*
-            WebStorm側でエラーになるが無視してOK
-            https://youtrack.jetbrains.com/issue/WEB-56256/CSS-Invalid-Property-Value-webkit-fill-available
-        */
-		width: -webkit-fill-available;
-		width: -moz-available;
+	.toolbar-width-on-smart-browsers {
+		/* 切り替えがスムーズになるからほんとはこっちを使いたいけど、Safariでは挙動が違うため使えない */
+		width: -webkit-fill-available !important;
+		width: -moz-available !important;
+	}
+
+	@media (min-width: 768px) {
+		.toolbar-width-sidebar-open {
+			width: calc(100vw - 256px);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.toolbar-width-sidebar-open {
+			width: 100vw;
+		}
+	}
+
+	.toolbar-width-sidebar-closed {
+		width: 100vw !important;
 	}
 </style>

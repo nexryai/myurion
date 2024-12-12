@@ -9,6 +9,7 @@
     import { toast } from "svelte-sonner";
 
     import { callApi } from "$lib/browser/api";
+    import { isSafari } from "$lib/browser/env";
     import RenderIcon from "$lib/components/icons/RenderIcon.svelte";
     import ShadEditor from "$lib/components/shad-editor/shad-editor.svelte";
     import { Button } from "$lib/components/ui/button";
@@ -16,7 +17,7 @@
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import { Input } from "$lib/components/ui/input";
     import { Label } from "$lib/components/ui/label";
-    import { Trigger as SidebarTrigger } from "$lib/components/ui/sidebar/index.js";
+    import { Trigger as SidebarTrigger, useSidebar } from "$lib/components/ui/sidebar/index.js";
     import { Skeleton } from "$lib/components/ui/skeleton";
     import type { NoteCategory } from "@prisma/client";
 
@@ -29,12 +30,15 @@
         noteId: string | null;
     } = $props();
 
+    const sidebar = useSidebar();
+    const browserIsSafari = isSafari();
     const noteEndpoint = noteId ? `/api/note/${noteId}` : "/api/me/quick-note";
     let timer: number | null = null;
     let allowUnload = true;
     let lastSavedContentJson: string | null = null;
 
     // States
+    let sidebarIsOpen = $state(true);
     let noteTitle = $state(title ?? "Loading...");
     let characterCount = $state(0);
     let createdAt: Date | undefined = $state(undefined);
@@ -42,6 +46,17 @@
     let connectionIsLost = $state(false);
     let publishTitle = $state("Untitled");
     let deleteConfirmDialogIsOpen = $state(false);
+
+    const onSidebarStateChanged = () => {
+        if (sidebar.isMobile) {
+            sidebarIsOpen = false;
+            return;
+        } else {
+            setTimeout(() => {
+                sidebarIsOpen = sidebar.open;
+            }, 200);
+        }
+    };
 
     const fetchContent = async () => {
         try {
@@ -140,8 +155,13 @@
     });
 </script>
 
-<header class="flex h-12 items-center justify-between px-4 fixed z-10" id="myurion-editor-header">
-    <SidebarTrigger />
+<header
+        class="flex h-12 items-center justify-between px-4 fixed z-10 editor-width-sidebar-open"
+        id="myurion-editor-header"
+        class:editor-width-sidebar-closed={!sidebarIsOpen && browserIsSafari}
+        class:editor-width-on-smart-browsers={!browserIsSafari}
+>
+    <SidebarTrigger onclick={() => {onSidebarStateChanged();}} />
     <div class="flex">
         {#if connectionIsLost}
             <CloudAlert class="text-red-600" />
@@ -245,7 +265,7 @@
             </div>
         {:then content}
             {#if content}
-                <ShadEditor content={content} bind:characterCount={characterCount} onChanged={onChanged} />
+                <ShadEditor content={content} bind:characterCount={characterCount} bind:sidebarIsOpen={sidebarIsOpen} onChanged={onChanged} />
             {/if}
         {:catch error}
             <p class="text-red-500">{error.message}</p>
@@ -256,12 +276,27 @@
 <style>
     #myurion-editor-header {
         background-color: #ffffff;
-        backdrop-filter: blur(12px);
-        /*
-            WebStorm側でエラーになるが無視してOK
-            https://youtrack.jetbrains.com/issue/WEB-56256/CSS-Invalid-Property-Value-webkit-fill-available
-        */
-        width: -webkit-fill-available;
-        width: -moz-available;
+    }
+
+    .editor-width-on-smart-browsers {
+        /* 切り替えがスムーズになるからほんとはこっちを使いたいけど、Safariでは挙動が違うため使えない */
+        width: -webkit-fill-available !important;
+        width: -moz-available !important;
+    }
+
+    @media (min-width: 768px) {
+        .editor-width-sidebar-open {
+            width: calc(100vw - 256px);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .editor-width-sidebar-open {
+            width: 100vw;
+        }
+    }
+
+    .editor-width-sidebar-closed {
+        width: 100vw !important;
     }
 </style>
