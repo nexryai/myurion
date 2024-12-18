@@ -80,6 +80,6 @@
     "prisma": "^5.22.0",
     "@prisma/client": "^5.22.0",
     "@simplewebauthn/server": "^11.0.0",
-    "elysia": "^1.1.24"
+    "elysia": "^1.1.26"
   }
 }
