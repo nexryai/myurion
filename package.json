@@ -18,7 +18,7 @@
     "@simplewebauthn/browser": "^11.0.0",
     "@simplewebauthn/types": "^11.0.0",
     "@sveltejs/adapter-auto": "^3.0.0",
-    "@sveltejs/adapter-node": "^5.2.9",
+    "@sveltejs/adapter-node": "^5.2.11",
     "@sveltejs/kit": "^2.8.3",
     "@sveltejs/vite-plugin-svelte": "^4.0.2",
     "@tabler/icons-svelte": "^3.23.0",
