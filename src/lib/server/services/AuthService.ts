@@ -38,7 +38,7 @@ interface ChallengeTokenClaims extends TokenClaims {
 /*
     AuthService provides methods to generate and verify tokens for authentication and challenge.
     This class is designed to be stateless and does not depend on any external services.
-    Tokens are encrypted with AES-256-GCM.
+    Tokens are encrypted with AES-256-CBC and authenticated with HMAC-SHA384.
 */
 abstract class AuthService {
     private readonly secretKey = crypto.randomBytes(32);
