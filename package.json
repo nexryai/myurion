@@ -50,7 +50,7 @@
     "autoprefixer": "^10.4.20",
     "bits-ui": "1.0.0-next.64",
     "clsx": "^2.1.1",
-    "eslint": "^9.7.0",
+    "eslint": "^9.17.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-svelte": "^2.46.1",
     "globals": "^15.14.0",
