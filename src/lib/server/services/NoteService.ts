@@ -29,15 +29,30 @@ export class NoteService {
     }
 
     public async getNoteById(uid: string, noteId: string): Promise<Note | null> {
-        return this.noteRepository.findUnique({
+        const found = await this.noteRepository.findUnique({
             where: {
                 id: noteId,
                 userId: uid
             }
         });
+
+        if (!found) {
+            return null;
+        }
+
+        if (found?.userId !== uid) {
+            // 何かのバグでuidがundefinedになった場合など
+            throw new Error("Integrity check failed: may be caused by bug(s) or leak of credentials");
+        }
+
+        return found;
     }
 
     public async updateNoteById(uid: string, noteId: string, title: string, content: string): Promise<boolean> {
+        if (!uid) {
+            throw new Error("Integrity check failed: may be caused by bug(s) or leak of credentials");
+        }
+
         const updated = await this.noteRepository.update({
             where: {
                 id: noteId,
@@ -64,7 +79,7 @@ export class NoteService {
     }
 
     public async getNoteTreeByUserId(uid: string): Promise<NoteTree[]> {
-        return this.noteCategoryRepository.findMany({
+        const tree = await this.noteCategoryRepository.findMany({
             where: { userId: uid },
             select: {
                 id: true,
@@ -73,15 +88,30 @@ export class NoteService {
                 notes: {
                     select: {
                         id: true,
+                        userId: true,
                         title: true,
                         createdAt: true
                     }
                 }
             }
         });
+
+        for (const category of tree) {
+            for (const note of category.notes) {
+                if (note.userId !== uid) {
+                    throw new Error("Integrity check failed: may be caused by bug(s) or leak of credentials");
+                }
+            }
+        }
+
+        return tree;
     }
 
     public async createNoteCategory(uid: string, categoryName: string, iconName: string): Promise<string> {
+        if (!uid) {
+            throw new Error("Integrity check failed: may be caused by bug(s) or leak of credentials");
+        }
+
         const created = await this.noteCategoryRepository.create({
             data: {
                 user: {
@@ -96,8 +126,16 @@ export class NoteService {
     }
 
     public async getNoteCategoriesByUserId(uid: string): Promise<NoteCategory[]> {
-        return this.noteCategoryRepository.findMany({
+        const found = await this.noteCategoryRepository.findMany({
             where: { userId: uid }
         });
+
+        for (const category of found) {
+            if (category.userId !== uid) {
+                throw new Error("Integrity check failed: may be caused by bug(s) or leak of credentials");
+            }
+        }
+
+        return found;
     }
 }
