@@ -1,38 +1,14 @@
-# sv
+# Myurion Notes
+Modern, lightweight, self-hosted Note Taking App
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
-## Creating a project
+<img src="./docs/assets/Screenshot3.png">  
+Myurion is a modern, lightweight note taking app with a WYSIWYG editor, written in TypeScript and Svelte.
+It is designed and optimized for single-person use, uses SQLite as its database, and is lightweight enough to run on Google Compute Engine's e2-micro.
+This project is a work in progress and lacks many needed features. Please do not use it for anything other than testing.
 
-If you're seeing this, you've probably already done this step. Congrats!
 
-```bash
-# create a new project in the current directory
-npx sv create
+### Screenshots
+<img src="./docs/assets/Screenshot1.png">
+<img src="./docs/assets/Screenshot2.png">
 
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
