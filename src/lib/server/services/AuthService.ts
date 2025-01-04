@@ -5,13 +5,13 @@ import {
     generateRegistrationOptions, verifyAuthenticationResponse,
     verifyRegistrationResponse
 } from "@simplewebauthn/server";
-import { isoBase64URL } from "@simplewebauthn/server/helpers";
 import type {
     PublicKeyCredentialCreationOptionsJSON,
     PublicKeyCredentialRequestOptionsJSON,
     RegistrationResponseJSON,
     AuthenticationResponseJSON, AuthenticatorTransportFuture
-} from "@simplewebauthn/types";
+} from "@simplewebauthn/server";
+import { isoBase64URL } from "@simplewebauthn/server/helpers";
 
 import type { IPasskeyRepository } from "$lib/server/prisma";
 

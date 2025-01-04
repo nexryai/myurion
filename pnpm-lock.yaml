@@ -12,8 +12,8 @@ importers:
         specifier: ^5.22.0
         version: 5.22.0(prisma@5.22.0)
       '@simplewebauthn/server':
-        specifier: ^11.0.0
-        version: 11.0.0
+        specifier: ^13.0.0
+        version: 13.0.0
       elysia:
         specifier: ^1.1.26
         version: 1.1.26(@sinclair/typebox@0.34.0)(typescript@5.6.3)
@@ -25,11 +25,8 @@ importers:
         specifier: ^1.49.1
         version: 1.49.1
       '@simplewebauthn/browser':
-        specifier: ^11.0.0
-        version: 11.0.0
-      '@simplewebauthn/types':
-        specifier: ^11.0.0
-        version: 11.0.0
+        specifier: ^13.0.0
+        version: 13.0.0
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.3.1(@sveltejs/kit@2.8.3(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.15.0)(vite@5.4.11(@types/node@22.9.0)(sass-embedded@1.81.0)))(svelte@5.15.0)(vite@5.4.11(@types/node@22.9.0)(sass-embedded@1.81.0)))
@@ -664,15 +661,12 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
-  '@simplewebauthn/browser@11.0.0':
-    resolution: {integrity: sha512-KEGCStrl08QC2I561BzxqGiwoknblP6O1YW7jApdXLPtIqZ+vgJYAv8ssLCdm1wD8HGAHd49CJLkUF8X70x/pg==}
+  '@simplewebauthn/browser@13.0.0':
+    resolution: {integrity: sha512-7d/+gxoFoDQxq2EkLl/PuTIQ/rnSrA3bmr8L2Ij7bRyicJoCJX/NDGUNExyctB9nSDrEkkcrJMDkwpCYOGU3Lg==}
 
-  '@simplewebauthn/server@11.0.0':
-    resolution: {integrity: sha512-zu8dxKcPiRUNSN2kmrnNOzNbRI8VaR/rL4ENCHUfC6PEE7SAAdIql9g5GBOd/wOVZolIsaZz3ccFxuGoVP0iaw==}
+  '@simplewebauthn/server@13.0.0':
+    resolution: {integrity: sha512-Tb3hJRpeT4cgT2uPORc465qu9LGXcDoIegFmkIgqw7XNZtsaoHzn3xI1DiFH7ukzs6JbhfQBRyY4rlfCdTwkNw==}
     engines: {node: '>=20.0.0'}
-
-  '@simplewebauthn/types@11.0.0':
-    resolution: {integrity: sha512-b2o0wC5u2rWts31dTgBkAtSNKGX0cvL6h8QedNsKmj8O4QoLFQFR3DBVBUlpyVEhYKA+mXGUaXbcOc4JdQ3HzA==}
 
   '@sinclair/typebox@0.34.0':
     resolution: {integrity: sha512-BwY8C9W0/LP34i0Nzj0Xj2My0a7vBA1JGC7G0NxvQBBdHyXBf1ar27d79drRdhkgdlLhcyEpQHJKdpdoxZd+tA==}
@@ -3287,11 +3281,9 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@simplewebauthn/browser@11.0.0':
-    dependencies:
-      '@simplewebauthn/types': 11.0.0
+  '@simplewebauthn/browser@13.0.0': {}
 
-  '@simplewebauthn/server@11.0.0':
+  '@simplewebauthn/server@13.0.0':
     dependencies:
       '@hexagon/base64': 1.1.28
       '@levischuck/tiny-cbor': 0.2.2
@@ -3300,12 +3292,9 @@ snapshots:
       '@peculiar/asn1-rsa': 2.3.13
       '@peculiar/asn1-schema': 2.3.13
       '@peculiar/asn1-x509': 2.3.13
-      '@simplewebauthn/types': 11.0.0
       cross-fetch: 4.0.0
     transitivePeerDependencies:
       - encoding
-
-  '@simplewebauthn/types@11.0.0': {}
 
   '@sinclair/typebox@0.34.0': {}
 
