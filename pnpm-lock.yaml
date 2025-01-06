@@ -154,8 +154,8 @@ importers:
         specifier: ^1.49.1
         version: 1.49.1
       prismock:
-        specifier: ^1.33.6
-        version: 1.33.6(@prisma/client@5.22.0(prisma@5.22.0))(prisma@5.22.0)
+        specifier: ^1.35.1
+        version: 1.35.1(@prisma/client@5.22.0(prisma@5.22.0))(prisma@5.22.0)
       sass-embedded:
         specifier: ^1.81.0
         version: 1.81.0
@@ -2186,8 +2186,8 @@ packages:
     engines: {node: '>=16.13'}
     hasBin: true
 
-  prismock@1.33.6:
-    resolution: {integrity: sha512-Vs/iNscn75NTocNaeyZfJs/yXKE0zCJSRski/xoFMpIbS/aqPOzzAkZQS2mVKQ6LEv5NOiInmm9IeIbRl73l4w==}
+  prismock@1.35.1:
+    resolution: {integrity: sha512-6VuuNpr3anZwzyyxprpkBK+VKfhAVP0iBOOeK8gEh+OhDc8ny4Y12+RJCB+Cl2BkMnlIIm1nb+IQMZYlzBTvCw==}
     peerDependencies:
       '@prisma/client': '*'
       prisma: '*'
@@ -4911,7 +4911,7 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  prismock@1.33.6(@prisma/client@5.22.0(prisma@5.22.0))(prisma@5.22.0):
+  prismock@1.35.1(@prisma/client@5.22.0(prisma@5.22.0))(prisma@5.22.0):
     dependencies:
       '@paralleldrive/cuid2': 2.2.2
       '@prisma/client': 5.22.0(prisma@5.22.0)
