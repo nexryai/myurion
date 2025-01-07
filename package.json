@@ -21,7 +21,7 @@
     "@sveltejs/kit": "^2.8.3",
     "@sveltejs/vite-plugin-svelte": "^4.0.4",
     "@tabler/icons-svelte": "^3.23.0",
-    "@tiptap/core": "^2.10.4",
+    "@tiptap/core": "^2.11.0",
     "@tiptap/extension-bubble-menu": "^2.10.4",
     "@tiptap/extension-character-count": "^2.11.0",
     "@tiptap/extension-code-block-lowlight": "^2.10.4",
