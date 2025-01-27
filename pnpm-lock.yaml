@@ -52,8 +52,8 @@ importers:
         specifier: ^2.11.0
         version: 2.11.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)
       '@tiptap/extension-code-block-lowlight':
-        specifier: ^2.10.4
-        version: 2.10.4(@tiptap/core@2.11.0(@tiptap/pm@2.11.2))(@tiptap/extension-code-block@2.9.1(@tiptap/core@2.11.0(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)(highlight.js@11.11.0)(lowlight@3.3.0)
+        specifier: ^2.11.3
+        version: 2.11.3(@tiptap/core@2.11.0(@tiptap/pm@2.11.2))(@tiptap/extension-code-block@2.9.1(@tiptap/core@2.11.0(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)(highlight.js@11.11.0)(lowlight@3.3.0)
       '@tiptap/extension-color':
         specifier: ^2.9.1
         version: 2.9.1(@tiptap/core@2.11.0(@tiptap/pm@2.11.2))(@tiptap/extension-text-style@2.9.1(@tiptap/core@2.11.0(@tiptap/pm@2.11.2)))
@@ -748,8 +748,8 @@ packages:
       '@tiptap/core': ^2.7.0
       '@tiptap/pm': ^2.7.0
 
-  '@tiptap/extension-code-block-lowlight@2.10.4':
-    resolution: {integrity: sha512-wB1Muo1IOqOrjo/2SxaD8uNxrC862B/9FM9ulM9AtGteWdL4PqWi6OJ5aRQMnK0H6feFqsY9AHEPWLnwF8nj+Q==}
+  '@tiptap/extension-code-block-lowlight@2.11.3':
+    resolution: {integrity: sha512-llpHz0d7h4TXwJkrR+k9ImCH99DIySYc+5Ywks6Z6rg85AEyGrhXSn3SzMJVeYavkWJDfTCIlbZ8Ek4iFL87Iw==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
       '@tiptap/extension-code-block': ^2.7.0
@@ -3395,7 +3395,7 @@ snapshots:
       '@tiptap/core': 2.11.0(@tiptap/pm@2.11.2)
       '@tiptap/pm': 2.11.2
 
-  '@tiptap/extension-code-block-lowlight@2.10.4(@tiptap/core@2.11.0(@tiptap/pm@2.11.2))(@tiptap/extension-code-block@2.9.1(@tiptap/core@2.11.0(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)(highlight.js@11.11.0)(lowlight@3.3.0)':
+  '@tiptap/extension-code-block-lowlight@2.11.3(@tiptap/core@2.11.0(@tiptap/pm@2.11.2))(@tiptap/extension-code-block@2.9.1(@tiptap/core@2.11.0(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)(highlight.js@11.11.0)(lowlight@3.3.0)':
     dependencies:
       '@tiptap/core': 2.11.0(@tiptap/pm@2.11.2)
       '@tiptap/extension-code-block': 2.9.1(@tiptap/core@2.11.0(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)
