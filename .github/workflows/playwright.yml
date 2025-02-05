@@ -30,11 +30,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: pnpm install
-
       - name: Install pnpm
         run: corepack disable && npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
