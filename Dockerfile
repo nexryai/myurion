@@ -16,7 +16,7 @@ WORKDIR /app
 
 ## パッケージをインストール
 COPY . ./
-RUN corepack enable
+RUN npm install -g pnpm
 RUN pnpm install
 RUN pnpm build
 
@@ -26,7 +26,7 @@ RUN apk add --no-cache ca-certificates git libressl libressl-dev
 WORKDIR /app
 
 COPY . ./
-RUN corepack enable
+RUN npm install -g pnpm
 RUN pnpm install --prod --frozen-lockfile
 
 # 実行用
