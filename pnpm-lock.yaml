@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@prisma/client':
-        specifier: ^5.22.0
-        version: 5.22.0(prisma@5.22.0)
+        specifier: ^6.4.0
+        version: 6.4.0(prisma@5.22.0)(typescript@5.7.3)
       '@simplewebauthn/server':
         specifier: ^13.0.0
         version: 13.0.0
@@ -155,7 +155,7 @@ importers:
         version: 1.49.1
       prismock:
         specifier: ^1.35.1
-        version: 1.35.1(@prisma/client@5.22.0(prisma@5.22.0))(prisma@5.22.0)
+        version: 1.35.1(@prisma/client@6.4.0(prisma@5.22.0)(typescript@5.7.3))(prisma@5.22.0)
       sass-embedded:
         specifier: ^1.81.0
         version: 1.81.0
@@ -493,13 +493,16 @@ packages:
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
-  '@prisma/client@5.22.0':
-    resolution: {integrity: sha512-M0SVXfyHnQREBKxCgyo7sffrKttwE6R8PMq330MIUF0pTwjUhLbW84pFDlf06B27XyCR++VtjugEnIHdr07SVA==}
-    engines: {node: '>=16.13'}
+  '@prisma/client@6.4.0':
+    resolution: {integrity: sha512-48tLb+VL7iuuqJXjD4Xbqa622fuh8UtqmjTf39AKrQjlTUdNaMc9sC/c49eXQkcnrAdh9FoS1qVupmZSYiZ9TQ==}
+    engines: {node: '>=18.18'}
     peerDependencies:
       prisma: '*'
+      typescript: '>=5.1.0'
     peerDependenciesMeta:
       prisma:
+        optional: true
+      typescript:
         optional: true
 
   '@prisma/debug@5.22.0':
@@ -1269,6 +1272,7 @@ packages:
   bson@6.10.1:
     resolution: {integrity: sha512-P92xmHDQjSKPLHqFxefqMxASNq/aWJMEZugpCjf+AF/pgcUpMMQCg7t7+ewko0/u8AapvF3luf/FoehddEK+sA==}
     engines: {node: '>=16.20.1'}
+    deprecated: a critical bug affecting only useBigInt64=true deserialization usage is fixed in bson@6.10.3
 
   buffer-builder@0.2.0:
     resolution: {integrity: sha512-7VPMEPuYznPSoR21NE1zvd2Xna6c/CloiZCfcMXR1Jny6PjX0N4Nsa38zcBFo/FMK+BlA+FLKbJCQ0i2yxp+Xg==}
@@ -3249,9 +3253,10 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@prisma/client@5.22.0(prisma@5.22.0)':
+  '@prisma/client@6.4.0(prisma@5.22.0)(typescript@5.7.3)':
     optionalDependencies:
       prisma: 5.22.0
+      typescript: 5.7.3
 
   '@prisma/debug@5.22.0': {}
 
@@ -5082,10 +5087,10 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  prismock@1.35.1(@prisma/client@5.22.0(prisma@5.22.0))(prisma@5.22.0):
+  prismock@1.35.1(@prisma/client@6.4.0(prisma@5.22.0)(typescript@5.7.3))(prisma@5.22.0):
     dependencies:
       '@paralleldrive/cuid2': 2.2.2
-      '@prisma/client': 5.22.0(prisma@5.22.0)
+      '@prisma/client': 6.4.0(prisma@5.22.0)(typescript@5.7.3)
       '@prisma/generator-helper': 5.22.0
       '@prisma/internals': 5.22.0
       bson: 6.10.1
