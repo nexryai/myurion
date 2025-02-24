@@ -154,8 +154,8 @@ importers:
         specifier: ^1.49.1
         version: 1.49.1
       prismock:
-        specifier: ^1.35.1
-        version: 1.35.1(@prisma/client@6.4.0(prisma@5.22.0)(typescript@5.7.3))(prisma@5.22.0)
+        specifier: ^1.35.3
+        version: 1.35.3(@prisma/client@6.4.0(prisma@5.22.0)(typescript@5.7.3))(prisma@5.22.0)
       sass-embedded:
         specifier: ^1.81.0
         version: 1.81.0
@@ -444,8 +444,8 @@ packages:
   '@levischuck/tiny-cbor@0.2.2':
     resolution: {integrity: sha512-f5CnPw997Y2GQ8FAvtuVVC19FX8mwNNC+1XJcIi16n/LTJifKO6QBgGLgN3YEmqtGMk17SKSuoWES3imJVxAVw==}
 
-  '@noble/hashes@1.6.1':
-    resolution: {integrity: sha512-pq5D8h10hHBjyqX+cfBm0i8JUXJ0UhczFc4r74zbuT9XgewFo2E3J1cOaGtdZynILNmQ685YWGzGE1Zv6io50w==}
+  '@noble/hashes@1.7.1':
+    resolution: {integrity: sha512-B8XBPsn4vT/KJAGqDzbwztd+6Yte3P4V7iafm24bxgDe/mlRuK6xmWPuCNrKt2vDafZ8MfJLlchDG/vYafQEjQ==}
     engines: {node: ^14.21.3 || >=16}
 
   '@nodelib/fs.scandir@2.1.5':
@@ -1269,10 +1269,9 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
-  bson@6.10.1:
-    resolution: {integrity: sha512-P92xmHDQjSKPLHqFxefqMxASNq/aWJMEZugpCjf+AF/pgcUpMMQCg7t7+ewko0/u8AapvF3luf/FoehddEK+sA==}
+  bson@6.10.3:
+    resolution: {integrity: sha512-MTxGsqgYTwfshYWTRdmZRC+M7FnG1b4y7RO7p2k3X24Wq0yv1m77Wsj0BzlPzd/IowgESfsruQCUToa7vbOpPQ==}
     engines: {node: '>=16.20.1'}
-    deprecated: a critical bug affecting only useBigInt64=true deserialization usage is fixed in bson@6.10.3
 
   buffer-builder@0.2.0:
     resolution: {integrity: sha512-7VPMEPuYznPSoR21NE1zvd2Xna6c/CloiZCfcMXR1Jny6PjX0N4Nsa38zcBFo/FMK+BlA+FLKbJCQ0i2yxp+Xg==}
@@ -2294,8 +2293,8 @@ packages:
     engines: {node: '>=16.13'}
     hasBin: true
 
-  prismock@1.35.1:
-    resolution: {integrity: sha512-6VuuNpr3anZwzyyxprpkBK+VKfhAVP0iBOOeK8gEh+OhDc8ny4Y12+RJCB+Cl2BkMnlIIm1nb+IQMZYlzBTvCw==}
+  prismock@1.35.3:
+    resolution: {integrity: sha512-Y3VeG8G7t2TnNb8Ug6EheV9bVvUwgFNPFYN5YPoysbxSJaWxozNTVNa7QlS2wux29yEvZTKFey9owUUIGRU6AA==}
     peerDependencies:
       '@prisma/client': '*'
       prisma: '*'
@@ -3190,7 +3189,7 @@ snapshots:
 
   '@levischuck/tiny-cbor@0.2.2': {}
 
-  '@noble/hashes@1.6.1': {}
+  '@noble/hashes@1.7.1': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -3206,7 +3205,7 @@ snapshots:
 
   '@paralleldrive/cuid2@2.2.2':
     dependencies:
-      '@noble/hashes': 1.6.1
+      '@noble/hashes': 1.7.1
 
   '@peculiar/asn1-android@2.3.13':
     dependencies:
@@ -4051,7 +4050,7 @@ snapshots:
       node-releases: 2.0.18
       update-browserslist-db: 1.1.1(browserslist@4.24.2)
 
-  bson@6.10.1: {}
+  bson@6.10.3: {}
 
   buffer-builder@0.2.0: {}
 
@@ -5087,13 +5086,13 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  prismock@1.35.1(@prisma/client@6.4.0(prisma@5.22.0)(typescript@5.7.3))(prisma@5.22.0):
+  prismock@1.35.3(@prisma/client@6.4.0(prisma@5.22.0)(typescript@5.7.3))(prisma@5.22.0):
     dependencies:
       '@paralleldrive/cuid2': 2.2.2
       '@prisma/client': 6.4.0(prisma@5.22.0)(typescript@5.7.3)
       '@prisma/generator-helper': 5.22.0
       '@prisma/internals': 5.22.0
-      bson: 6.10.1
+      bson: 6.10.3
       prisma: 5.22.0
 
   prompts@2.4.2:
