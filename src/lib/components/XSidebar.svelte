@@ -3,7 +3,15 @@
     import { goto } from "$app/navigation";
     import { page } from "$app/stores";
 
-    import { ChevronUp, LoaderCircle, LogOut, Plus, Search, Undo2, Zap } from "lucide-svelte";
+    import {
+        ChevronUp,
+        LoaderCircle,
+        LogOut,
+        Plus,
+        Search,
+        Undo2,
+        Zap,
+    } from "lucide-svelte";
 
     import { callApi } from "$lib/browser/api";
     import AddCategoryDialog from "$lib/components/AddCategoryDialog.svelte";
@@ -17,7 +25,7 @@
 
     // props
     let {
-        username
+        username,
     }: {
         username: string;
     } = $props();
@@ -68,7 +76,15 @@
                     <Sidebar.MenuItem>
                         <Sidebar.MenuButton>
                             {#snippet child({ props })}
-                                <div role="button" tabindex={1} {...props} onclick={() => {searchDialogIsOpen = !searchDialogIsOpen;}}>
+                                <div
+                                    role="button"
+                                    tabindex={1}
+                                    {...props}
+                                    onclick={() => {
+                                        searchDialogIsOpen =
+                                            !searchDialogIsOpen;
+                                    }}
+                                >
                                     <Search />
                                     <span>Search</span>
                                 </div>
@@ -81,7 +97,12 @@
 
         <Sidebar.Group>
             <Sidebar.GroupLabel>Notes</Sidebar.GroupLabel>
-            <Sidebar.GroupAction title="Add Project" onclick={() => {addCategoryDialogIsOpen = true;}}>
+            <Sidebar.GroupAction
+                title="Add Project"
+                onclick={() => {
+                    addCategoryDialogIsOpen = true;
+                }}
+            >
                 <Plus /> <span class="sr-only">Add Project</span>
             </Sidebar.GroupAction>
             <Sidebar.GroupContent>
@@ -91,7 +112,7 @@
                     </div>
                 {:then tree}
                     {#if tree}
-                        <SidebarNoteTree tree={tree} bind:currentPath={currentPath} />
+                        <SidebarNoteTree {tree} bind:currentPath />
                     {/if}
                 {:catch error}
                     <p class="text-red-500">{error.message}</p>
@@ -106,8 +127,8 @@
                     <DropdownMenu.Trigger>
                         {#snippet child({ props })}
                             <Sidebar.MenuButton
-                                    {...props}
-                                    class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                                {...props}
+                                class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                             >
                                 <span>{username}</span>
                                 <ChevronUp class="ml-auto" />
@@ -115,33 +136,52 @@
                         {/snippet}
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Content
-                            side="top"
-                            class="w-[--bits-dropdown-menu-anchor-width]"
+                        side="top"
+                        class="w-[--bits-dropdown-menu-anchor-width]"
                     >
-                        <DropdownMenu.Item class="hover:cursor-pointer" onclick={() => {goto("/test");}}>
+                        <DropdownMenu.Item
+                            class="hover:cursor-pointer"
+                            onclick={() => {
+                                goto("/settings");
+                            }}
+                        >
                             <span>Settings</span>
                         </DropdownMenu.Item>
 
                         <Dialog.Root bind:open={signOutConfirmDialogIsOpen}>
                             <Dialog.Trigger class="w-full text-right">
-                                <DropdownMenu.Item class="hover:cursor-pointer" onclick={() => {signOutConfirmDialogIsOpen = true;}}>
+                                <DropdownMenu.Item
+                                    class="hover:cursor-pointer"
+                                    onclick={() => {
+                                        signOutConfirmDialogIsOpen = true;
+                                    }}
+                                >
                                     <span>Sign out</span>
                                 </DropdownMenu.Item>
                             </Dialog.Trigger>
                             <Dialog.Content>
                                 <Dialog.Header>
-                                    <Dialog.Title>
-                                        Are you sure?
-                                    </Dialog.Title>
+                                    <Dialog.Title>Are you sure?</Dialog.Title>
                                     <Dialog.Description>
-                                        Do you really want to sign out? All unsaved changes will be lost.
+                                        Do you really want to sign out? All
+                                        unsaved changes will be lost.
                                     </Dialog.Description>
                                 </Dialog.Header>
                                 <Dialog.Footer>
-                                    <Button variant="destructive" onclick={() => {signOut();}}>
+                                    <Button
+                                        variant="destructive"
+                                        onclick={() => {
+                                            signOut();
+                                        }}
+                                    >
                                         <LogOut />Sign out
                                     </Button>
-                                    <Button variant="outline" onclick={() => {signOutConfirmDialogIsOpen = false;}}>
+                                    <Button
+                                        variant="outline"
+                                        onclick={() => {
+                                            signOutConfirmDialogIsOpen = false;
+                                        }}
+                                    >
                                         <Undo2 />Cancel
                                     </Button>
                                 </Dialog.Footer>
@@ -176,11 +216,11 @@
         }
 
         .bg-sidebar:before {
-            content: '';
-            background-image: url('/photo-1660491630578-4299a3c09db0-navbar.webp');
+            content: "";
+            background-image: url("/photo-1660491630578-4299a3c09db0-navbar.webp");
             background-blend-mode: multiply, screen, overlay;
-            background-size:cover;
-            background-position:50%;
+            background-size: cover;
+            background-position: 50%;
             position: absolute;
             top: 0;
             left: 0;
