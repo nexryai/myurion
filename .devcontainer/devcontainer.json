@@ -18,6 +18,7 @@
         "vscode": {
             "extensions": [
                 "svelte.svelte-vscode",
+                "bradlc.vscode-tailwindcss",
                 "dbaeumer.vscode-eslint",
                 "EditorConfig.EditorConfig",
                 "vitest.explorer",
