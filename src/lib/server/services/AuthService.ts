@@ -207,7 +207,7 @@ export class PasskeyAuthService extends AuthService {
             },
         });
 
-        const encryptedChallenge = this.generateChallengeToken(uid, options.challenge, new Date(Date.now() + 6000));
+        const encryptedChallenge = this.generateChallengeToken(uid, options.challenge, new Date(Date.now() + 60000));
         return { options, encryptedChallenge };
     }
 
@@ -261,7 +261,7 @@ export class PasskeyAuthService extends AuthService {
             allowCredentials: [],
         });
 
-        const encryptedChallenge = this.generateChallengeToken("_LOGIN_CHALLENGE", options.challenge, new Date(Date.now() + 6000));
+        const encryptedChallenge = this.generateChallengeToken("_LOGIN_CHALLENGE", options.challenge, new Date(Date.now() + 60000));
         return { options, encryptedChallenge };
     }
 
