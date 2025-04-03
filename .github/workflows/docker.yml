@@ -9,7 +9,7 @@ on:
       - "main"
 
 env:
-  REGISTRY_IMAGE: ghcr.io/nexryai/myurion
+  REGISTRY_IMAGE: ghcr.io/Ablaze-MIRAI/myurion
   STABLE_REF: refs/heads/main
 
 jobs:
