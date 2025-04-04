@@ -20,7 +20,7 @@
     "@sveltejs/adapter-node": "^5.2.11",
     "@sveltejs/kit": "^2.19.0",
     "@sveltejs/vite-plugin-svelte": "^4.0.4",
-    "@tabler/icons-svelte": "^3.30.0",
+    "@tabler/icons-svelte": "^3.31.0",
     "@tiptap/core": "^2.11.7",
     "@tiptap/extension-bubble-menu": "^2.10.4",
     "@tiptap/extension-character-count": "^2.11.0",
