@@ -70,8 +70,8 @@ importers:
         specifier: ^2.11.2
         version: 2.11.2(@tiptap/core@2.11.7(@tiptap/pm@2.11.2))
       '@tiptap/extension-superscript':
-        specifier: ^2.11.5
-        version: 2.11.5(@tiptap/core@2.11.7(@tiptap/pm@2.11.2))
+        specifier: ^2.11.7
+        version: 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.2))
       '@tiptap/extension-table':
         specifier: ^2.9.1
         version: 2.9.1(@tiptap/core@2.11.7(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)
@@ -977,8 +977,8 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
-  '@tiptap/extension-superscript@2.11.5':
-    resolution: {integrity: sha512-sK6v2G0zFfGW+j9CmYp2e+tyZ3FTa3dP0xY4kJzefgZcHhMJLlLnjxBRwHCSi/jj5ie6WdZT4KoEooxnPs1Vzw==}
+  '@tiptap/extension-superscript@2.11.7':
+    resolution: {integrity: sha512-dNRpCcRJs0Qvv0sZRgbH7Y5hDVbWsGSZjtwFCs/mysPrvHqmXjzo7568kYWTggxEYxnXw6n0FfkCAEHlt0N90Q==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
@@ -3678,7 +3678,7 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.11.7(@tiptap/pm@2.11.2)
 
-  '@tiptap/extension-superscript@2.11.5(@tiptap/core@2.11.7(@tiptap/pm@2.11.2))':
+  '@tiptap/extension-superscript@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.2))':
     dependencies:
       '@tiptap/core': 2.11.7(@tiptap/pm@2.11.2)
 
