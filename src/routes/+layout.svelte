@@ -2,7 +2,6 @@
     import "../app.css";
     let { children } = $props();
 
-
     import { browser } from "$app/environment";
 
     import { toast, Toaster } from "svelte-sonner";
@@ -30,11 +29,19 @@
                 description: "You have successfully signed in.",
             });
 
+            // 15分後に再認証
+            // 実際のトークンの有効期限は60分だが、編集中にトークンが切れて保存できなくなることを防止するために15分おきに再認証させる
+            localStorage.setItem(
+                "nextAuthenticationTime",
+                (Date.now() + 15 * 60 * 1000).toString(),
+            );
+
             location.reload();
         } catch (error) {
             console.error(error);
             toast.error("Failed to sign in", {
-                description: "An error occurred while signing in. Please try again later.",
+                description:
+                    "An error occurred while signing in. Please try again later.",
             });
         }
     };
@@ -45,21 +52,30 @@
     };
 
     if (browser && isSignedIn) {
-        // fetch user data
-        fetch("/api/me").then((res) => {
-            if (res.status === 401) {
-                tokenExpired = true;
-                tryAuthenticate();
-            } else if (!res.ok) {
-                throw new Error("Failed to fetch user data");
-            }
+        // 再認証が必要な場合
+        const nextAuthenticationTime = localStorage.getItem("nextAuthenticationTime");
+        if (nextAuthenticationTime && Date.now() > parseInt(nextAuthenticationTime)) {
+            tokenExpired = true;
+            tryAuthenticate();
+        } else {
+            // fetch user data
+            fetch("/api/me")
+                .then((res) => {
+                    if (res.status === 401) {
+                        tokenExpired = true;
+                        tryAuthenticate();
+                    } else if (!res.ok) {
+                        throw new Error("Failed to fetch user data");
+                    }
 
-            setUserInformation(res);
-        }).catch((error) => {
-            console.error(error);
-            fatalErrorOccurred = true;
-            errorDetails = "INITIAL_FETCH_FAILED";
-        });
+                    setUserInformation(res);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    fatalErrorOccurred = true;
+                    errorDetails = "INITIAL_FETCH_FAILED";
+                });
+        }
     }
 </script>
 
@@ -69,7 +85,7 @@
 
 {#if !isSignedIn}
     <XWelcome />
-{:else }
+{:else}
     <Sidebar.Provider class="w-screen justify-center" id="myurion-app-sidebar">
         <XSidebar username={username ?? "Loading..."} />
         <div class="w-full relative">
@@ -78,7 +94,7 @@
     </Sidebar.Provider>
 
     <AuthDialog isOpen={tokenExpired} />
-    <FatalErrorDialog isOpen={fatalErrorOccurred} errorDetails={errorDetails} />
+    <FatalErrorDialog isOpen={fatalErrorOccurred} {errorDetails} />
 {/if}
 
 <Toaster />

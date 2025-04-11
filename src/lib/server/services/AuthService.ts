@@ -319,7 +319,7 @@ export class PasskeyAuthService extends AuthService {
             */
         }
 
-        return this.generateAppToken(cred.userId, new Date(Date.now() + 30 * 60 * 1000));
+        return this.generateAppToken(cred.userId, new Date(Date.now() + 60 * 60 * 1000));
     }
 }
 
