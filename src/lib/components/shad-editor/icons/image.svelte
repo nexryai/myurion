@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { type Editor } from "@tiptap/core";
-	import { Image , ChevronDown } from "lucide-svelte";
+	import { Image , ChevronDown, CircleAlert } from "lucide-svelte";
 	
 	import { Button } from "$lib/components/ui/button/index.js";
 	import { Input } from "$lib/components/ui/input/index.js";
@@ -21,19 +21,6 @@
 					</Button>
 				</Popover.Trigger>
 				<Popover.Content class="bg-popover shadow-lg *:my-2">
-					<p>Insert image url</p>
-					<Input
-						placeholder="Enter image url..."
-						type="url"
-						onchange={(e) => {
-						    if (e !== null && e.target !== null) {
-						        //@ts-ignore
-						        editor.chain().focus().setImage({ src: e.target.value }).run();
-						    }
-						}}
-						class="w-full"
-					/>
-					<p>OR Pick an Image</p>
 					<Input
 						id="picture"
 						type="file"
@@ -56,6 +43,10 @@
 						    }
 						}}
 					/>
+					<div class="flex justify-between items-center p-2">
+						<CircleAlert class="text-muted-foreground" size="24" />
+						<p class="text-sm text-muted-foreground w-full ml-4">Upload an large image without S3 configuration, may cause performance issues.</p>
+					</div>
 				</Popover.Content>
 			</Popover.Root>
 		</Tooltip.Trigger>
