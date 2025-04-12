@@ -67,7 +67,7 @@
 <Dialog.Root bind:open={isOpen}>
     <Dialog.Content class="sm:max-w-[500px]" escapeKeydownBehavior="ignore" interactOutsideBehavior="ignore">
         <Dialog.Header>
-            <Dialog.Title>Sing Up</Dialog.Title>
+            <Dialog.Title>Sign Up</Dialog.Title>
             <Dialog.Description>
                 Welcome! Sign up to start using the app.
             </Dialog.Description>
