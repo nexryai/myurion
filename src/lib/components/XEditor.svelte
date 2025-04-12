@@ -193,6 +193,10 @@
                                         {category.name}
                                     </DropdownMenu.Item>
                                 {/each}
+
+                                {#if categories.length === 0}
+                                    <p class="text-gray-500 text-sm text-center m-4">To publish your note, please create a category first.</p>
+                                {/if}
                             {:catch error}
                                 <p class="text-red-500">{error.message}</p>
                             {/await}
