@@ -222,10 +222,9 @@
                             </div>
                         </DropdownMenu.Group>
                         <DropdownMenu.Group>
-                            <DropdownMenu.Separator />
                             <Dialog.Root bind:open={deleteConfirmDialogIsOpen}>
                                 <Dialog.Trigger class="w-full text-right">
-                                    <Button variant="destructive" class="m-4">
+                                    <Button variant="destructive" class="mb-4 mr-4">
                                         <Trash2 />
                                         Delete
                                     </Button>
