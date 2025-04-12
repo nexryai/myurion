@@ -1,4 +1,4 @@
-import Elysia, { error, t } from "elysia";
+import Elysia, { t } from "elysia";
 
 import type { PasskeyAuthService } from "$lib/server/services/AuthService";
 import type { NoteService } from "$lib/server/services/NoteService";
