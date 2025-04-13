@@ -69,7 +69,7 @@
 	        editorProps: {
 	            attributes: {
 	                class:
-						"m-auto p-2 focus:outline-none flex-1 prose text-foreground dark:prose-invert *:my-2"
+						"m-auto p-2 focus:outline-hidden flex-1 prose text-foreground dark:prose-invert *:my-2"
 	            }
 	        },
 	        extensions: [
@@ -157,7 +157,7 @@
 	});
 </script>
 
-<div class={cn("flex flex-col rounded", className)}>
+<div class={cn("flex flex-col rounded-sm", className)}>
 	{#if editor && showToolbar}
 		<div
 				class="fixed w-auto toolbar-width-sidebar-open"

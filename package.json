@@ -21,6 +21,8 @@
     "@sveltejs/kit": "^2.19.0",
     "@sveltejs/vite-plugin-svelte": "^4.0.4",
     "@tabler/icons-svelte": "^3.31.0",
+    "@tailwindcss/postcss": "^4.1.3",
+    "@tailwindcss/vite": "^4.1.3",
     "@tiptap/core": "^2.11.7",
     "@tiptap/extension-bubble-menu": "^2.10.4",
     "@tiptap/extension-character-count": "^2.11.0",
@@ -46,7 +48,6 @@
     "@tiptap/starter-kit": "^2.11.7",
     "@types/eslint": "^9.6.0",
     "@types/node": "^22.13.4",
-    "autoprefixer": "^10.4.20",
     "bits-ui": "1.3.14",
     "clsx": "^2.1.1",
     "eslint": "^9.21.0",
@@ -67,7 +68,7 @@
     "svelte-tiptap": "^2.0.3",
     "tailwind-merge": "^2.5.5",
     "tailwind-variants": "^0.3.0",
-    "tailwindcss": "^3.4.16",
+    "tailwindcss": "^4.1.3",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.18.2",
@@ -76,9 +77,9 @@
   },
   "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
   "dependencies": {
-    "prisma": "^5.22.0",
     "@prisma/client": "^6.5.0",
     "@simplewebauthn/server": "^13.1.1",
-    "elysia": "^1.2.25"
+    "elysia": "^1.2.25",
+    "prisma": "^5.22.0"
   }
 }

@@ -31,7 +31,7 @@
 	let { editor }: Props = $props();
 </script>
 
-<div class="items-center overflow-auto border rounded-xl mx-4 mt-1 p-1 *:mx-1 bg-white shadow-sm" id="toolbar-items">
+<div class="items-center overflow-auto border rounded-xl mx-4 mt-1 p-1 *:mx-1 bg-white shadow-xs" id="toolbar-items">
 	<Undo {editor} />
 	<Redo {editor} />
 	<!-- <Separator orientation="vertical" class="h-fit" /> -->

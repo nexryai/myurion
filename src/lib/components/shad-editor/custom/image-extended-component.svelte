@@ -138,7 +138,7 @@
 			<input
 				value={node.attrs.title}
 				type="text"
-				class="my-1 w-full bg-transparent text-center text-sm text-muted-foreground outline-none"
+				class="my-1 w-full bg-transparent text-center text-sm text-muted-foreground outline-hidden"
 				onchange={(e) => {
 				    if (e.target === null) return;
 				    //@ts-ignore

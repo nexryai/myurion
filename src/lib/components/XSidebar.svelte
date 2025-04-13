@@ -137,7 +137,7 @@
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Content
                         side="top"
-                        class="w-[--bits-dropdown-menu-anchor-width]"
+                        class="w-(--bits-dropdown-menu-anchor-width)"
                     >
                         <DropdownMenu.Item
                             class="hover:cursor-pointer"

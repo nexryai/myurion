@@ -33,7 +33,7 @@
 						{:else}
 							<AlignLeft />
 						{/if}
-						<ChevronDown class="!size-3 text-muted-foreground" />
+						<ChevronDown class="size-3! text-muted-foreground" />
 					</Button>
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content class="w-56">
@@ -43,7 +43,7 @@
 					>
 						<AlignLeft /> Align Left
 						{#if editor.isActive({ textAlign: "left" })}
-							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+							<Check class="absolute right-2 size-3! text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
@@ -52,7 +52,7 @@
 					>
 						<AlignCenter /> Align Center
 						{#if editor.isActive({ textAlign: "center" })}
-							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+							<Check class="absolute right-2 size-3! text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
@@ -61,7 +61,7 @@
 					>
 						<AlignRight /> Align Right
 						{#if editor.isActive({ textAlign: "right" })}
-							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+							<Check class="absolute right-2 size-3! text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
@@ -70,7 +70,7 @@
 					>
 						<AlignJustify /> Align Justify
 						{#if editor.isActive({ textAlign: "justify" })}
-							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+							<Check class="absolute right-2 size-3! text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
 				</DropdownMenu.Content>

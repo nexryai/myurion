@@ -32,7 +32,7 @@
 				<DropdownMenu.Trigger>
 					<Button variant="ghost" size="sm" class={cn("h-8", currentColor && "bg-muted")}>
 						<PenTool />
-						<ChevronDown class="!size-3 text-muted-foreground" />
+						<ChevronDown class="size-3! text-muted-foreground" />
 					</Button>
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content class="max-h-[25rem] w-40 overflow-auto">
@@ -58,7 +58,7 @@
 								>
 								<span>{color.label}</span>
 								{#if editor.isActive("textStyle", { color: color.value })}
-									<Check class="absolute right-2 !size-3 text-muted-foreground" />
+									<Check class="absolute right-2 size-3! text-muted-foreground" />
 								{/if}
 							</DropdownMenu.Item>
 						{/each}

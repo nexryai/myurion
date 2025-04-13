@@ -46,7 +46,7 @@
 						{:else}
 							<Minus />
 						{/if}
-						<ChevronDown class="!size-3 text-muted-foreground" />
+						<ChevronDown class="size-3! text-muted-foreground" />
 					</Button>
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content class="w-56">
@@ -56,7 +56,7 @@
 					>
 						<Heading1 /> Heading 1
 						{#if editor.isActive("heading", { level: 1 })}
-							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+							<Check class="absolute right-2 size-3! text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
@@ -65,7 +65,7 @@
 					>
 						<Heading2 /> Heading 2
 						{#if editor.isActive("heading", { level: 2 })}
-							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+							<Check class="absolute right-2 size-3! text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
@@ -74,7 +74,7 @@
 					>
 						<Heading3 /> Heading 3
 						{#if editor.isActive("heading", { level: 3 })}
-							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+							<Check class="absolute right-2 size-3! text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
@@ -83,7 +83,7 @@
 					>
 						<Heading4 /> Heading 4
 						{#if editor.isActive("heading", { level: 4 })}
-							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+							<Check class="absolute right-2 size-3! text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
@@ -92,7 +92,7 @@
 					>
 						<Heading5 /> Heading 5
 						{#if editor.isActive("heading", { level: 5 })}
-							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+							<Check class="absolute right-2 size-3! text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
@@ -101,7 +101,7 @@
 					>
 						<Heading6 /> Heading 6
 						{#if editor.isActive("heading", { level: 6 })}
-							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+							<Check class="absolute right-2 size-3! text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
@@ -110,7 +110,7 @@
 					>
 						<Pilcrow /> Paragraph
 						{#if editor.isActive("paragraph")}
-							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+							<Check class="absolute right-2 size-3! text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
@@ -119,7 +119,7 @@
 					>
 						<FileJson /> Code Block
 						{#if editor.isActive("codeBlock")}
-							<Check class="absolute right-2 !size-3 text-muted-foreground" />
+							<Check class="absolute right-2 size-3! text-muted-foreground" />
 						{/if}
 					</DropdownMenu.Item>
 				</DropdownMenu.Content>

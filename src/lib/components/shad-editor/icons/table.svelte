@@ -16,7 +16,7 @@
 				<DropdownMenu.Trigger>
 					<Button variant="ghost" size="sm" class="h-8">
 						<Table />
-						<ChevronDown class="!size-3" />
+						<ChevronDown class="size-3!" />
 					</Button>
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content class="max-h-[25rem] w-40 overflow-auto">
@@ -71,7 +71,7 @@
 							</DropdownMenu.Item>
 							<DropdownMenu.Item
 								onclick={() => editor.chain().focus().deleteRow().run()}
-								class="text-destructive hover:text-foreground data-[highlighted]:bg-destructive"
+								class="text-destructive hover:text-foreground data-highlighted:bg-destructive"
 							>
 								<span>Delete Row</span>
 							</DropdownMenu.Item>
@@ -90,7 +90,7 @@
 							</DropdownMenu.Item>
 							<DropdownMenu.Item
 								onclick={() => editor.chain().focus().deleteColumn().run()}
-								class="text-destructive hover:text-foreground data-[highlighted]:bg-destructive"
+								class="text-destructive hover:text-foreground data-highlighted:bg-destructive"
 							>
 								<span>Delete</span>
 							</DropdownMenu.Item>
@@ -98,7 +98,7 @@
 					</DropdownMenu.Sub>
 					<DropdownMenu.Item
 						onclick={() => editor.chain().focus().deleteTable().run()}
-						class="text-destructive hover:text-foreground data-[highlighted]:bg-destructive"
+						class="text-destructive hover:text-foreground data-highlighted:bg-destructive"
 					>
 						<span>Delete</span>
 					</DropdownMenu.Item>

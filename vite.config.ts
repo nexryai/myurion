@@ -1,4 +1,5 @@
 import { sveltekit } from "@sveltejs/kit/vite";
+import tailwindcss from "@tailwindcss/vite";
 import MagicString from "magic-string";
 import { defineConfig } from "vitest/config";
 
@@ -45,7 +46,8 @@ function tablerSvelteImportOptimizer(): import("vite").Plugin {
 export default defineConfig({
     plugins: [
         tablerSvelteImportOptimizer(),
-        sveltekit()
+        sveltekit(),
+        tailwindcss(),
     ],
 
     test: {

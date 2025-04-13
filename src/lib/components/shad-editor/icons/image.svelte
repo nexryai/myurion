@@ -17,7 +17,7 @@
 				<Popover.Trigger>
 					<Button variant="ghost" size="sm" class="h-8">
 						<Image />
-						<ChevronDown class="!size-3 text-muted-foreground" />
+						<ChevronDown class="size-3! text-muted-foreground" />
 					</Button>
 				</Popover.Trigger>
 				<Popover.Content class="bg-popover shadow-lg *:my-2">
