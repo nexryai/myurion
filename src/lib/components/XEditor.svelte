@@ -5,7 +5,7 @@
 
     import { IconFileTextSpark } from "@tabler/icons-svelte";
     import type { Content } from "@tiptap/core";
-    import { ChevronDown, CloudAlert, Trash2, Undo2 } from "lucide-svelte";
+    import { ChevronDown, CloudAlert, CloudUpload, Trash2, Undo2 } from "lucide-svelte";
     import { toast } from "svelte-sonner";
 
     import { callApi } from "$lib/browser/api";
@@ -129,6 +129,10 @@
         }
     };
 
+    const goToPublishPage = async () => {
+        goto(`/note/${noteId}/publish`);
+    }
+ 
     const deleteNote = async () => {
         const response = await callApi<{ ok: boolean }>(noteEndpoint, "DELETE");
 
@@ -225,9 +229,13 @@
                                 <div class="col-span-2 row-start-3"><p class="ml-5">{createdAt ? createdAt.toLocaleString(navigator.language, { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }) : "Unknown"}</p></div>
                             </div>
                         </DropdownMenu.Group>
-                        <DropdownMenu.Group>
+                        <DropdownMenu.Group class="flex justify-end">
+                            <Button variant="outline" class="mb-4 mr-4" onclick={() => {goToPublishPage();}}>
+                                <CloudUpload />
+                                Publish
+                            </Button>
                             <Dialog.Root bind:open={deleteConfirmDialogIsOpen}>
-                                <Dialog.Trigger class="w-full text-right">
+                                <Dialog.Trigger>
                                     <Button variant="destructive" class="mb-4 mr-4">
                                         <Trash2 />
                                         Delete
