@@ -67,7 +67,7 @@
     "svelte-sonner": "^0.3.28",
     "svelte-tiptap": "^2.0.3",
     "tailwind-merge": "^2.5.5",
-    "tailwind-variants": "^0.3.0",
+    "tailwind-variants": "^1.0.0",
     "tailwindcss": "^4.1.3",
     "tw-animate-css": "^1.2.5",
     "typescript": "^5.7.3",
