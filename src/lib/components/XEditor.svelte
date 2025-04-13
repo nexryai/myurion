@@ -110,7 +110,7 @@
         }, 1000);
     };
 
-    const publish = async (categoryId: string) => {
+    const promote = async (categoryId: string) => {
         if (!publishTitle) {
             toast.error("Title is required");
             return;
@@ -122,10 +122,10 @@
         });
 
         if (response.created) {
-            toast.success("Published");
+            toast.success("Saved");
             await goto(`/note/${response.created}`);
         } else {
-            toast.error("Failed to publish");
+            toast.error("Failed to save");
         }
     };
 
@@ -172,7 +172,7 @@
                     <DropdownMenu.Trigger>
                         <Button class="h-6" variant="outline">
                             <IconFileTextSpark />
-                            Publish
+                            Promote
                         </Button>
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Content class="w-64">
@@ -180,14 +180,14 @@
                             <Input class="mx-auto mt-4 mb-5 w-48" bind:value={publishTitle} />
                         </DropdownMenu.Group>
                         <DropdownMenu.Group>
-                            <DropdownMenu.GroupHeading>Publish to...</DropdownMenu.GroupHeading>
+                            <DropdownMenu.GroupHeading>Save to...</DropdownMenu.GroupHeading>
                             <DropdownMenu.Separator />
                             {#await fetchNoteCategories()}
                                 <Skeleton class="h-4 w-[64px]" />
                             {:then categories}
                                 {#each categories as category}
                                     <DropdownMenu.Item onclick={() => {
-                                        publish(category.id);
+                                        promote(category.id);
                                     }}>
                                         <RenderIcon iconName={category.iconName} size={16} />
                                         {category.name}
@@ -195,7 +195,7 @@
                                 {/each}
 
                                 {#if categories.length === 0}
-                                    <p class="text-gray-500 text-sm text-center m-4">To publish your note, please create a category first.</p>
+                                    <p class="text-gray-500 text-sm text-center m-4">To promote your note, please create a category first.</p>
                                 {/if}
                             {:catch error}
                                 <p class="text-red-500">{error.message}</p>
