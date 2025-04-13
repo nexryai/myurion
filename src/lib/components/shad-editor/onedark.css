@@ -1,3 +1,5 @@
+@import 'tailwindcss';
+
 /* One Dark and Light Theme for Highlight.js using Tailwind CSS */
 .tiptap pre code {
 	@apply text-[#383a42] dark:text-[#abb2bf];

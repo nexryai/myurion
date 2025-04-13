@@ -1,3 +1,5 @@
+@reference '../../../app.css';
+
 .tiptap :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 	margin-top: 0 !important;
 	margin-bottom: 0 !important;
@@ -5,7 +7,7 @@
 
 .tiptap code:not(pre code) {
 	/* Remove the before and after pseudo elements */
-	@apply rounded border bg-muted/50 p-1 before:content-[''] after:content-[''];
+	@apply rounded-sm border bg-muted/50 p-1 before:content-[''] after:content-[''];
 }
 
 .tiptap blockquote p {
@@ -54,7 +56,7 @@ ul[data-type='taskList'] li[data-checked='true'] div {
 }
 
 input[type='checkbox'] {
-	@apply size-4 cursor-pointer rounded !important;
+	@apply size-4 cursor-pointer rounded-sm;
 }
 
 ul[data-type='taskList'] ul[data-type='taskList'] {
@@ -67,7 +69,7 @@ ul[data-type='taskList'] ul[data-type='taskList'] {
 }
 
 .color::before {
-	@apply mb-[0.15rem] mr-[0.1rem] inline-block size-[1rem] rounded border border-muted align-middle;
+	@apply mb-[0.15rem] mr-[0.1rem] inline-block size-[1rem] rounded-sm border border-muted align-middle;
 	background-color: var(--color);
 	content: ' ';
 }
