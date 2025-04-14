@@ -131,7 +131,7 @@
 
     const goToPublishPage = async () => {
         goto(`/note/${noteId}/publish`);
-    }
+    };
  
     const deleteNote = async () => {
         const response = await callApi<{ ok: boolean }>(noteEndpoint, "DELETE");
