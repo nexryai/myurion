@@ -29,6 +29,18 @@ export default ts.config(
                 parser: ts.parser
             }
         },
+
+        settings: {
+            "import/ignore": [
+                "\\.svelte$"
+            ],
+		    "import/parsers": {
+			    "svelte-eslint-parser": [".svelte"],
+			    "@typescript-eslint/parser": [".ts"],
+			    "espree": [".js"]
+		    }
+        },
+
         rules: {
             "@typescript-eslint/no-unused-expressions": "off",
             "@typescript-eslint/ban-ts-comment": "off",
@@ -36,6 +48,7 @@ export default ts.config(
             "indent": ["error", 4, { "SwitchCase": 1 }],
             "quotes": ["error", "double"],
             "semi": ["error", "always"],
+            "svelte/require-each-key": "off",
             "import/no-cycle": "error",
             // https://github.com/import-js/eslint-plugin-import/issues/2765
             "import/no-unresolved": "off",
@@ -66,6 +79,6 @@ export default ts.config(
         }
     },
     {
-        ignores: ["build/", ".svelte-kit/", "dist/"]
+        ignores: ["build/", ".svelte-kit/", "dist/", "node_modules/"]
     }
 );
