@@ -1,6 +1,6 @@
 import { startAuthentication } from "@simplewebauthn/browser";
 
-export async function signIn(): Promise<void> {
+export async function signIn(expectedUserId?: string): Promise<void> {
     const response = await fetch("/auth/login-request");
     const loginOptions = await response.json();
 
@@ -24,6 +24,10 @@ export async function signIn(): Promise<void> {
 
     if (!verificationResp.ok) {
         throw new Error("Authentication failed");
+    }
+
+    if (expectedUserId && expectedUserId !== await verificationResp.text()) {
+        throw new Error("User ID mismatch");
     }
 
     localStorage.setItem("isLoggedIn", "true");

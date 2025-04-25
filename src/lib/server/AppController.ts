@@ -107,19 +107,16 @@ export class AppController {
 
         this.router.post("/auth/verify-login", async ({ body, cookie: { challengeSession, token } }) => {
             const encryptedChallenge = challengeSession.value;
-            const generatedToken = await this.passkeyAuthService.verifyLogin(encryptedChallenge, body as unknown);
-            if (!token) {
-                return new Response("Invalid challenge", { status: 400 });
-            }
+            const result = await this.passkeyAuthService.verifyLogin(encryptedChallenge, body as unknown);
 
-            token.value = generatedToken;
+            token.value = result.token;
             token.httpOnly = true;
             token.secure = true;
             token.sameSite = "strict";
             token.expires = new Date(Date.now() + 30 * 60 * 1000);
             token.path = "/api";
 
-            return "OK";
+            return result.uid;
         }, {
             cookie: t.Object({
                 challengeSession: t.String({

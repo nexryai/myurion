@@ -20,12 +20,13 @@
     let fatalErrorOccurred = $state(false);
     let errorDetails = $state<string | undefined>(undefined);
     let username = $state<string | undefined>(undefined);
+    let userId: string | undefined;
 
     const isSignedIn = browser ? localStorage.getItem("isLoggedIn") === "true" : true;
 
     const tryAuthenticate = async (disableReload?: boolean) => {
         try {
-            await signIn();
+            await signIn(userId);
             toast.success("Authentication successful", {
                 description: "You have successfully authenticated.",
             });
@@ -39,9 +40,11 @@
         }
     };
 
+    // リロードされる度に呼ばれる。時間経過での再認証を行う場合は呼び出されない。
     const setUserInformation = async (res: Response) => {
         const user: User = await res.json();
         username = user.name ?? "User";
+        userId = user.id;
     };
 
     onMount(async () => {
@@ -77,7 +80,7 @@
                             // 40分後に再認証
                             tokenExpired = true;
                             await tryAuthenticate(true);
-                        }, 40 * 60 * 1000);
+                        }, 0.5 * 60 * 1000);
                     }
                 } catch (error) {
                     console.error(error);
