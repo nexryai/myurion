@@ -175,8 +175,8 @@ importers:
         specifier: ^0.3.28
         version: 0.3.28(svelte@5.22.6)
       svelte-tiptap:
-        specifier: ^2.0.3
-        version: 2.0.3(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/extension-bubble-menu@2.10.4(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7))(@tiptap/extension-floating-menu@2.9.1(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7)(svelte@5.22.6)
+        specifier: ^2.1.0
+        version: 2.1.0(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/extension-bubble-menu@2.10.4(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7))(@tiptap/extension-floating-menu@2.9.1(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7)(svelte@5.22.6)
       tailwind-merge:
         specifier: ^2.5.5
         version: 2.5.5
@@ -2814,8 +2814,8 @@ packages:
     peerDependencies:
       svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.1
 
-  svelte-tiptap@2.0.3:
-    resolution: {integrity: sha512-YBIltliEBNGhNhVH8uhrQkHY275tCSxv8U7XyLXHiAqRuZGCIhs69ZbAeUn1ABoUCAJKxYWG0lXW4pfAlKJmpQ==}
+  svelte-tiptap@2.1.0:
+    resolution: {integrity: sha512-CtmBM4RzJ7dibuglG6g8YsiyEiaFWAu6qFuX73STuxKFJqoBuqXQWpJqQRttrUWVp/rrrDFjd08zyC1Zzrl/Qg==}
     peerDependencies:
       '@tiptap/core': ^2.0.3
       '@tiptap/extension-bubble-menu': ^2.0.3
@@ -5677,7 +5677,7 @@ snapshots:
     dependencies:
       svelte: 5.22.6
 
-  svelte-tiptap@2.0.3(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/extension-bubble-menu@2.10.4(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7))(@tiptap/extension-floating-menu@2.9.1(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7)(svelte@5.22.6):
+  svelte-tiptap@2.1.0(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/extension-bubble-menu@2.10.4(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7))(@tiptap/extension-floating-menu@2.9.1(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7)(svelte@5.22.6):
     dependencies:
       '@tiptap/core': 2.11.7(@tiptap/pm@2.11.7)
       '@tiptap/extension-bubble-menu': 2.10.4(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7)
