@@ -3,6 +3,7 @@
     let { children } = $props();
 
     import { browser } from "$app/environment";
+    import { onMount } from "svelte";
 
     import { toast, Toaster } from "svelte-sonner";
 
@@ -51,32 +52,37 @@
         username = user.name ?? "User";
     };
 
-    if (browser && isSignedIn) {
+    onMount(async () => {
+        if (browser && isSignedIn) {
         // 再認証が必要な場合
-        const nextAuthenticationTime = localStorage.getItem("nextAuthenticationTime");
-        if (nextAuthenticationTime && Date.now() > parseInt(nextAuthenticationTime)) {
-            tokenExpired = true;
-            tryAuthenticate();
-        } else {
-            // fetch user data
-            fetch("/api/me")
-                .then((res) => {
+            const nextAuthenticationTime = localStorage.getItem("nextAuthenticationTime");
+            if (nextAuthenticationTime && Date.now() > parseInt(nextAuthenticationTime)) {
+                tokenExpired = true;
+                await tryAuthenticate();
+            } else {
+                // fetch user data
+                try {
+                    const res = await fetch("/api/me");
                     if (res.status === 401) {
                         tokenExpired = true;
-                        tryAuthenticate();
+                        try {
+                            await tryAuthenticate();
+                        } catch (error) {
+                            console.error(error);
+                        }
                     } else if (!res.ok) {
-                        throw new Error("Failed to fetch user data");
+                        throw new Error("Failed to fetch user data: " + res.statusText);
+                    } else {
+                        setUserInformation(res);
                     }
-
-                    setUserInformation(res);
-                })
-                .catch((error) => {
+                } catch (error) {
                     console.error(error);
                     fatalErrorOccurred = true;
                     errorDetails = "INITIAL_FETCH_FAILED";
-                });
+                }
+            }
         }
-    }
+    });
 </script>
 
 <svelte:head>
