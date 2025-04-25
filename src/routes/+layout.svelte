@@ -23,26 +23,18 @@
 
     const isSignedIn = browser ? localStorage.getItem("isLoggedIn") === "true" : true;
 
-    const tryAuthenticate = async () => {
+    const tryAuthenticate = async (disableReload?: boolean) => {
         try {
             await signIn();
-            toast.success("Successfully signed in", {
-                description: "You have successfully signed in.",
+            toast.success("Authentication successful", {
+                description: "You have successfully authenticated.",
             });
 
-            // 15分後に再認証
-            // 実際のトークンの有効期限は60分だが、編集中にトークンが切れて保存できなくなることを防止するために15分おきに再認証させる
-            localStorage.setItem(
-                "nextAuthenticationTime",
-                (Date.now() + 15 * 60 * 1000).toString(),
-            );
-
-            location.reload();
+            !disableReload ? location.reload() : tokenExpired = false;
         } catch (error) {
             console.error(error);
             toast.error("Failed to sign in", {
-                description:
-                    "An error occurred while signing in. Please try again later.",
+                description: "An error occurred while signing in. Please try again later.",
             });
         }
     };
@@ -54,9 +46,15 @@
 
     onMount(async () => {
         if (browser && isSignedIn) {
-        // 再認証が必要な場合
+            /*
+                トークンの有効時間は1時間のみ。編集中にトークンの有効期限が切れて保存できなくなることを避けるため、以下の動作を行う。
+                  - リロード時、前回の認証から15分経過していた場合再認証を要求する。
+                  - ロード後40分経過した場合、再認証を要求する。
+            */
             const nextAuthenticationTime = localStorage.getItem("nextAuthenticationTime");
+            
             if (nextAuthenticationTime && Date.now() > parseInt(nextAuthenticationTime)) {
+                // nextAuthenticationTimeが過ぎている場合は再認証
                 tokenExpired = true;
                 await tryAuthenticate();
             } else {
@@ -74,6 +72,12 @@
                         throw new Error("Failed to fetch user data: " + res.statusText);
                     } else {
                         setUserInformation(res);
+
+                        setTimeout(async () => {
+                            // 40分後に再認証
+                            tokenExpired = true;
+                            await tryAuthenticate(true);
+                        }, 40 * 60 * 1000);
                     }
                 } catch (error) {
                     console.error(error);

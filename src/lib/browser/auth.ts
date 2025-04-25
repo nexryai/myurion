@@ -27,4 +27,11 @@ export async function signIn(): Promise<void> {
     }
 
     localStorage.setItem("isLoggedIn", "true");
+
+    // 15分後に再認証
+    // 実際のトークンの有効期限は60分だが、編集中にトークンが切れて保存できなくなることを防止するために15分おきに再認証させる
+    localStorage.setItem(
+        "nextAuthenticationTime",
+        (Date.now() + 15 * 60 * 1000).toString(),
+    );
 }
