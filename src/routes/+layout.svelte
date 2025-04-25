@@ -80,7 +80,7 @@
                             // 40分後に再認証
                             tokenExpired = true;
                             await tryAuthenticate(true);
-                        }, 0.5 * 60 * 1000);
+                        }, 40 * 60 * 1000);
                     }
                 } catch (error) {
                     console.error(error);
