@@ -151,8 +151,8 @@ importers:
         specifier: ^0.30.17
         version: 0.30.17
       mode-watcher:
-        specifier: ^0.5.0
-        version: 0.5.0(svelte@5.22.6)
+        specifier: ^0.5.1
+        version: 0.5.1(svelte@5.22.6)
       playwright:
         specifier: ^1.52.0
         version: 1.52.0
@@ -2283,8 +2283,8 @@ packages:
   minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
-  mode-watcher@0.5.0:
-    resolution: {integrity: sha512-5E6fh/aXhAVv+U+DbeM0hCmskQE9u7WSmvnCRijJB/MJu7HtB73sjiCaZ9n1M8QHmzLrBFo8XBAUcWXkDm8Z9A==}
+  mode-watcher@0.5.1:
+    resolution: {integrity: sha512-adEC6T7TMX/kzQlaO/MtiQOSFekZfQu4MC+lXyoceQG+U5sKpJWZ4yKXqw846ExIuWJgedkOIPqAYYRk/xHm+w==}
     peerDependencies:
       svelte: ^4.0.0 || ^5.0.0-next.1
 
@@ -5118,7 +5118,7 @@ snapshots:
 
   minimist@1.2.8: {}
 
-  mode-watcher@0.5.0(svelte@5.22.6):
+  mode-watcher@0.5.1(svelte@5.22.6):
     dependencies:
       svelte: 5.22.6
 
