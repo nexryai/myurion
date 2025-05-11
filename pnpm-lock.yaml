@@ -42,9 +42,6 @@ importers:
       '@tabler/icons-svelte':
         specifier: ^3.31.0
         version: 3.31.0(svelte@5.22.6)
-      '@tailwindcss/postcss':
-        specifier: ^4.1.3
-        version: 4.1.3
       '@tailwindcss/vite':
         specifier: ^4.1.3
         version: 4.1.3(vite@5.4.18(@types/node@22.14.1)(lightningcss@1.29.2)(sass-embedded@1.87.0))
@@ -203,10 +200,6 @@ importers:
         version: 3.1.1(@types/node@22.14.1)(lightningcss@1.29.2)(sass-embedded@1.87.0)
 
 packages:
-
-  '@alloc/quick-lru@5.2.0':
-    resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
-    engines: {node: '>=10'}
 
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
@@ -1075,9 +1068,6 @@ packages:
   '@tailwindcss/oxide@4.1.3':
     resolution: {integrity: sha512-t16lpHCU7LBxDe/8dCj9ntyNpXaSTAgxWm1u2XQP5NiIu4KGSyrDJJRlK9hJ4U9yJxx0UKCVI67MJWFNll5mOQ==}
     engines: {node: '>= 10'}
-
-  '@tailwindcss/postcss@4.1.3':
-    resolution: {integrity: sha512-6s5nJODm98F++QT49qn8xJKHQRamhYHfMi3X7/ltxiSQ9dyRsaFSfFkfaMsanWzf+TMYQtbk8mt5f6cCVXJwfg==}
 
   '@tailwindcss/vite@4.1.3':
     resolution: {integrity: sha512-lUI/QaDxLtlV52Lho6pu07CG9pSnRYLOPmKGIQjyHdTBagemc6HmgZxyjGAQ/5HMPrNeWBfTVIpQl0/jLXvWHQ==}
@@ -3098,8 +3088,6 @@ packages:
 
 snapshots:
 
-  '@alloc/quick-lru@5.2.0': {}
-
   '@ampproject/remapping@2.3.0':
     dependencies:
       '@jridgewell/gen-mapping': 0.3.8
@@ -3777,14 +3765,6 @@ snapshots:
       '@tailwindcss/oxide-linux-x64-musl': 4.1.3
       '@tailwindcss/oxide-win32-arm64-msvc': 4.1.3
       '@tailwindcss/oxide-win32-x64-msvc': 4.1.3
-
-  '@tailwindcss/postcss@4.1.3':
-    dependencies:
-      '@alloc/quick-lru': 5.2.0
-      '@tailwindcss/node': 4.1.3
-      '@tailwindcss/oxide': 4.1.3
-      postcss: 8.5.3
-      tailwindcss: 4.1.3
 
   '@tailwindcss/vite@4.1.3(vite@5.4.18(@types/node@22.14.1)(lightningcss@1.29.2)(sass-embedded@1.87.0))':
     dependencies:
